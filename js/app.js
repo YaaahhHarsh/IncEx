@@ -1,6 +1,6 @@
 /**
- * FinPulse Finance Tracker - Complete Standalone Application Bundle
- * White & Green Theme • Indian Rupee (₹) & Multi-Currency Enabled
+ * MyExpense Finance Tracker - Multi-User Cloud & Account-Keyed Data Architecture
+ * White & Green Aesthetic • Indian Rupee (₹) & Multi-Currency Enabled
  */
 
 // =========================================================
@@ -23,31 +23,31 @@ const DEFAULT_USER = {
 
 const CATEGORIES = {
   INCOME: [
-    { id: "salary", name: "Salary", icon: "briefcase", color: "#10B981" },
-    { id: "investment_income", name: "Investment Yield", icon: "trending-up", color: "#059669" },
-    { id: "freelance", name: "Freelance", icon: "laptop", color: "#34D399" },
-    { id: "business", name: "Business", icon: "building", color: "#047857" },
-    { id: "bonus", name: "Bonus & Rewards", icon: "gift", color: "#6EE7B7" },
-    { id: "other_income", name: "Other Income", icon: "plus-circle", color: "#A7F3D0" }
+    { id: "salary", name: "Salary", color: "#10B981" },
+    { id: "investment_income", name: "Investment Yield", color: "#059669" },
+    { id: "freelance", name: "Freelance", color: "#34D399" },
+    { id: "business", name: "Business", color: "#047857" },
+    { id: "bonus", name: "Bonus & Rewards", color: "#6EE7B7" },
+    { id: "other_income", name: "Other Income", color: "#A7F3D0" }
   ],
   EXPENSE: [
-    { id: "food", name: "Food & Dining", icon: "utensils", color: "#EF4444" },
-    { id: "rent", name: "Rent & Housing", icon: "home", color: "#F59E0B" },
-    { id: "shopping", name: "Shopping", icon: "shopping-bag", color: "#8B5CF6" },
-    { id: "utilities", name: "Utilities & Bills", icon: "zap", color: "#3B82F6" },
-    { id: "transport", name: "Travel & Transport", icon: "car", color: "#06B6D4" },
-    { id: "entertainment", name: "Entertainment", icon: "film", color: "#EC4899" },
-    { id: "health", name: "Health & Fitness", icon: "heart-pulse", color: "#14B8A6" },
-    { id: "education", name: "Education", icon: "book-open", color: "#6366F1" },
-    { id: "other_expense", name: "Misc Expense", icon: "more-horizontal", color: "#64748B" }
+    { id: "food", name: "Food & Dining", color: "#EF4444" },
+    { id: "rent", name: "Rent & Housing", color: "#F59E0B" },
+    { id: "shopping", name: "Shopping", color: "#8B5CF6" },
+    { id: "utilities", name: "Utilities & Bills", color: "#3B82F6" },
+    { id: "transport", name: "Travel & Transport", color: "#06B6D4" },
+    { id: "entertainment", name: "Entertainment", color: "#EC4899" },
+    { id: "health", name: "Health & Fitness", color: "#14B8A6" },
+    { id: "education", name: "Education", color: "#6366F1" },
+    { id: "other_expense", name: "Misc Expense", color: "#64748B" }
   ],
   INVESTMENT: [
-    { id: "stocks", name: "Stocks & Equities", icon: "line-chart", color: "#059669" },
-    { id: "mutual_funds", name: "Mutual Funds / SIP", icon: "pie-chart", color: "#10B981" },
-    { id: "crypto", name: "Crypto Assets", icon: "bitcoin", color: "#34D399" },
-    { id: "real_estate", name: "Real Estate REITs", icon: "landmark", color: "#047857" },
-    { id: "gold", name: "Gold & Commodities", icon: "coins", color: "#F59E0B" },
-    { id: "savings_deposit", name: "Fixed Deposit / FD", icon: "shield-check", color: "#0D9488" }
+    { id: "stocks", name: "Stocks & Equities", color: "#059669" },
+    { id: "mutual_funds", name: "Mutual Funds / SIP", color: "#10B981" },
+    { id: "crypto", name: "Crypto Assets", color: "#34D399" },
+    { id: "real_estate", name: "Real Estate REITs", color: "#047857" },
+    { id: "gold", name: "Gold & Commodities", color: "#F59E0B" },
+    { id: "savings_deposit", name: "Fixed Deposit / FD", color: "#0D9488" }
   ]
 };
 
@@ -62,17 +62,17 @@ const DEFAULT_CATEGORY_BUDGETS = {
   other_expense: 2000
 };
 
-const INITIAL_TRANSACTIONS = [
+const DEMO_SAMPLE_TRANSACTIONS = [
   {
     id: "tx-101",
     type: "income",
     category: "salary",
-    categoryName: "Salary",
+    categoryName: "Salary Payout",
     amount: 75000,
     date: "2026-08-01",
     time: "09:00",
     paymentMethod: "Bank Transfer",
-    notes: "Monthly salary payout",
+    notes: "Monthly salary deposit",
     status: "completed"
   },
   {
@@ -96,7 +96,7 @@ const INITIAL_TRANSACTIONS = [
     date: "2026-08-01",
     time: "12:00",
     paymentMethod: "Bank Transfer",
-    notes: "Apartment rent",
+    notes: "Apartment rent payment",
     status: "completed"
   },
   {
@@ -108,7 +108,7 @@ const INITIAL_TRANSACTIONS = [
     date: "2026-08-02",
     time: "13:15",
     paymentMethod: "UPI / Online",
-    notes: "Organic grocery shopping",
+    notes: "Grocery & supplies",
     status: "completed"
   },
   {
@@ -120,43 +120,7 @@ const INITIAL_TRANSACTIONS = [
     date: "2026-08-02",
     time: "15:45",
     paymentMethod: "Credit Card",
-    notes: "Ergonomic chair",
-    status: "completed"
-  },
-  {
-    id: "tx-106",
-    type: "income",
-    category: "freelance",
-    categoryName: "Freelance",
-    amount: 18500.00,
-    date: "2026-07-28",
-    time: "16:20",
-    paymentMethod: "UPI / Online",
-    notes: "UI Design client payout",
-    status: "completed"
-  },
-  {
-    id: "tx-107",
-    type: "expense",
-    category: "utilities",
-    categoryName: "Utilities & Bills",
-    amount: 3200.00,
-    date: "2026-07-27",
-    time: "11:00",
-    paymentMethod: "UPI / Online",
-    notes: "Electricity + Fiber internet",
-    status: "completed"
-  },
-  {
-    id: "tx-108",
-    type: "investment",
-    category: "stocks",
-    categoryName: "Stocks & Equities",
-    amount: 10000.00,
-    date: "2026-07-25",
-    time: "09:15",
-    paymentMethod: "Bank Transfer",
-    notes: "Nifty 50 shares investment",
+    notes: "Office desk chair",
     status: "completed"
   }
 ];
@@ -190,23 +154,24 @@ function renderHomeTrendChart(canvasId, transactions, currency = '₹') {
   if (!canvas || !window.Chart) return;
 
   const labels = ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
-  const incomeData = [55000, 62000, 68000, 70000, 75000, 93500];
-  const expenseData = [28000, 31000, 29000, 32000, 30450, 30450];
+  let incomeData = [0, 0, 0, 0, 0, 0];
+  let expenseData = [0, 0, 0, 0, 0, 0];
 
-  let currentMonthIncome = 0;
-  let currentMonthExpense = 0;
-  const now = new Date();
-  const currentMonthPrefix = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  if (transactions && transactions.length > 0) {
+    incomeData = [55000, 62000, 68000, 70000, 75000, 75000];
+    expenseData = [28000, 31000, 29000, 32000, 30450, 27250];
 
-  transactions.forEach(tx => {
-    if (tx.date && tx.date.startsWith(currentMonthPrefix)) {
+    let currentMonthIncome = 0;
+    let currentMonthExpense = 0;
+
+    transactions.forEach(tx => {
       if (tx.type === 'income') currentMonthIncome += Number(tx.amount);
       if (tx.type === 'expense') currentMonthExpense += Number(tx.amount);
-    }
-  });
+    });
 
-  if (currentMonthIncome > 0) incomeData[5] = currentMonthIncome;
-  if (currentMonthExpense > 0) expenseData[5] = currentMonthExpense;
+    if (currentMonthIncome > 0) incomeData[5] = currentMonthIncome;
+    if (currentMonthExpense > 0) expenseData[5] = currentMonthExpense;
+  }
 
   if (homeTrendChartInstance) {
     homeTrendChartInstance.destroy();
@@ -257,7 +222,7 @@ function renderHomeTrendChart(canvasId, transactions, currency = '₹') {
       plugins: {
         legend: {
           position: 'top',
-          labels: { font: { family: 'Plus Jakarta Sans, sans-serif', weight: '600' } }
+          labels: { font: { family: 'sans-serif', weight: '600' } }
         },
         tooltip: {
           callbacks: {
@@ -281,17 +246,24 @@ function renderHomePieChart(canvasId, transactions, currency = '₹') {
   if (!canvas || !window.Chart) return;
 
   const categoryTotals = {};
-  transactions.filter(t => t.type === 'expense').forEach(t => {
-    const cat = t.categoryName || 'Other';
-    categoryTotals[cat] = (categoryTotals[cat] || 0) + Number(t.amount);
-  });
+  if (transactions) {
+    transactions.filter(t => t.type === 'expense').forEach(t => {
+      const cat = t.categoryName || 'Other';
+      categoryTotals[cat] = (categoryTotals[cat] || 0) + Number(t.amount);
+    });
+  }
 
-  const labels = Object.keys(categoryTotals);
-  const data = Object.values(categoryTotals);
+  let labels = Object.keys(categoryTotals);
+  let data = Object.values(categoryTotals);
+  let bgColors = [
+    '#EF4444', '#F59E0B', '#8B5CF6', '#3B82F6',
+    '#06B6D4', '#EC4899', '#14B8A6', '#64748B'
+  ];
 
   if (labels.length === 0) {
-    labels.push('No Expenses');
-    data.push(1);
+    labels = ['No Expenses Yet'];
+    data = [1];
+    bgColors = ['#E2E8F0'];
   }
 
   if (homePieChartInstance) {
@@ -305,10 +277,7 @@ function renderHomePieChart(canvasId, transactions, currency = '₹') {
       labels: labels,
       datasets: [{
         data: data,
-        backgroundColor: [
-          '#EF4444', '#F59E0B', '#8B5CF6', '#3B82F6',
-          '#06B6D4', '#EC4899', '#14B8A6', '#64748B'
-        ],
+        backgroundColor: bgColors,
         borderWidth: 2,
         borderColor: '#FFFFFF',
         hoverOffset: 6
@@ -321,11 +290,11 @@ function renderHomePieChart(canvasId, transactions, currency = '₹') {
       plugins: {
         legend: {
           position: 'right',
-          labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans, sans-serif', size: 11, weight: '500' } }
+          labels: { boxWidth: 12, font: { family: 'sans-serif', size: 11, weight: '500' } }
         },
         tooltip: {
           callbacks: {
-            label: (ctx) => ` ${ctx.label}: ${currency}${ctx.parsed.toLocaleString()}`
+            label: (ctx) => data[0] === 1 && labels[0] === 'No Expenses Yet' ? ' Log expenses to see breakdown' : ` ${ctx.label}: ${currency}${ctx.parsed.toLocaleString()}`
           }
         }
       }
@@ -337,26 +306,13 @@ function renderReportBarChart(canvasId, filterType, transactions, currency = '�
   const canvas = document.getElementById(canvasId);
   if (!canvas || !window.Chart) return;
 
-  let labels = [];
-  let incomeSeries = [];
-  let expenseSeries = [];
+  let labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  let incomeSeries = [0, 0, 0, 0, 0, 0, 0];
+  let expenseSeries = [0, 0, 0, 0, 0, 0, 0];
 
-  if (filterType === 'daily') {
-    labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  if (transactions && transactions.length > 0) {
     incomeSeries = [1500, 0, 4500, 0, 18500, 0, 75000];
     expenseSeries = [850, 1200, 1500, 3200, 6800, 2450, 18000];
-  } else if (filterType === 'weekly') {
-    labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
-    incomeSeries = [22000, 18500, 25000, 75000];
-    expenseSeries = [12000, 8500, 6200, 30450];
-  } else if (filterType === 'monthly') {
-    labels = ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
-    incomeSeries = [55000, 62000, 68000, 70000, 75000, 93500];
-    expenseSeries = [28000, 31000, 29000, 32000, 30450, 30450];
-  } else {
-    labels = ['2024', '2025', '2026 Q1', '2026 Q2', '2026 Q3'];
-    incomeSeries = [520000, 680000, 180000, 210000, 243500];
-    expenseSeries = [310000, 360000, 85000, 92000, 90900];
   }
 
   if (reportBarChartInstance) {
@@ -389,7 +345,7 @@ function renderReportBarChart(canvasId, filterType, transactions, currency = '�
       plugins: {
         legend: {
           position: 'top',
-          labels: { font: { family: 'Plus Jakarta Sans, sans-serif', weight: '600' } }
+          labels: { font: { family: 'sans-serif', weight: '600' } }
         },
         tooltip: {
           callbacks: {
@@ -413,11 +369,22 @@ function renderReportPieChart(canvasId, transactions, currency = '₹') {
   if (!canvas || !window.Chart) return;
 
   const typeTotals = { Income: 0, Expense: 0, Investment: 0 };
-  transactions.forEach(tx => {
-    if (tx.type === 'income') typeTotals.Income += Number(tx.amount);
-    if (tx.type === 'expense') typeTotals.Expense += Number(tx.amount);
-    if (tx.type === 'investment') typeTotals.Investment += Number(tx.amount);
-  });
+
+  if (transactions && transactions.length > 0) {
+    transactions.forEach(tx => {
+      if (tx.type === 'income') typeTotals.Income += Number(tx.amount);
+      if (tx.type === 'expense') typeTotals.Expense += Number(tx.amount);
+      if (tx.type === 'investment') typeTotals.Investment += Number(tx.amount);
+    });
+  }
+
+  let data = [typeTotals.Income, typeTotals.Expense, typeTotals.Investment];
+  let bgColors = [GREEN_PRIMARY, RED_ACCENT, PURPLE_ACCENT];
+
+  if (data.every(v => v === 0)) {
+    data = [1];
+    bgColors = ['#E2E8F0'];
+  }
 
   if (reportPieChartInstance) {
     reportPieChartInstance.destroy();
@@ -427,10 +394,10 @@ function renderReportPieChart(canvasId, transactions, currency = '₹') {
   reportPieChartInstance = new window.Chart(ctx, {
     type: 'pie',
     data: {
-      labels: ['Income', 'Expenses', 'Investments'],
+      labels: data[0] === 1 && bgColors[0] === '#E2E8F0' ? ['No Data Logged'] : ['Income', 'Expenses', 'Investments'],
       datasets: [{
-        data: [typeTotals.Income, typeTotals.Expense, typeTotals.Investment],
-        backgroundColor: [GREEN_PRIMARY, RED_ACCENT, PURPLE_ACCENT],
+        data: data,
+        backgroundColor: bgColors,
         borderWidth: 2,
         borderColor: '#FFFFFF'
       }]
@@ -441,7 +408,7 @@ function renderReportPieChart(canvasId, transactions, currency = '₹') {
       plugins: {
         legend: {
           position: 'bottom',
-          labels: { font: { family: 'Plus Jakarta Sans, sans-serif', size: 12, weight: '600' } }
+          labels: { font: { family: 'sans-serif', size: 12, weight: '600' } }
         },
         tooltip: {
           callbacks: {
@@ -455,7 +422,7 @@ function renderReportPieChart(canvasId, transactions, currency = '₹') {
 
 
 // =========================================================
-// 3. AUTHENTICATION MANAGER
+// 3. FIREBASE AUTHENTICATION & MULTI-USER MANAGER
 // =========================================================
 class AuthManager {
   constructor(onAuthSuccess) {
@@ -463,7 +430,28 @@ class AuthManager {
     this.activeMethod = 'google';
     this.otpStep = false;
     this.userPhone = '';
+    this.isRegisterMode = false;
+
     this.initEventListeners();
+    this.initFirebaseAuthListener();
+  }
+
+  initFirebaseAuthListener() {
+    if (typeof firebase !== 'undefined' && firebase.auth) {
+      firebase.auth().onAuthStateChanged(firebaseUser => {
+        if (firebaseUser) {
+          const user = {
+            uid: firebaseUser.uid,
+            name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || "User",
+            email: firebaseUser.email || `${firebaseUser.phoneNumber}@myexpense.app`,
+            phone: firebaseUser.phoneNumber || "+91 98765 43210",
+            avatar: firebaseUser.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
+            authProvider: "Firebase Cloud Auth"
+          };
+          this.onAuthSuccess(user, this.isRegisterMode);
+        }
+      });
+    }
   }
 
   initEventListeners() {
@@ -499,9 +487,33 @@ class AuthManager {
       });
     }
 
+    const createAccountBtn = document.getElementById('toggle-create-account-btn');
+    if (createAccountBtn) {
+      createAccountBtn.addEventListener('click', () => {
+        this.isRegisterMode = !this.isRegisterMode;
+        this.updateRegisterUI();
+      });
+    }
+
     const demoBtn = document.getElementById('demo-login-btn');
     if (demoBtn) {
       demoBtn.addEventListener('click', () => this.handleDemoLogin());
+    }
+  }
+
+  updateRegisterUI() {
+    const titleEl = document.getElementById('auth-submit-btn-text');
+    const toggleBtn = document.getElementById('toggle-create-account-btn');
+    const nameGroup = document.getElementById('register-name-group');
+
+    if (this.isRegisterMode) {
+      if (titleEl) titleEl.textContent = 'Create New Blank Account';
+      if (toggleBtn) toggleBtn.innerHTML = 'Already have an account? <strong>Sign In</strong>';
+      if (nameGroup) nameGroup.classList.remove('hidden');
+    } else {
+      if (titleEl) titleEl.textContent = 'Sign In to Account';
+      if (toggleBtn) toggleBtn.innerHTML = 'New user? <strong>Create a New Blank Account</strong>';
+      if (nameGroup) nameGroup.classList.add('hidden');
     }
   }
 
@@ -523,17 +535,42 @@ class AuthManager {
   }
 
   handleGoogleLogin() {
-    const googleModal = document.getElementById('google-account-modal');
-    if (googleModal) {
-      googleModal.classList.remove('hidden');
-      googleModal.classList.add('flex');
+    if (typeof firebase !== 'undefined' && firebase.auth) {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider)
+        .then(result => {
+          const user = {
+            uid: result.user.uid,
+            name: result.user.displayName,
+            email: result.user.email,
+            phone: result.user.phoneNumber || "+91 98765 43210",
+            avatar: result.user.photoURL,
+            authProvider: "Firebase Google OAuth"
+          };
+          this.onAuthSuccess(user, this.isRegisterMode);
+        })
+        .catch(err => {
+          console.warn("Firebase Google Auth Notice:", err.message);
+          const googleModal = document.getElementById('google-account-modal');
+          if (googleModal) {
+            googleModal.classList.remove('hidden');
+            googleModal.classList.add('flex');
+          }
+        });
+    } else {
+      const googleModal = document.getElementById('google-account-modal');
+      if (googleModal) {
+        googleModal.classList.remove('hidden');
+        googleModal.classList.add('flex');
+      }
     }
   }
 
   confirmGoogleAccount(email, name, avatar) {
+    const isNew = (email === 'new.user@gmail.com');
     const user = {
-      name: name || "Alex Morgan",
-      email: email || "alex.morgan@gmail.com",
+      name: name || "User",
+      email: email || "user@myexpense.app",
       phone: "+91 98765 43210",
       avatar: avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
       authProvider: "Google Gmail"
@@ -545,29 +582,30 @@ class AuthManager {
       googleModal.classList.remove('flex');
     }
 
-    this.onAuthSuccess(user);
+    this.onAuthSuccess(user, isNew);
   }
 
   handleEmailLogin() {
     const emailInput = document.getElementById('email-input');
+    const nameInput = document.getElementById('register-name-input');
+
     if (!emailInput || !emailInput.value) {
       alert("Please enter a valid email address.");
       return;
     }
 
     const email = emailInput.value.trim();
-    const name = email.split('@')[0].replace('.', ' ');
-    const formattedName = name.charAt(0).toUpperCase() + name.slice(1);
+    const displayName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : email.split('@')[0];
 
     const user = {
-      name: formattedName || "Alex Morgan",
+      name: displayName.charAt(0).toUpperCase() + displayName.slice(1),
       email: email,
       phone: "+91 98765 43210",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80",
-      authProvider: "Email"
+      authProvider: "Email Auth"
     };
 
-    this.onAuthSuccess(user);
+    this.onAuthSuccess(user, this.isRegisterMode);
   }
 
   sendPhoneOTP() {
@@ -600,13 +638,13 @@ class AuthManager {
 
     const user = {
       name: "Alex Morgan",
-      email: "alex.phone@finpulse.app",
+      email: `${this.userPhone.replace(/[^0-9]/g, '')}@myexpense.app`,
       phone: this.userPhone,
       avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=256&q=80",
       authProvider: "Phone OTP"
     };
 
-    this.onAuthSuccess(user);
+    this.onAuthSuccess(user, this.isRegisterMode);
   }
 
   handleDemoLogin() {
@@ -617,20 +655,18 @@ class AuthManager {
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
       authProvider: "Demo Access"
     };
-    this.onAuthSuccess(user);
+    this.onAuthSuccess(user, false);
   }
 }
 
 
 // =========================================================
-// 4. MAIN APP CORE CONTROLLER
+// 4. MAIN APP CORE CONTROLLER (ACCOUNT-KEYED STORAGE & CLOUD SYNC)
 // =========================================================
 class FinPulseApp {
   constructor() {
-    this.user = this.loadLocalStorage('finpulse_user', DEFAULT_USER);
-    this.transactions = this.loadLocalStorage('finpulse_transactions', INITIAL_TRANSACTIONS);
-    this.categoryBudgets = this.loadLocalStorage('finpulse_category_budgets', DEFAULT_CATEGORY_BUDGETS);
-    this.isLoggedIn = localStorage.getItem('finpulse_logged_in') === 'true';
+    this.user = this.loadLocalStorage('myexpense_last_user', DEFAULT_USER);
+    this.isLoggedIn = localStorage.getItem('myexpense_logged_in') === 'true';
 
     this.currentTab = 'home';
     this.txFilter = 'all';
@@ -639,7 +675,19 @@ class FinPulseApp {
     this.reportsFilter = 'monthly';
     this.editingTxId = null;
 
+    if (this.isLoggedIn && this.user) {
+      this.loadAccountData(this.user);
+    } else {
+      this.transactions = [...DEMO_SAMPLE_TRANSACTIONS];
+      this.categoryBudgets = DEFAULT_CATEGORY_BUDGETS;
+    }
+
     this.init();
+  }
+
+  getUserStorageKey(key) {
+    const uid = (this.user && (this.user.uid || this.user.email)) ? (this.user.uid || this.user.email).replace(/[^a-zA-Z0-9]/g, '_') : 'guest';
+    return `myexpense_${key}_${uid}`;
   }
 
   loadLocalStorage(key, fallback) {
@@ -651,26 +699,49 @@ class FinPulseApp {
     }
   }
 
+  loadAccountData(user) {
+    this.user = user;
+    const txKey = this.getUserStorageKey('transactions');
+    const budgetKey = this.getUserStorageKey('category_budgets');
+
+    const savedTxs = localStorage.getItem(txKey);
+    if (savedTxs !== null) {
+      this.transactions = JSON.parse(savedTxs);
+    } else {
+      // If it's the demo account, load demo transactions. Otherwise start 100% blank!
+      if (this.user.email === 'alex.morgan@gmail.com') {
+        this.transactions = [...DEMO_SAMPLE_TRANSACTIONS];
+      } else {
+        this.transactions = [];
+      }
+    }
+
+    this.categoryBudgets = this.loadLocalStorage(budgetKey, DEFAULT_CATEGORY_BUDGETS);
+  }
+
   saveState() {
-    localStorage.setItem('finpulse_user', JSON.stringify(this.user));
-    localStorage.setItem('finpulse_transactions', JSON.stringify(this.transactions));
-    localStorage.setItem('finpulse_category_budgets', JSON.stringify(this.categoryBudgets));
-    localStorage.setItem('finpulse_logged_in', this.isLoggedIn ? 'true' : 'false');
+    if (!this.user) return;
+    localStorage.setItem('myexpense_last_user', JSON.stringify(this.user));
+    localStorage.setItem(this.getUserStorageKey('transactions'), JSON.stringify(this.transactions));
+    localStorage.setItem(this.getUserStorageKey('category_budgets'), JSON.stringify(this.categoryBudgets));
+    localStorage.setItem('myexpense_logged_in', this.isLoggedIn ? 'true' : 'false');
+  }
+
+  deleteTransaction(id) {
+    if (confirm("Are you sure you want to delete this transaction?")) {
+      this.transactions = this.transactions.filter(t => t.id !== id);
+      this.saveState();
+      this.closeModal('add-tx-modal');
+      this.renderCurrentTab();
+      this.showToast("Transaction deleted.");
+    }
   }
 
   init() {
-    this.authManager = new AuthManager((user) => this.handleLoginSuccess(user));
+    this.authManager = new AuthManager(
+      (user, isNewAccount) => this.handleLoginSuccess(user, isNewAccount)
+    );
     this.bindEvents();
-
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        if (this.isLoggedIn) {
-          this.renderCurrentTab();
-        }
-      }, 200);
-    });
 
     if (this.isLoggedIn) {
       this.showMainApp();
@@ -758,31 +829,6 @@ class FinPulseApp {
       });
     }
 
-    document.querySelectorAll('.avatar-select-option').forEach(img => {
-      img.addEventListener('click', (e) => {
-        const src = e.currentTarget.getAttribute('src');
-        const preview = document.getElementById('profile-avatar-preview');
-        if (preview) preview.src = src;
-        this.tempSelectedAvatar = src;
-      });
-    });
-
-    const avatarFileInput = document.getElementById('avatar-file-input');
-    if (avatarFileInput) {
-      avatarFileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = (event) => {
-            const preview = document.getElementById('profile-avatar-preview');
-            if (preview) preview.src = event.target.result;
-            this.tempSelectedAvatar = event.target.result;
-          };
-          reader.readAsDataURL(file);
-        }
-      });
-    }
-
     document.querySelectorAll('.header-currency-select').forEach(select => {
       select.addEventListener('change', (e) => {
         const val = e.target.value;
@@ -799,11 +845,11 @@ class FinPulseApp {
     if (resetBtn) {
       resetBtn.addEventListener('click', () => {
         if (confirm("Are you sure you want to reset all transaction & budget data?")) {
-          this.transactions = INITIAL_TRANSACTIONS;
+          this.transactions = [];
           this.categoryBudgets = DEFAULT_CATEGORY_BUDGETS;
           this.saveState();
           this.renderCurrentTab();
-          this.showToast("Data reset to initial defaults.");
+          this.showToast("Account data reset to blank slate.");
         }
       });
     }
@@ -822,17 +868,29 @@ class FinPulseApp {
     this.showToast(`Currency updated to ${code} (${this.user.currency})`);
   }
 
-  handleLoginSuccess(user) {
+  handleLoginSuccess(user, isNewAccount) {
     this.user = { ...this.user, ...user };
     this.isLoggedIn = true;
-    this.saveState();
+
+    if (isNewAccount) {
+      this.transactions = [];
+      this.categoryBudgets = DEFAULT_CATEGORY_BUDGETS;
+      this.saveState();
+      this.showToast(`New Blank Account Created! Welcome ${this.user.name}!`);
+    } else {
+      this.loadAccountData(user);
+      this.saveState();
+      this.showToast(`Welcome back, ${this.user.name}!`);
+    }
+
     this.showMainApp();
-    this.showToast(`Welcome back, ${this.user.name}!`);
   }
 
   handleLogout() {
-    this.isLoggedIn = false;
     this.saveState();
+    this.isLoggedIn = false;
+    localStorage.setItem('myexpense_logged_in', 'false');
+    
     this.showAuthScreen();
     this.showToast("Logged out successfully.");
   }
@@ -867,16 +925,12 @@ class FinPulseApp {
 
     document.querySelectorAll('.nav-item').forEach(item => {
       const isTarget = item.getAttribute('data-tab') === tabName;
-      const icon = item.querySelector('.nav-icon');
-
       if (isTarget) {
         item.classList.add('text-emerald-600', 'font-bold');
         item.classList.remove('text-slate-400');
-        if (icon) icon.classList.add('stroke-[2.5px]', 'scale-110');
       } else {
         item.classList.remove('text-emerald-600', 'font-bold');
         item.classList.add('text-slate-400');
-        if (icon) icon.classList.remove('stroke-[2.5px]', 'scale-110');
       }
     });
 
@@ -909,23 +963,11 @@ class FinPulseApp {
   }
 
   renderCurrentTab() {
-    switch (this.currentTab) {
-      case 'home':
-        this.renderHome();
-        break;
-      case 'transactions':
-        this.renderTransactions();
-        break;
-      case 'budget':
-        this.renderBudget();
-        break;
-      case 'reports':
-        this.renderReports();
-        break;
-      case 'profile':
-        this.renderProfile();
-        break;
-    }
+    if (this.currentTab === 'home') this.renderHome();
+    else if (this.currentTab === 'transactions') this.renderTransactions();
+    else if (this.currentTab === 'budget') this.renderBudget();
+    else if (this.currentTab === 'reports') this.renderReports();
+    else if (this.currentTab === 'profile') this.renderProfile();
   }
 
   getMetrics() {
@@ -933,12 +975,14 @@ class FinPulseApp {
     let totalExpense = 0;
     let totalInvestment = 0;
 
-    this.transactions.forEach(t => {
-      const amt = Number(t.amount) || 0;
-      if (t.type === 'income') totalIncome += amt;
-      if (t.type === 'expense') totalExpense += amt;
-      if (t.type === 'investment') totalInvestment += amt;
-    });
+    if (this.transactions && Array.isArray(this.transactions)) {
+      this.transactions.forEach(t => {
+        const amt = Number(t.amount) || 0;
+        if (t.type === 'income') totalIncome += amt;
+        if (t.type === 'expense') totalExpense += amt;
+        if (t.type === 'investment') totalInvestment += amt;
+      });
+    }
 
     const netBalance = totalIncome - totalExpense;
     return { totalIncome, totalExpense, totalInvestment, netBalance };
@@ -956,32 +1000,18 @@ class FinPulseApp {
     document.getElementById('home-expense-amount').textContent = `${curr}${totalExpense.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
     document.getElementById('home-investment-amount').textContent = `${curr}${totalInvestment.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
 
-    const budgetBanner = document.getElementById('home-budget-exceeded-banner');
-    if (totalExpense > this.user.budgetLimit) {
-      const overAmt = (totalExpense - this.user.budgetLimit).toFixed(2);
-      budgetBanner.classList.remove('hidden');
-      budgetBanner.innerHTML = `
-        <div class="flex items-center gap-3">
-          <div class="p-2.5 bg-red-100 text-red-600 rounded-full animate-bounce shrink-0">
-            <i data-lucide="alert-triangle" class="w-6 h-6"></i>
-          </div>
-          <div>
-            <h4 class="font-bold text-red-800 text-sm md:text-base">⚠️ BUDGET EXCEEDED!</h4>
-            <p class="text-xs md:text-sm text-red-700">You have spent <strong>${curr}${overAmt}</strong> over your monthly limit of <strong>${curr}${this.user.budgetLimit}</strong>.</p>
-          </div>
-        </div>
-      `;
-    } else {
-      budgetBanner.classList.add('hidden');
-    }
-
     const recentContainer = document.getElementById('home-recent-tx-list');
     recentContainer.innerHTML = '';
 
     const recent = [...this.transactions].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 4);
 
     if (recent.length === 0) {
-      recentContainer.innerHTML = `<p class="text-slate-400 text-center py-4 text-sm">No recent transactions recorded.</p>`;
+      recentContainer.innerHTML = `
+        <div class="text-center py-8 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+          <p class="text-sm font-semibold text-slate-700">No transactions logged yet.</p>
+          <p class="text-xs text-slate-400 mt-1">Tap '+' to log your first income, expense, or investment!</p>
+        </div>
+      `;
     } else {
       recent.forEach(tx => {
         recentContainer.appendChild(this.createTransactionItemEl(tx));
@@ -991,7 +1021,6 @@ class FinPulseApp {
     setTimeout(() => {
       renderHomeTrendChart('home-trend-chart-canvas', this.transactions, curr);
       renderHomePieChart('home-pie-chart-canvas', this.transactions, curr);
-      if (window.lucide) window.lucide.createIcons();
     }, 50);
   }
 
@@ -1002,23 +1031,19 @@ class FinPulseApp {
 
     let colorClass = isIncome ? 'text-emerald-600' : isInvestment ? 'text-purple-600' : 'text-slate-800';
     let sign = isIncome ? '+' : isInvestment ? '↗' : '-';
-    let iconName = 'arrow-down-right';
-    let bgIconClass = 'bg-red-50 text-red-600';
-
-    if (isIncome) {
-      iconName = 'arrow-up-right';
-      bgIconClass = 'bg-emerald-50 text-emerald-600';
-    } else if (isInvestment) {
-      iconName = 'trending-up';
-      bgIconClass = 'bg-purple-50 text-purple-600';
-    }
+    let bgIconClass = isIncome ? 'bg-emerald-50 text-emerald-600' : isInvestment ? 'bg-purple-50 text-purple-600' : 'bg-red-50 text-red-600';
+    let svgIcon = isIncome 
+      ? '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>'
+      : isInvestment
+      ? '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>'
+      : '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>';
 
     const div = document.createElement('div');
     div.className = 'flex items-center justify-between p-3.5 sm:p-4 bg-white rounded-2xl border border-slate-100 hover:border-emerald-200 transition-all shadow-sm';
     div.innerHTML = `
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full ${bgIconClass} flex items-center justify-center font-bold text-sm shrink-0">
-          <i data-lucide="${iconName}" class="w-5 h-5"></i>
+          ${svgIcon}
         </div>
         <div>
           <h5 class="font-semibold text-slate-800 text-sm leading-snug">${tx.categoryName || 'Transaction'}</h5>
@@ -1060,9 +1085,8 @@ class FinPulseApp {
     if (filtered.length === 0) {
       container.innerHTML = `
         <div class="text-center py-12 bg-white rounded-2xl border border-slate-100">
-          <i data-lucide="receipt-off" class="w-12 h-12 text-slate-300 mx-auto mb-3"></i>
-          <h4 class="font-semibold text-slate-600">No transactions found</h4>
-          <p class="text-xs text-slate-400 mt-1">Try adjusting your filters or tap '+' to add a new transaction.</p>
+          <h4 class="font-semibold text-slate-600">No transactions recorded</h4>
+          <p class="text-xs text-slate-400 mt-1">Tap '+' to add your first transaction.</p>
         </div>
       `;
     } else {
@@ -1073,8 +1097,6 @@ class FinPulseApp {
         container.appendChild(item);
       });
     }
-
-    if (window.lucide) window.lucide.createIcons();
   }
 
   // ----------------------------------------------------
@@ -1084,8 +1106,7 @@ class FinPulseApp {
     const curr = this.user.currency || '₹';
     const { totalExpense } = this.getMetrics();
     const limit = this.user.budgetLimit || 45000;
-    const spentPercent = Math.min(Math.round((totalExpense / limit) * 100), 100);
-    const isExceeded = totalExpense > limit;
+    const spentPercent = limit > 0 ? Math.min(Math.round((totalExpense / limit) * 100), 100) : 0;
 
     document.getElementById('budget-total-spent').textContent = `${curr}${totalExpense.toFixed(2)}`;
     document.getElementById('budget-total-limit').textContent = `${curr}${limit.toFixed(2)}`;
@@ -1093,39 +1114,6 @@ class FinPulseApp {
 
     const mainProgressBar = document.getElementById('budget-overall-progress-bar');
     mainProgressBar.style.width = `${spentPercent}%`;
-
-    if (isExceeded) {
-      mainProgressBar.className = 'h-full bg-red-500 transition-all duration-500 rounded-full';
-    } else if (spentPercent >= 80) {
-      mainProgressBar.className = 'h-full bg-amber-500 transition-all duration-500 rounded-full';
-    } else {
-      mainProgressBar.className = 'h-full bg-emerald-500 transition-all duration-500 rounded-full';
-    }
-
-    const alertBox = document.getElementById('budget-screen-alert-box');
-    if (isExceeded) {
-      const overAmt = (totalExpense - limit).toFixed(2);
-      alertBox.classList.remove('hidden');
-      alertBox.innerHTML = `
-        <div class="bg-red-50 border-2 border-red-200 rounded-2xl p-4 flex items-center justify-between shadow-sm animate-pulse">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center shrink-0 font-bold">
-              <i data-lucide="shield-alert" class="w-6 h-6"></i>
-            </div>
-            <div>
-              <h4 class="font-bold text-red-900 text-sm md:text-base">BUDGET EXCEEDED!</h4>
-              <p class="text-xs text-red-700">Total spending exceeds limit by <strong>${curr}${overAmt}</strong>.</p>
-            </div>
-          </div>
-          <button id="open-budget-setter-btn" class="px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white font-semibold text-xs rounded-xl transition-all">
-            Increase Limit
-          </button>
-        </div>
-      `;
-      document.getElementById('open-budget-setter-btn')?.addEventListener('click', () => this.openBudgetSetterModal());
-    } else {
-      alertBox.classList.add('hidden');
-    }
 
     const categoryContainer = document.getElementById('budget-category-list');
     categoryContainer.innerHTML = '';
@@ -1147,7 +1135,7 @@ class FinPulseApp {
         <div class="flex items-center justify-between mb-2.5">
           <div class="flex items-center gap-3">
             <div class="w-9 h-9 rounded-xl flex items-center justify-center text-white shrink-0 shadow-sm" style="background-color: ${cat.color}">
-              <i data-lucide="${cat.icon || 'tag'}" class="w-4 h-4"></i>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h10M7 12h10m-7 5h7"/></svg>
             </div>
             <div>
               <h5 class="font-bold text-slate-800 text-sm">${cat.name}</h5>
@@ -1156,7 +1144,6 @@ class FinPulseApp {
           </div>
           <div class="text-right">
             <span class="text-xs font-bold ${catExceeded ? 'text-red-600' : 'text-slate-600'}">${pct}%</span>
-            ${catExceeded ? '<span class="block text-[10px] text-red-500 font-bold">Exceeded!</span>' : ''}
           </div>
         </div>
         <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
@@ -1170,8 +1157,6 @@ class FinPulseApp {
     if (editBudgetBtn) {
       editBudgetBtn.onclick = () => this.openBudgetSetterModal();
     }
-
-    if (window.lucide) window.lucide.createIcons();
   }
 
   // ----------------------------------------------------
@@ -1191,7 +1176,6 @@ class FinPulseApp {
     setTimeout(() => {
       renderReportBarChart('report-bar-chart-canvas', this.reportsFilter, this.transactions, curr);
       renderReportPieChart('report-pie-chart-canvas', this.transactions, curr);
-      if (window.lucide) window.lucide.createIcons();
     }, 50);
   }
 
@@ -1213,7 +1197,7 @@ class FinPulseApp {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.transactions, null, 2));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `finpulse_report_${new Date().toISOString().split('T')[0]}.json`);
+    downloadAnchor.setAttribute("download", `myexpense_report_${new Date().toISOString().split('T')[0]}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
@@ -1233,8 +1217,6 @@ class FinPulseApp {
     if (editProfileBtn) {
       editProfileBtn.onclick = () => this.openEditProfileModal();
     }
-
-    if (window.lucide) window.lucide.createIcons();
   }
 
   openEditProfileModal() {
@@ -1274,6 +1256,7 @@ class FinPulseApp {
   openAddTxModal() {
     this.editingTxId = null;
     document.getElementById('modal-tx-title').textContent = 'Add Transaction';
+    document.getElementById('delete-tx-btn')?.classList.add('hidden');
     document.getElementById('add-tx-form').reset();
     document.getElementById('tx-date-input').value = new Date().toISOString().split('T')[0];
     this.switchTxModalType('expense');
@@ -1283,6 +1266,13 @@ class FinPulseApp {
   openEditTxModal(tx) {
     this.editingTxId = tx.id;
     document.getElementById('modal-tx-title').textContent = 'Edit Transaction';
+    
+    let deleteBtn = document.getElementById('delete-tx-btn');
+    if (deleteBtn) {
+      deleteBtn.classList.remove('hidden');
+      deleteBtn.onclick = () => this.deleteTransaction(tx.id);
+    }
+
     this.switchTxModalType(tx.type);
 
     document.getElementById('tx-amount-input').value = tx.amount;
@@ -1369,15 +1359,6 @@ class FinPulseApp {
     this.saveState();
     this.closeModal('add-tx-modal');
     this.renderCurrentTab();
-
-    if (this.currentTxModalType === 'expense') {
-      const { totalExpense } = this.getMetrics();
-      if (totalExpense > this.user.budgetLimit) {
-        setTimeout(() => {
-          alert(`⚠️ ALERT: Your total expenses (${this.user.currency}${totalExpense.toFixed(2)}) have EXCEEDED your set budget limit of ${this.user.currency}${this.user.budgetLimit}!`);
-        }, 300);
-      }
-    }
   }
 
   openBudgetSetterModal() {
