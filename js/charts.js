@@ -1,13 +1,8 @@
-/**
- * FinPulse Chart Renderers using Chart.js
- */
-
 let homeTrendChartInstance = null;
 let homePieChartInstance = null;
 let reportBarChartInstance = null;
 let reportPieChartInstance = null;
 
-// Palette for charts
 const GREEN_PRIMARY = '#10B981';
 const GREEN_DARK = '#059669';
 const GREEN_LIGHT = '#6EE7B7';
@@ -16,20 +11,14 @@ const PURPLE_ACCENT = '#8B5CF6';
 const BLUE_ACCENT = '#3B82F6';
 const AMBER_ACCENT = '#F59E0B';
 
-/**
- * Render or Update Home Income vs Expense Comparison Chart
- */
 export function renderHomeTrendChart(canvasId, transactions, currency = '$') {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
 
-  // Aggregate monthly data for last 6 months or past days
   const labels = ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
-  // Calculate income & expenses per month from real transactions where possible
   const incomeData = [3800, 4100, 4200, 4000, 4770, 5450];
   const expenseData = [2100, 2400, 1950, 2300, 2100, 2070.50];
 
-  // Calculate current month's actual total from transactions if present
   let currentMonthIncome = 0;
   let currentMonthExpense = 0;
   const now = new Date();
@@ -51,7 +40,6 @@ export function renderHomeTrendChart(canvasId, transactions, currency = '$') {
 
   const ctx = canvas.getContext('2d');
   
-  // Create gradient
   const incomeGradient = ctx.createLinearGradient(0, 0, 0, 300);
   incomeGradient.addColorStop(0, 'rgba(16, 185, 129, 0.35)');
   incomeGradient.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
@@ -125,14 +113,10 @@ export function renderHomeTrendChart(canvasId, transactions, currency = '$') {
   });
 }
 
-/**
- * Render Expense Category Pie Chart on Home Screen
- */
 export function renderHomePieChart(canvasId, transactions, currency = '$') {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
 
-  // Aggregate expenses by category
   const categoryTotals = {};
   transactions.filter(t => t.type === 'expense').forEach(t => {
     const cat = t.categoryName || 'Other';
@@ -189,9 +173,6 @@ export function renderHomePieChart(canvasId, transactions, currency = '$') {
   });
 }
 
-/**
- * Render Bar Breakdown for Reports Screen (Daily, Weekly, Monthly, Total)
- */
 export function renderReportBarChart(canvasId, filterType, transactions, currency = '$') {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
@@ -213,7 +194,6 @@ export function renderReportBarChart(canvasId, filterType, transactions, currenc
     incomeSeries = [3500, 3900, 3800, 4100, 4200, 4000, 4770, 5770];
     expenseSeries = [2000, 2200, 2100, 2400, 1950, 2300, 2100, 2085.5];
   } else {
-    // Total / All-time
     labels = ['2024', '2025', '2026 Q1', '2026 Q2', '2026 Q3'];
     incomeSeries = [42000, 48500, 11900, 12300, 16340];
     expenseSeries = [26000, 27400, 6300, 6650, 6285.5];
@@ -268,9 +248,6 @@ export function renderReportBarChart(canvasId, filterType, transactions, currenc
   });
 }
 
-/**
- * Render Reports Pie Chart (Investments vs Expenses breakdown)
- */
 export function renderReportPieChart(canvasId, transactions, currency = '$') {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;

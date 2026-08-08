@@ -1,11 +1,3 @@
-/**
- * MyExpense Finance Tracker - Multi-User Cloud & Account-Keyed Data Architecture
- * White & Green Aesthetic • Indian Rupee (₹) & Multi-Currency Enabled
- */
-
-// =========================================================
-// 1. DATA & INITIAL STATE
-// =========================================================
 const DEFAULT_USER = {
   name: "Alex Morgan",
   email: "alex.morgan@gmail.com",
@@ -135,10 +127,6 @@ const CURRENCY_MAP = {
   'AED': 'AED '
 };
 
-
-// =========================================================
-// 2. CHART RENDERING ENGINE (Chart.js)
-// =========================================================
 let homeTrendChartInstance = null;
 let homePieChartInstance = null;
 let reportBarChartInstance = null;
@@ -420,10 +408,6 @@ function renderReportPieChart(canvasId, transactions, currency = '₹') {
   });
 }
 
-
-// =========================================================
-// 3. FIREBASE AUTHENTICATION & MULTI-USER MANAGER
-// =========================================================
 class AuthManager {
   constructor(onAuthSuccess) {
     this.onAuthSuccess = onAuthSuccess;
@@ -659,10 +643,6 @@ class AuthManager {
   }
 }
 
-
-// =========================================================
-// 4. MAIN APP CORE CONTROLLER (ACCOUNT-KEYED STORAGE & CLOUD SYNC)
-// =========================================================
 class FinPulseApp {
   constructor() {
     this.user = this.loadLocalStorage('myexpense_last_user', DEFAULT_USER);
@@ -708,7 +688,6 @@ class FinPulseApp {
     if (savedTxs !== null) {
       this.transactions = JSON.parse(savedTxs);
     } else {
-      // If it's the demo account, load demo transactions. Otherwise start 100% blank!
       if (this.user.email === 'alex.morgan@gmail.com') {
         this.transactions = [...DEMO_SAMPLE_TRANSACTIONS];
       } else {
@@ -988,9 +967,6 @@ class FinPulseApp {
     return { totalIncome, totalExpense, totalInvestment, netBalance };
   }
 
-  // ----------------------------------------------------
-  // 1. HOME SCREEN RENDERER
-  // ----------------------------------------------------
   renderHome() {
     const { totalIncome, totalExpense, totalInvestment, netBalance } = this.getMetrics();
     const curr = this.user.currency || '₹';
@@ -1058,9 +1034,6 @@ class FinPulseApp {
     return div;
   }
 
-  // ----------------------------------------------------
-  // 2. TRANSACTIONS SCREEN RENDERER
-  // ----------------------------------------------------
   renderTransactions() {
     const container = document.getElementById('tx-full-list-container');
     container.innerHTML = '';
@@ -1099,9 +1072,6 @@ class FinPulseApp {
     }
   }
 
-  // ----------------------------------------------------
-  // 3. BUDGET SCREEN RENDERER
-  // ----------------------------------------------------
   renderBudget() {
     const curr = this.user.currency || '₹';
     const { totalExpense } = this.getMetrics();
@@ -1159,9 +1129,6 @@ class FinPulseApp {
     }
   }
 
-  // ----------------------------------------------------
-  // 4. REPORTS SCREEN RENDERER
-  // ----------------------------------------------------
   renderReports() {
     const curr = this.user.currency || '₹';
     const { totalIncome, totalExpense, totalInvestment } = this.getMetrics();
@@ -1204,9 +1171,6 @@ class FinPulseApp {
     this.showToast("Financial Report exported successfully!");
   }
 
-  // ----------------------------------------------------
-  // 5. PROFILE & SETTINGS RENDERER
-  // ----------------------------------------------------
   renderProfile() {
     document.getElementById('profile-display-name').textContent = this.user.name;
     document.getElementById('profile-display-email').textContent = this.user.email;
@@ -1250,9 +1214,6 @@ class FinPulseApp {
     this.showToast("Profile details updated!");
   }
 
-  // ----------------------------------------------------
-  // MODALS & TRANSACTION HANDLING
-  // ----------------------------------------------------
   openAddTxModal() {
     this.editingTxId = null;
     document.getElementById('modal-tx-title').textContent = 'Add Transaction';
@@ -1406,7 +1367,6 @@ class FinPulseApp {
   }
 }
 
-// Global Initialization
 document.addEventListener('DOMContentLoaded', () => {
   window.app = new FinPulseApp();
 });

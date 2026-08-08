@@ -1,7 +1,3 @@
-/**
- * Initial Sample Data and Default State for FinPulse Finance Tracker
- */
-
 export const DEFAULT_USER = {
   name: "Alex Morgan",
   email: "alex.morgan@gmail.com",
@@ -11,7 +7,7 @@ export const DEFAULT_USER = {
   currencyCode: "INR",
   joinDate: "2026-01-15",
   budgetLimit: 45000,
-  alertThreshold: 85, // percentage
+  alertThreshold: 85,
   pinEnabled: false,
   pinCode: "1234",
   notifications: true
@@ -58,7 +54,6 @@ export const DEFAULT_CATEGORY_BUDGETS = {
   other_expense: 2000
 };
 
-// Generates sample transactions in INR values
 export const INITIAL_TRANSACTIONS = [
   {
     id: "tx-101",

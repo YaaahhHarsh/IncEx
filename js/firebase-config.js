@@ -1,7 +1,3 @@
-/**
- * Firebase Backend & Auth Configuration Module for MyExpense
- */
-
 const DEFAULT_FIREBASE_CONFIG = {
   apiKey: "AIzaSyDemoApiKeyForMyExpenseApp12345",
   authDomain: "myexpense-app-demo.firebaseapp.com",
@@ -39,7 +35,6 @@ class FirebaseService {
         this.isInitialized = true;
         
         this.db.enablePersistence({ synchronizeTabs: true }).catch(err => {
-          // Ignore persistence errors on multiple tabs
         });
 
         console.log("🔥 Firebase initialized successfully.");
@@ -69,6 +64,5 @@ class FirebaseService {
   }
 }
 
-// Global window attachment
 window.DEFAULT_FIREBASE_CONFIG = DEFAULT_FIREBASE_CONFIG;
 window.firebaseService = new FirebaseService();

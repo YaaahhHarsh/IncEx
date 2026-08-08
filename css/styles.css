@@ -8,7 +8,6 @@
   --bg-slate: #F8FAFC;
 }
 
-/* Fluid Base Reset */
 *, ::before, ::after {
   box-sizing: border-box;
 }
@@ -24,13 +23,11 @@ body {
   color: #0F172A;
   min-height: 100vh;
   min-height: -webkit-fill-available;
-  /* Safe Area padding for iOS bottom bar and Android gesture bar */
   padding-bottom: calc(5rem + env(safe-area-inset-bottom));
   -webkit-tap-highlight-color: transparent;
   overflow-x: hidden;
 }
 
-/* Custom scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -46,7 +43,6 @@ body {
   background: #94A3B8;
 }
 
-/* Glassmorphism & Card Shadows */
 .glass-card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
@@ -62,7 +58,6 @@ body {
   box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.35);
 }
 
-/* Floating Action Plus Button Styling & Position */
 .fab-button {
   background: linear-gradient(135deg, #059669 0%, #10B981 100%);
   box-shadow: 0 10px 25px -3px rgba(16, 185, 129, 0.5);
@@ -89,25 +84,21 @@ body {
   transform: scale(0.95);
 }
 
-/* Mobile Safe Area Bottom Navbar Adjustment */
 .bottom-nav-safe {
   padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
 }
 
-/* Touch Friendly Target Sizes */
 .touch-target {
   min-height: 44px;
   min-width: 44px;
 }
 
-/* Responsive Modal Styling */
 .modal-backdrop {
   background: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
 
-/* Animations */
 @keyframes pulseGlow {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.85; transform: scale(1.02); }

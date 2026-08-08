@@ -1,18 +1,13 @@
-/**
- * Auth Controller for FinPulse Finance Tracker
- */
-
 export class AuthManager {
   constructor(onAuthSuccess) {
     this.onAuthSuccess = onAuthSuccess;
-    this.activeMethod = 'google'; // 'google', 'email', 'phone'
+    this.activeMethod = 'google';
     this.otpStep = false;
     this.userPhone = '';
     this.initEventListeners();
   }
 
   initEventListeners() {
-    // Auth tab switchers
     document.querySelectorAll('.auth-tab-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const method = e.currentTarget.getAttribute('data-method');
@@ -20,13 +15,11 @@ export class AuthManager {
       });
     });
 
-    // Google Login Button
     const googleBtn = document.getElementById('google-login-btn');
     if (googleBtn) {
       googleBtn.addEventListener('click', () => this.handleGoogleLogin());
     }
 
-    // Email Form Submit
     const emailForm = document.getElementById('email-login-form');
     if (emailForm) {
       emailForm.addEventListener('submit', (e) => {
@@ -35,7 +28,6 @@ export class AuthManager {
       });
     }
 
-    // Phone Form Submit & OTP Verification
     const phoneForm = document.getElementById('phone-login-form');
     if (phoneForm) {
       phoneForm.addEventListener('submit', (e) => {
@@ -48,7 +40,6 @@ export class AuthManager {
       });
     }
 
-    // Quick Demo Login Button
     const demoBtn = document.getElementById('demo-login-btn');
     if (demoBtn) {
       demoBtn.addEventListener('click', () => this.handleDemoLogin());
@@ -67,7 +58,6 @@ export class AuthManager {
       }
     });
 
-    // Toggle container views
     document.querySelectorAll('.auth-view-container').forEach(view => {
       view.classList.add('hidden');
     });
@@ -77,7 +67,6 @@ export class AuthManager {
   }
 
   handleGoogleLogin() {
-    // Simulate Google OAuth Popup / Selection
     const googleModal = document.getElementById('google-account-modal');
     if (googleModal) {
       googleModal.classList.remove('hidden');
@@ -137,7 +126,6 @@ export class AuthManager {
     this.userPhone = phoneInput.value.trim();
     this.otpStep = true;
 
-    // Show OTP input step
     const phoneStep1 = document.getElementById('phone-step-1');
     const phoneStep2 = document.getElementById('phone-step-2');
     const phoneDisplay = document.getElementById('otp-sent-number');
