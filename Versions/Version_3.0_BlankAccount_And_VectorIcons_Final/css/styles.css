@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary-emerald: #10B981;
+  --primary-dark: #059669;
+  --primary-light: #ECFDF5;
+  --accent-red: #EF4444;
+  --bg-slate: #F8FAFC;
+}
+
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-slate);
+  color: #0F172A;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.emerald-gradient {
+  background: linear-gradient(135deg, #059669 0%, #10B981 50%, #34D399 100%);
+}
+
+.emerald-glow {
+  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.35);
+}
+
+.fab-button {
+  background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+  box-shadow: 0 10px 25px -3px rgba(16, 185, 129, 0.5);
+  bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  right: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 768px) {
+  .fab-button {
+    bottom: 2rem;
+    right: 2.5rem;
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+}
+
+.fab-button:hover {
+  transform: scale(1.08) rotate(90deg);
+  box-shadow: 0 14px 28px -3px rgba(16, 185, 129, 0.65);
+}
+
+.fab-button:active {
+  transform: scale(0.95);
+}
+
+.bottom-nav-safe {
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+}
+
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.modal-backdrop {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.pulse-alert {
+  animation: pulseGlow 2s infinite ease-in-out;
+}
