@@ -200,6 +200,10 @@
           <button onclick="window.app.switchTab('transactions')" class="desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-emerald-600 transition-all">Transactions</button>
           <button onclick="window.app.switchTab('budget')" class="desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-emerald-600 transition-all">Budget</button>
           <button onclick="window.app.switchTab('reports')" class="desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-emerald-600 transition-all">Reports</button>
+          <button onclick="window.app.switchTab('ai')" class="desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-emerald-600 transition-all flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            AI Advisor
+          </button>
           <button onclick="window.app.switchTab('profile')" class="desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-emerald-600 transition-all">Profile</button>
         </div>
 
@@ -411,6 +415,50 @@
               <canvas id="report-pie-chart-canvas"></canvas>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="page-ai" class="tab-view-page space-y-4 hidden">
+        <div class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 rounded-3xl p-6 text-white shadow-xl relative overflow-hidden">
+          <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/30 text-white shadow-md">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-xl sm:text-2xl font-black">MyExpense AI Financial Advisor</h3>
+                <span class="px-2.5 py-0.5 bg-emerald-400/30 border border-emerald-300/40 text-emerald-100 text-[10px] font-extrabold uppercase rounded-full">Smart AI</span>
+              </div>
+              <p class="text-xs sm:text-sm opacity-90 mt-1">Ask any doubts about income allocation, expense reduction, or investment ideas!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col h-[520px]">
+          <div class="p-3 bg-slate-50 border-b border-slate-100 flex items-center gap-2 overflow-x-auto no-scrollbar">
+            <span class="text-xs font-bold text-slate-400 shrink-0 pl-1">Quick Doubts:</span>
+            <button onclick="window.app.aiAdvisor.askSuggested('How should I allocate my income using the 50/30/20 rule?')" class="chip-suggest px-3 py-1.5 bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 text-xs font-semibold rounded-full shrink-0 transition-all">💡 50/30/20 Rule</button>
+            <button onclick="window.app.aiAdvisor.askSuggested('What are the best low-risk investment options for beginners in India?')" class="chip-suggest px-3 py-1.5 bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 text-xs font-semibold rounded-full shrink-0 transition-all">📈 Low Risk Investments</button>
+            <button onclick="window.app.aiAdvisor.askSuggested('How can I cut down on my monthly dining and food expenses?')" class="chip-suggest px-3 py-1.5 bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 text-xs font-semibold rounded-full shrink-0 transition-all">✂️ Cut Expenses</button>
+            <button onclick="window.app.aiAdvisor.askSuggested('How much emergency fund should I keep before investing?')" class="chip-suggest px-3 py-1.5 bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 text-xs font-semibold rounded-full shrink-0 transition-all">🛡️ Emergency Fund</button>
+          </div>
+
+          <div id="ai-chat-messages" class="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 bg-slate-50/50">
+          </div>
+
+          <div id="ai-typing-indicator" class="hidden px-6 py-2 bg-slate-50/50 text-xs text-emerald-700 font-semibold flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            MyExpense AI is typing...
+          </div>
+
+          <form id="ai-chat-form" class="p-3 bg-white border-t border-slate-100 flex items-center gap-2">
+            <input type="text" id="ai-chat-input" placeholder="Ask AI about income, expenses, SIPs, stocks..." class="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <button type="submit" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md transition-all touch-target shrink-0 flex items-center gap-1.5">
+              <span>Send</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </form>
         </div>
       </section>
 
@@ -659,6 +707,11 @@
       <button data-tab="reports" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
         <span class="nav-text text-[11px]">Reports</span>
+      </button>
+
+      <button data-tab="ai" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <span class="nav-text text-[11px]">AI Advisor</span>
       </button>
 
       <button data-tab="profile" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">

@@ -408,6 +408,180 @@ function renderReportPieChart(canvasId, transactions, currency = '₹') {
   });
 }
 
+class AIFinancialAdvisor {
+  constructor(app) {
+    this.app = app;
+    this.init();
+  }
+
+  init() {
+    const form = document.getElementById('ai-chat-form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = document.getElementById('ai-chat-input');
+        if (input && input.value.trim()) {
+          const query = input.value.trim();
+          input.value = '';
+          this.handleUserQuery(query);
+        }
+      });
+    }
+
+    const messagesContainer = document.getElementById('ai-chat-messages');
+    if (messagesContainer && messagesContainer.children.length === 0) {
+      this.addAIMessage(`
+        👋 Hello <strong>${this.app.user.name || 'Friend'}</strong>! I am your <strong>MyExpense AI Advisor</strong>.<br><br>
+        Ask me anything about:<br>
+        • 💡 <strong>Income Allocation & Budgeting</strong> (e.g., 50/30/20 rule)<br>
+        • ✂️ <strong>Expense Reduction Strategies</strong><br>
+        • 📈 <strong>Smart Investment Ideas</strong> (SIPs, Mutual Funds, Gold, Emergency Funds)<br><br>
+        Tap any quick question above or type your question below!
+      `);
+    }
+  }
+
+  askSuggested(promptText) {
+    const input = document.getElementById('ai-chat-input');
+    if (input) {
+      input.value = promptText;
+      this.handleUserQuery(promptText);
+    }
+  }
+
+  handleUserQuery(query) {
+    this.addUserMessage(query);
+    this.showTyping(true);
+
+    setTimeout(() => {
+      this.showTyping(false);
+      const response = this.generateResponse(query);
+      this.addAIMessage(response);
+    }, 700);
+  }
+
+  addUserMessage(text) {
+    const container = document.getElementById('ai-chat-messages');
+    if (!container) return;
+
+    const div = document.createElement('div');
+    div.className = 'flex justify-end mb-3';
+    div.innerHTML = `
+      <div class="ai-bubble-user max-w-[85%] px-4 py-3 text-xs sm:text-sm font-medium shadow-sm">
+        ${text}
+      </div>
+    `;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  addAIMessage(htmlContent) {
+    const container = document.getElementById('ai-chat-messages');
+    if (!container) return;
+
+    const div = document.createElement('div');
+    div.className = 'flex justify-start items-start gap-3 mb-3';
+    div.innerHTML = `
+      <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+        AI
+      </div>
+      <div class="ai-bubble-bot max-w-[88%] px-4 py-3.5 text-xs sm:text-sm font-normal leading-relaxed text-slate-800 shadow-sm">
+        ${htmlContent}
+      </div>
+    `;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  showTyping(show) {
+    const el = document.getElementById('ai-typing-indicator');
+    if (el) {
+      if (show) el.classList.remove('hidden');
+      else el.classList.add('hidden');
+    }
+  }
+
+  generateResponse(query) {
+    const q = query.toLowerCase();
+    const curr = this.app.user.currency || '₹';
+    const metrics = this.app.getMetrics();
+    const balance = metrics.netBalance;
+    const income = metrics.totalIncome;
+    const expense = metrics.totalExpense;
+
+    if (q.includes('50/30/20') || q.includes('allocate') || q.includes('split') || q.includes('salary')) {
+      const incVal = income > 0 ? income : 50000;
+      const needs = (incVal * 0.50).toFixed(0);
+      const wants = (incVal * 0.30).toFixed(0);
+      const savings = (incVal * 0.20).toFixed(0);
+
+      return `
+        📊 <strong>The 50/30/20 Budgeting Allocation Formula:</strong><br><br>
+        Based on a monthly income of <strong>${curr}${incVal.toLocaleString()}</strong>:<br><br>
+        • 🏠 <strong>50% Needs (${curr}${needs.toLocaleString()})</strong>: Rent, groceries, utilities, insurance, basic travel.<br>
+        • 🛍️ <strong>30% Wants (${curr}${wants.toLocaleString()})</strong>: Dining out, entertainment, shopping, vacations.<br>
+        • 🎯 <strong>20% Wealth & Savings (${curr}${savings.toLocaleString()})</strong>: Mutual Fund SIPs, Stocks, Emergency Fund.<br><br>
+        💡 <em>Pro Tip: Automatically deduct your 20% savings on salary day before spending on wants!</em>
+      `;
+    }
+
+    if (q.includes('invest') || q.includes('sip') || q.includes('mutual fund') || q.includes('stock') || q.includes('risk')) {
+      return `
+        📈 <strong>Top Smart Investment Strategies:</strong><br><br>
+        1. 💎 <strong>Equity Index Mutual Funds (SIP)</strong>: Great for long-term wealth (12-15% historical annual returns). Start a monthly SIP.<br>
+        2. 🛡️ <strong>Sovereign Gold Bonds (SGB) or Gold ETFs</strong>: Excellent hedge against inflation.<br>
+        3. 🏛️ <strong>Public Provident Fund (PPF) / FD</strong>: 100% tax-free guaranteed returns under Section 80C.<br>
+        4. 📊 <strong>Direct Bluechip Equities</strong>: Invest in top fundamental companies (Nifty 50).<br><br>
+        Your current logged investment: <strong>${curr}${metrics.totalInvestment.toLocaleString()}</strong>.<br>
+        💡 <em>Always maintain an Emergency Fund of 3-6 months of expenses before aggressive equity investing!</em>
+      `;
+    }
+
+    if (q.includes('cut') || q.includes('reduce') || q.includes('save') || q.includes('food') || q.includes('dining') || q.includes('expense')) {
+      return `
+        ✂️ <strong>Actionable Steps to Cut Monthly Expenses:</strong><br><br>
+        1. ☕ <strong>Audit Unnecessary Subscriptions</strong>: Cancel unused OTT, gym, or digital memberships.<br>
+        2. 🍔 <strong>Cap Dining & Delivery</strong>: Set a strict category limit in MyExpense (e.g. max ${curr}3,000/month).<br>
+        3. ⏳ <strong>The 48-Hour impulse Rule</strong>: Wait 48 hours before buying non-essential items.<br>
+        4. 🧾 <strong>Track Cash Leakages</strong>: Log even small daily cash expenses here in MyExpense.<br><br>
+        Your current total logged expense this month: <strong>${curr}${expense.toLocaleString()}</strong>.
+      `;
+    }
+
+    if (q.includes('emergency') || q.includes('fund') || q.includes('backup')) {
+      const monthlyExp = expense > 0 ? expense : 25000;
+      const targetMin = (monthlyExp * 3).toFixed(0);
+      const targetMax = (monthlyExp * 6).toFixed(0);
+
+      return `
+        🛡️ <strong>Emergency Fund Benchmark:</strong><br><br>
+        You should keep <strong>3 to 6 months</strong> of mandatory living expenses liquid in a High-Yield Savings Account or Liquid Mutual Fund.<br><br>
+        • Your monthly expense estimate: <strong>${curr}${monthlyExp.toLocaleString()}</strong><br>
+        • Target Emergency Fund: <strong>${curr}${targetMin.toLocaleString()} – ${curr}${targetMax.toLocaleString()}</strong><br><br>
+        💡 <em>Do not invest your emergency fund in volatile stocks or locked real estate! Keep it instantly accessible.</em>
+      `;
+    }
+
+    if (q.includes('tax') || q.includes('80c') || q.includes('deduction')) {
+      return `
+        🧾 <strong>Smart Tax Saving Options (Section 80C & 80D in India):</strong><br><br>
+        • 📈 <strong>ELSS Tax Saver Mutual Funds</strong>: Shortest lock-in (3 years) + high growth potential (Up to ${curr}1.5 Lakh limit).<br>
+        • 🛡️ <strong>PPF (Public Provident Fund)</strong>: Risk-free EEE tax status.<br>
+        • 🏥 <strong>Health Insurance Premium (Section 80D)</strong>: Save up to ${curr}25,000 to ${curr}50,000 on medical cover.<br>
+        • 🎓 <strong>National Pension System (NPS - 80CCD)</strong>: Extra ${curr}50,000 tax deduction.
+      `;
+    }
+
+    return `
+      💡 <strong>MyExpense AI Analysis for ${this.app.user.name}:</strong><br><br>
+      • Current Available Balance: <strong>${curr}${balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong><br>
+      • Total Logged Income: <strong>${curr}${income.toLocaleString()}</strong><br>
+      • Total Logged Expenses: <strong>${curr}${expense.toLocaleString()}</strong><br><br>
+      To build financial freedom, aim to save & invest at least 20-30% of your income every month into compounding assets like Index Funds and SIPs. Let me know if you want tips on budgeting, tax savings, or cutting specific expenses!
+    `;
+  }
+}
+
 class AuthManager {
   constructor(onAuthSuccess) {
     this.onAuthSuccess = onAuthSuccess;
@@ -720,6 +894,7 @@ class FinPulseApp {
     this.authManager = new AuthManager(
       (user, isNewAccount) => this.handleLoginSuccess(user, isNewAccount)
     );
+    this.aiAdvisor = new AIFinancialAdvisor(this);
     this.bindEvents();
 
     if (this.isLoggedIn) {
@@ -916,9 +1091,9 @@ class FinPulseApp {
     document.querySelectorAll('.desktop-nav-link').forEach(link => {
       const linkTab = link.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
       if (linkTab === tabName) {
-        link.className = 'desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-emerald-700 bg-white shadow-sm transition-all';
+        link.className = 'desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-emerald-700 bg-white shadow-sm transition-all flex items-center gap-1.5';
       } else {
-        link.className = 'desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-emerald-600 transition-all';
+        link.className = 'desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-emerald-600 transition-all flex items-center gap-1.5';
       }
     });
 
@@ -931,7 +1106,7 @@ class FinPulseApp {
 
     const fabBtn = document.getElementById('floating-plus-btn');
     if (fabBtn) {
-      if (['home', 'transactions', 'budget', 'reports'].includes(tabName)) {
+      if (['home', 'transactions', 'budget', 'reports', 'ai'].includes(tabName)) {
         fabBtn.classList.remove('hidden');
       } else {
         fabBtn.classList.add('hidden');

@@ -43,6 +43,14 @@ body {
   background: #94A3B8;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .glass-card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
@@ -106,4 +114,19 @@ body {
 
 .pulse-alert {
   animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.ai-bubble-user {
+  background: #059669;
+  color: #FFFFFF;
+  border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);
+}
+
+.ai-bubble-bot {
+  background: #FFFFFF;
+  color: #1E293B;
+  border: 1px solid #E2E8F0;
+  border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
