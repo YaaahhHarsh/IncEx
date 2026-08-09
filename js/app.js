@@ -1344,14 +1344,6 @@ class FinPulseApp {
     const nowStr = new Date().toLocaleString();
     const periodName = (this.reportsFilter || 'MONTHLY').toUpperCase();
 
-    const pdfContainer = document.createElement('div');
-    pdfContainer.id = 'pdf-export-container';
-    pdfContainer.style.width = '790px';
-    pdfContainer.style.padding = '30px';
-    pdfContainer.style.backgroundColor = '#FFFFFF';
-    pdfContainer.style.fontFamily = "'Plus Jakarta Sans', Arial, sans-serif";
-    pdfContainer.style.color = '#0F172A';
-
     const catTotals = {};
     this.transactions.filter(t => t.type === 'expense').forEach(t => {
       const cat = t.categoryName || 'Other';
@@ -1362,8 +1354,8 @@ class FinPulseApp {
     Object.keys(catTotals).forEach(cat => {
       catRowsHTML += `
         <tr>
-          <td style="padding:8px 12px; border-bottom:1px solid #E2E8F0; font-size:13px; font-weight:600;">${cat}</td>
-          <td style="padding:8px 12px; border-bottom:1px solid #E2E8F0; font-size:13px; font-weight:700; text-align:right; color:#EF4444;">${curr}${catTotals[cat].toFixed(2)}</td>
+          <td style="padding:10px 14px; border-bottom:1px solid #E2E8F0; font-size:13px; font-weight:600;">${cat}</td>
+          <td style="padding:10px 14px; border-bottom:1px solid #E2E8F0; font-size:13px; font-weight:700; text-align:right; color:#EF4444;">${curr}${catTotals[cat].toFixed(2)}</td>
         </tr>
       `;
     });
@@ -1372,7 +1364,7 @@ class FinPulseApp {
     if (this.transactions.length === 0) {
       txRowsHTML = `
         <tr>
-          <td colspan="5" style="padding:20px; text-align:center; color:#94A3B8; font-size:13px;">No transactions recorded yet.</td>
+          <td colspan="5" style="padding:24px; text-align:center; color:#94A3B8; font-size:13px;">No transactions recorded in this account yet.</td>
         </tr>
       `;
     } else {
@@ -1385,150 +1377,144 @@ class FinPulseApp {
 
         txRowsHTML += `
           <tr style="background-color: ${bgRow};">
-            <td style="padding:8px 10px; border-bottom:1px solid #E2E8F0; font-size:12px;">${tx.date}</td>
-            <td style="padding:8px 10px; border-bottom:1px solid #E2E8F0; font-size:11px; font-weight:800; color:${typeColor};">${typeLabel}</td>
-            <td style="padding:8px 10px; border-bottom:1px solid #E2E8F0; font-size:12px; font-weight:600;">${tx.categoryName || 'General'}</td>
-            <td style="padding:8px 10px; border-bottom:1px solid #E2E8F0; font-size:12px; color:#64748B;">${tx.paymentMethod || 'Cash'} ${tx.notes ? '• (' + tx.notes + ')' : ''}</td>
-            <td style="padding:8px 10px; border-bottom:1px solid #E2E8F0; font-size:12px; font-weight:700; text-align:right; color:${typeColor};">${curr}${Number(tx.amount).toFixed(2)}</td>
+            <td style="padding:10px; border-bottom:1px solid #E2E8F0; font-size:12px;">${tx.date}</td>
+            <td style="padding:10px; border-bottom:1px solid #E2E8F0; font-size:11px; font-weight:800; color:${typeColor};">${typeLabel}</td>
+            <td style="padding:10px; border-bottom:1px solid #E2E8F0; font-size:12px; font-weight:600;">${tx.categoryName || 'General'}</td>
+            <td style="padding:10px; border-bottom:1px solid #E2E8F0; font-size:12px; color:#64748B;">${tx.paymentMethod || 'Cash'} ${tx.notes ? '• (' + tx.notes + ')' : ''}</td>
+            <td style="padding:10px; border-bottom:1px solid #E2E8F0; font-size:12px; font-weight:700; text-align:right; color:${typeColor};">${curr}${Number(tx.amount).toFixed(2)}</td>
           </tr>
         `;
       });
     }
 
-    pdfContainer.innerHTML = `
-      <div style="background: linear-gradient(135deg, #059669 0%, #10B981 100%); color:#FFFFFF; padding:24px; border-radius:16px; margin-bottom:24px;">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <h1 style="margin:0; font-size:24px; font-weight:900; letter-spacing:-0.5px;">MyExpense</h1>
-            <p style="margin:4px 0 0 0; font-size:12px; opacity:0.9;">Official Personal Financial Performance Report (${periodName})</p>
+    const reportHTML = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <title>MyExpense Financial Report - ${this.user.name}</title>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap');
+          body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; background: #FFFFFF; color: #0F172A; margin: 0; padding: 30px; }
+          .header { background: linear-gradient(135deg, #059669 0%, #10B981 100%); color: #FFFFFF; padding: 24px; border-radius: 16px; margin-bottom: 24px; }
+          .header-title { margin: 0; font-size: 26px; font-weight: 900; letter-spacing: -0.5px; }
+          .header-sub { margin: 4px 0 0 0; font-size: 13px; opacity: 0.9; }
+          .grid { display: flex; gap: 12px; margin-bottom: 24px; }
+          .card { flex: 1; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 14px; border-radius: 12px; text-align: center; }
+          .card-title { font-size: 10px; font-weight: 800; color: #64748B; display: block; text-transform: uppercase; }
+          .card-val { margin: 4px 0 0 0; font-size: 18px; font-weight: 900; }
+          table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+          th { background: #F1F5F9; padding: 10px; font-size: 11px; color: #475569; text-align: left; font-weight: 800; text-transform: uppercase; }
+          .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #E2E8F0; text-align: center; font-size: 11px; color: #94A3B8; }
+          @media print {
+            body { padding: 0; }
+            .no-print { display: none !important; }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="no-print" style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; background:#ECFDF5; padding:12px 20px; border-radius:12px; border:1px solid #A7F3D0;">
+          <span style="font-size:13px; font-weight:700; color:#047857;">📄 MyExpense PDF Statement Ready</span>
+          <button onclick="window.print()" style="background:#059669; color:#FFFFFF; border:none; padding:8px 18px; font-weight:800; border-radius:8px; cursor:pointer; font-size:12px;">Save as PDF / Print</button>
+        </div>
+
+        <div class="header">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <h1 class="header-title">MyExpense</h1>
+              <p class="header-sub">Official Personal Financial Performance Report (${periodName})</p>
+            </div>
+            <div style="text-align:right;">
+              <p style="margin:0; font-size:13px; font-weight:800;">Account: ${this.user.name}</p>
+              <p style="margin:2px 0 0 0; font-size:12px; opacity:0.85;">${this.user.email}</p>
+              <p style="margin:2px 0 0 0; font-size:11px; opacity:0.75;">Date: ${nowStr}</p>
+            </div>
           </div>
-          <div style="text-align:right;">
-            <p style="margin:0; font-size:12px; font-weight:700;">Account: ${this.user.name}</p>
-            <p style="margin:2px 0 0 0; font-size:11px; opacity:0.85;">${this.user.email}</p>
-            <p style="margin:2px 0 0 0; font-size:10px; opacity:0.75;">Date: ${nowStr}</p>
+        </div>
+
+        <div class="grid">
+          <div class="card" style="background:#ECFDF5; border-color:#A7F3D0;">
+            <span class="card-title" style="color:#047857;">Total Balance</span>
+            <h3 class="card-val" style="color:#047857;">${curr}${netBalance.toFixed(2)}</h3>
+          </div>
+          <div class="card" style="background:#F0FDF4; border-color:#BBF7D0;">
+            <span class="card-title" style="color:#15803D;">Income</span>
+            <h3 class="card-val" style="color:#15803D;">${curr}${totalIncome.toFixed(2)}</h3>
+          </div>
+          <div class="card" style="background:#FEF2F2; border-color:#FECACA;">
+            <span class="card-title" style="color:#B91C1C;">Expense</span>
+            <h3 class="card-val" style="color:#B91C1C;">${curr}${totalExpense.toFixed(2)}</h3>
+          </div>
+          <div class="card" style="background:#F5F3FF; border-color:#DDD6FE;">
+            <span class="card-title" style="color:#6D28D9;">Investments</span>
+            <h3 class="card-val" style="color:#6D28D9;">${curr}${totalInvestment.toFixed(2)}</h3>
+          </div>
+          <div class="card">
+            <span class="card-title">Savings Rate</span>
+            <h3 class="card-val" style="color:#059669;">${savingsRate}%</h3>
           </div>
         </div>
-      </div>
 
-      <div style="display:flex; gap:10px; margin-bottom:24px;">
-        <div style="flex:1; background:#ECFDF5; border:1px solid #A7F3D0; padding:12px; border-radius:12px; text-align:center;">
-          <span style="font-size:10px; color:#047857; font-weight:700; display:block;">TOTAL BALANCE</span>
-          <h3 style="margin:4px 0 0 0; font-size:16px; font-weight:900; color:#047857;">${curr}${netBalance.toFixed(2)}</h3>
+        ${catRowsHTML ? `
+        <div style="margin-bottom:24px;">
+          <h4 style="margin:0 0 8px 0; font-size:14px; font-weight:800; color:#1E293B;">Category Expense Breakdown</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th style="text-align:right;">Amount Spent</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${catRowsHTML}
+            </tbody>
+          </table>
         </div>
-        <div style="flex:1; background:#F0FDF4; border:1px solid #BBF7D0; padding:12px; border-radius:12px; text-align:center;">
-          <span style="font-size:10px; color:#15803D; font-weight:700; display:block;">INCOME</span>
-          <h3 style="margin:4px 0 0 0; font-size:16px; font-weight:900; color:#15803D;">${curr}${totalIncome.toFixed(2)}</h3>
-        </div>
-        <div style="flex:1; background:#FEF2F2; border:1px solid #FECACA; padding:12px; border-radius:12px; text-align:center;">
-          <span style="font-size:10px; color:#B91C1C; font-weight:700; display:block;">EXPENSE</span>
-          <h3 style="margin:4px 0 0 0; font-size:16px; font-weight:900; color:#B91C1C;">${curr}${totalExpense.toFixed(2)}</h3>
-        </div>
-        <div style="flex:1; background:#F5F3FF; border:1px solid #DDD6FE; padding:12px; border-radius:12px; text-align:center;">
-          <span style="font-size:10px; color:#6D28D9; font-weight:700; display:block;">INVESTMENTS</span>
-          <h3 style="margin:4px 0 0 0; font-size:16px; font-weight:900; color:#6D28D9;">${curr}${totalInvestment.toFixed(2)}</h3>
-        </div>
-        <div style="flex:1; background:#F8FAFC; border:1px solid #E2E8F0; padding:12px; border-radius:12px; text-align:center;">
-          <span style="font-size:10px; color:#475569; font-weight:700; display:block;">SAVINGS RATE</span>
-          <h3 style="margin:4px 0 0 0; font-size:16px; font-weight:900; color:#059669;">${savingsRate}%</h3>
-        </div>
-      </div>
+        ` : ''}
 
-      ${catRowsHTML ? `
-      <div style="margin-bottom:24px;">
-        <h4 style="margin:0 0 10px 0; font-size:14px; font-weight:800; color:#1E293B;">Category Expense Breakdown</h4>
-        <table style="width:100%; border-collapse:collapse;">
-          <thead>
-            <tr style="background:#F1F5F9; text-align:left;">
-              <th style="padding:8px 12px; font-size:12px; color:#475569;">Category</th>
-              <th style="padding:8px 12px; font-size:12px; color:#475569; text-align:right;">Amount Spent</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${catRowsHTML}
-          </tbody>
-        </table>
-      </div>
-      ` : ''}
+        <div>
+          <h4 style="margin:0 0 8px 0; font-size:14px; font-weight:800; color:#1E293B;">Full Itemized Transaction History (${this.transactions.length} items)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Payment / Notes</th>
+                <th style="text-align:right;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${txRowsHTML}
+            </tbody>
+          </table>
+        </div>
 
-      <div>
-        <h4 style="margin:0 0 10px 0; font-size:14px; font-weight:800; color:#1E293B;">Full Itemized Transaction History (${this.transactions.length} items)</h4>
-        <table style="width:100%; border-collapse:collapse;">
-          <thead>
-            <tr style="background:#F1F5F9; text-align:left;">
-              <th style="padding:8px 10px; font-size:11px; color:#475569;">Date</th>
-              <th style="padding:8px 10px; font-size:11px; color:#475569;">Type</th>
-              <th style="padding:8px 10px; font-size:11px; color:#475569;">Category</th>
-              <th style="padding:8px 10px; font-size:11px; color:#475569;">Payment / Notes</th>
-              <th style="padding:8px 10px; font-size:11px; color:#475569; text-align:right;">Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${txRowsHTML}
-          </tbody>
-        </table>
-      </div>
-
-      <div style="margin-top:30px; padding-top:15px; border-top:1px solid #E2E8F0; text-align:center; font-size:11px; color:#94A3B8;">
-        MyExpense Financial Tracker • Statement Generated on ${nowStr} • Confidential
-      </div>
+        <div class="footer">
+          MyExpense Financial Tracker • Statement Generated on ${nowStr} • Confidential
+        </div>
+      </body>
+      </html>
     `;
 
-    document.body.appendChild(pdfContainer);
-
-    const safeName = (this.user.name || 'User').replace(/\s+/g, '_');
-    const fileName = `MyExpense_Report_${safeName}_${new Date().toISOString().split('T')[0]}.pdf`;
-
-    if (window.html2pdf) {
-      const opt = {
-        margin: [0.3, 0.3, 0.3, 0.3],
-        filename: fileName,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-      };
-
-      window.html2pdf().set(opt).from(pdfContainer).save().then(() => {
-        if (pdfContainer.parentNode) document.body.removeChild(pdfContainer);
-        this.showToast("Full PDF Report downloaded successfully!");
-      }).catch(err => {
-        console.warn("html2pdf notice, using print fallback:", err);
-        if (pdfContainer.parentNode) document.body.removeChild(pdfContainer);
-        this.fallbackPrintPDF(pdfContainer.innerHTML, fileName);
-      });
-    } else {
-      const contentHTML = pdfContainer.innerHTML;
-      if (pdfContainer.parentNode) document.body.removeChild(pdfContainer);
-      this.fallbackPrintPDF(contentHTML, fileName);
-    }
-  }
-
-  fallbackPrintPDF(htmlContent, fileName) {
-    const printWin = window.open('', '_blank', 'width=900,height=800');
+    const printWin = window.open('', '_blank');
     if (printWin) {
-      printWin.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>${fileName}</title>
-          <style>
-            body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; padding: 20px; color: #0F172A; }
-            @page { size: A4; margin: 15mm; }
-          </style>
-        </head>
-        <body>
-          ${htmlContent}
-          <script>
-            window.onload = function() {
-              window.print();
-            };
-          </script>
-        </body>
-        </html>
-      `);
+      printWin.document.open();
+      printWin.document.write(reportHTML);
       printWin.document.close();
-      this.showToast("Opening Print to PDF Dialog...");
+      setTimeout(() => {
+        printWin.print();
+      }, 400);
+      this.showToast("Opening PDF Financial Report...");
     } else {
-      alert("Please allow popups to download your PDF report.");
+      const blob = new Blob([reportHTML], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `MyExpense_Report_${new Date().toISOString().split('T')[0]}.html`;
+      a.click();
+      URL.revokeObjectURL(url);
+      this.showToast("PDF Statement File generated.");
     }
   }
 
