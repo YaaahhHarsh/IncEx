@@ -69,14 +69,14 @@ body {
 .fab-button {
   background: linear-gradient(135deg, #059669 0%, #10B981 100%);
   box-shadow: 0 10px 25px -3px rgba(16, 185, 129, 0.5);
-  bottom: calc(5.5rem + env(safe-area-inset-bottom));
-  right: 1.25rem;
+  bottom: calc(6rem + env(safe-area-inset-bottom));
+  right: 1.5rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (min-width: 768px) {
   .fab-button {
-    bottom: 2rem;
+    bottom: 5.5rem;
     right: 2.5rem;
     width: 3.75rem;
     height: 3.75rem;
