@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>MyExpense • Income, Expense & Investment Tracker</title>
 
@@ -372,7 +375,7 @@
             <h3 class="text-lg sm:text-xl font-bold text-slate-900">Financial Reports & Analytics</h3>
             <p class="text-xs text-slate-400">Detailed performance reports by daily, weekly, monthly or total</p>
           </div>
-          <button id="export-data-btn" class="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all touch-target">
+          <button id="export-data-btn" onclick="window.app.exportFinancialData()" class="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all touch-target">
             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             Download Full PDF Report
           </button>
@@ -729,8 +732,8 @@
     <span id="toast-message" class="text-xs sm:text-sm font-semibold">Notification message</span>
   </div>
 
-  <script src="js/firebase-config.js?v=3.2"></script>
-  <script src="js/app.js?v=3.2"></script>
+  <script src="js/firebase-config.js?v=pdf_final_9999"></script>
+  <script src="js/app.js?v=pdf_final_9999"></script>
 
 </body>
 </html>
