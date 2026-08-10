@@ -1,23 +1,10 @@
-# KoshWise • Application Version History & Change Log
+# MyExpense • Application Version History & Change Log
 
 ---
 
-## 📌 Version 5.0 (Official Rebranding Release - KoshWise)
-**Folder**: `Versions/Version_5.0_KoshWise_Rebranding/`
-**ZIP Package**: `KoshWise_v5.0_Final.zip` (In Downloads & Desktop)
-
-### ✨ Features & Changes:
-1. **Official Brand Name Rebrand to KoshWise**:
-   - Renamed application to **KoshWise** across all HTML titles, headers, navigation bars, modals, PDF statements, and storage engines.
-2. **New 3D Golden Emerald Vault Logo**:
-   - Generated and integrated a custom modern 3D golden-emerald vault icon (`assets/logo.png`) into favicon, Auth login screen, and main top navigation bar.
-3. **Storage Engine Namespace Update**:
-   - Storage keys updated to `koshwise_*` for clean account isolation.
-
----
-
-## 📌 Version 4.0 (Firebase Console & AI Advisor)
+## 📌 Version 4.0 (Latest Release - Firebase Console & AI Advisor)
 **Folder**: `Versions/Version_4.0_FirebaseConsole_And_AIAdvisor/`
+**ZIP Package**: `MyExpense_v4.0_Final.zip` (In Downloads & Desktop)
 
 ### ✨ Features & Changes:
 1. **Firebase Authentication Integration**:
@@ -25,8 +12,11 @@
    - Connected `onAuthStateChanged` real-time listener for seamless cloud authentication.
 2. **AI Financial Advisor Chatbot**:
    - Added interactive AI Assistant screen with quick suggestion chips (50/30/20 Rule, Low Risk Investments, Cutting Expenses, Emergency Funds, Tax 80C).
+   - Contextual financial guidance analyzing the user's active account metrics.
 3. **Full PDF Financial Report Generator**:
    - Downloadable PDF statement with official header, account info, balance scorecards, category summary, and full itemized transaction history table.
+4. **Elevated FAB Button**:
+   - Fixed floating `+` button placement with 7rem bottom offset for 100% visibility above the bottom navigation bar.
 
 ---
 
@@ -35,8 +25,11 @@
 
 ### ✨ Features & Changes:
 1. **Create New Blank Account Mode**:
+   - Added an explicit toggle button on the Auth screen.
    - New registered accounts start with a **100% Blank Slate** (`₹0.00` balance, 0 transactions).
-2. **Embedded Vector SVG Icons**:
+2. **Account-Keyed Data Isolation**:
+   - Stored transactions specifically under `myexpense_transactions_<user_uid>`.
+3. **Embedded Vector SVG Icons**:
    - Clean embedded vector SVGs for all balance cards, navigation tabs, and modal buttons.
 
 ---
@@ -44,7 +37,18 @@
 ## 📌 Version 2.0 (Firebase & Cloud Sync Release)
 **Folder**: `Versions/Version_2.0_Firebase_MultiUser/`
 
+### ✨ Features & Changes:
+1. **Firebase SDK Integration**:
+   - Added Google OAuth, Email/Password, and Phone OTP auth modules.
+2. **App Branding & Logo**:
+   - Renamed app to **MyExpense** with custom logo (`assets/logo.png`).
+
 ---
 
 ## 📌 Version 1.0 (Initial Base Release)
 **Folder**: `Versions/Version_1.0_Base_FinanceTracker/`
+
+### ✨ Features & Changes:
+1. **Core Finance Tracker Foundation**:
+   - White & Emerald Green responsive design system.
+   - Income, Expense, and Investment logging modal.

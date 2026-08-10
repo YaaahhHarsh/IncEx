@@ -431,7 +431,7 @@ class AIFinancialAdvisor {
     const messagesContainer = document.getElementById('ai-chat-messages');
     if (messagesContainer && messagesContainer.children.length === 0) {
       this.addAIMessage(`
-        👋 Hello <strong>${this.app.user.name || 'Friend'}</strong>! I am your <strong>KoshWise AI Advisor</strong>.<br><br>
+        👋 Hello <strong>${this.app.user.name || 'Friend'}</strong>! I am your <strong>MyExpense AI Advisor</strong>.<br><br>
         Ask me anything about:<br>
         • 💡 <strong>Income Allocation & Budgeting</strong> (e.g., 50/30/20 rule)<br>
         • ✂️ <strong>Expense Reduction Strategies</strong><br>
@@ -541,9 +541,9 @@ class AIFinancialAdvisor {
       return `
         ✂️ <strong>Actionable Steps to Cut Monthly Expenses:</strong><br><br>
         1. ☕ <strong>Audit Unnecessary Subscriptions</strong>: Cancel unused OTT, gym, or digital memberships.<br>
-        2. 🍔 <strong>Cap Dining & Delivery</strong>: Set a strict category limit in KoshWise (e.g. max ${curr}3,000/month).<br>
+        2. 🍔 <strong>Cap Dining & Delivery</strong>: Set a strict category limit in MyExpense (e.g. max ${curr}3,000/month).<br>
         3. ⏳ <strong>The 48-Hour impulse Rule</strong>: Wait 48 hours before buying non-essential items.<br>
-        4. 🧾 <strong>Track Cash Leakages</strong>: Log even small daily cash expenses here in KoshWise.<br><br>
+        4. 🧾 <strong>Track Cash Leakages</strong>: Log even small daily cash expenses here in MyExpense.<br><br>
         Your current total logged expense this month: <strong>${curr}${expense.toLocaleString()}</strong>.
       `;
     }
@@ -573,7 +573,7 @@ class AIFinancialAdvisor {
     }
 
     return `
-      💡 <strong>KoshWise AI Analysis for ${this.app.user.name}:</strong><br><br>
+      💡 <strong>MyExpense AI Analysis for ${this.app.user.name}:</strong><br><br>
       • Current Available Balance: <strong>${curr}${balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong><br>
       • Total Logged Income: <strong>${curr}${income.toLocaleString()}</strong><br>
       • Total Logged Expenses: <strong>${curr}${expense.toLocaleString()}</strong><br><br>
@@ -601,7 +601,7 @@ class AuthManager {
           const user = {
             uid: firebaseUser.uid,
             name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || "User",
-            email: firebaseUser.email || `${firebaseUser.phoneNumber}@KoshWise.app`,
+            email: firebaseUser.email || `${firebaseUser.phoneNumber}@myexpense.app`,
             phone: firebaseUser.phoneNumber || "+91 98765 43210",
             avatar: firebaseUser.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
             authProvider: "Firebase Cloud Auth"
@@ -728,7 +728,7 @@ class AuthManager {
     const isNew = (email === 'new.user@gmail.com');
     const user = {
       name: name || "User",
-      email: email || "user@KoshWise.app",
+      email: email || "user@myexpense.app",
       phone: "+91 98765 43210",
       avatar: avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
       authProvider: "Google Gmail"
@@ -796,7 +796,7 @@ class AuthManager {
 
     const user = {
       name: "Alex Morgan",
-      email: `${this.userPhone.replace(/[^0-9]/g, '')}@KoshWise.app`,
+      email: `${this.userPhone.replace(/[^0-9]/g, '')}@myexpense.app`,
       phone: this.userPhone,
       avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=256&q=80",
       authProvider: "Phone OTP"
@@ -819,8 +819,8 @@ class AuthManager {
 
 class FinPulseApp {
   constructor() {
-    this.user = this.loadLocalStorage('KoshWise_last_user', DEFAULT_USER);
-    this.isLoggedIn = localStorage.getItem('KoshWise_logged_in') === 'true';
+    this.user = this.loadLocalStorage('myexpense_last_user', DEFAULT_USER);
+    this.isLoggedIn = localStorage.getItem('myexpense_logged_in') === 'true';
 
     this.currentTab = 'home';
     this.txFilter = 'all';
@@ -841,7 +841,7 @@ class FinPulseApp {
 
   getUserStorageKey(key) {
     const uid = (this.user && (this.user.uid || this.user.email)) ? (this.user.uid || this.user.email).replace(/[^a-zA-Z0-9]/g, '_') : 'guest';
-    return `KoshWise_${key}_${uid}`;
+    return `myexpense_${key}_${uid}`;
   }
 
   loadLocalStorage(key, fallback) {
@@ -874,10 +874,10 @@ class FinPulseApp {
 
   saveState() {
     if (!this.user) return;
-    localStorage.setItem('KoshWise_last_user', JSON.stringify(this.user));
+    localStorage.setItem('myexpense_last_user', JSON.stringify(this.user));
     localStorage.setItem(this.getUserStorageKey('transactions'), JSON.stringify(this.transactions));
     localStorage.setItem(this.getUserStorageKey('category_budgets'), JSON.stringify(this.categoryBudgets));
-    localStorage.setItem('KoshWise_logged_in', this.isLoggedIn ? 'true' : 'false');
+    localStorage.setItem('myexpense_logged_in', this.isLoggedIn ? 'true' : 'false');
   }
 
   deleteTransaction(id) {
@@ -1043,7 +1043,7 @@ class FinPulseApp {
   handleLogout() {
     this.saveState();
     this.isLoggedIn = false;
-    localStorage.setItem('KoshWise_logged_in', 'false');
+    localStorage.setItem('myexpense_logged_in', 'false');
     
     this.showAuthScreen();
     this.showToast("Logged out successfully.");
@@ -1392,7 +1392,7 @@ class FinPulseApp {
       <html>
       <head>
         <meta charset="utf-8">
-        <title>KoshWise Financial Report - ${this.user.name}</title>
+        <title>MyExpense Financial Report - ${this.user.name}</title>
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap');
           body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; background: #FFFFFF; color: #0F172A; margin: 0; padding: 30px; }
@@ -1414,14 +1414,14 @@ class FinPulseApp {
       </head>
       <body>
         <div class="no-print" style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; background:#ECFDF5; padding:12px 20px; border-radius:12px; border:1px solid #A7F3D0;">
-          <span style="font-size:13px; font-weight:700; color:#047857;">📄 KoshWise PDF Statement Ready</span>
+          <span style="font-size:13px; font-weight:700; color:#047857;">📄 MyExpense PDF Statement Ready</span>
           <button onclick="window.print()" style="background:#059669; color:#FFFFFF; border:none; padding:8px 18px; font-weight:800; border-radius:8px; cursor:pointer; font-size:12px;">Save as PDF / Print</button>
         </div>
 
         <div class="header">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <div>
-              <h1 class="header-title">KoshWise</h1>
+              <h1 class="header-title">MyExpense</h1>
               <p class="header-sub">Official Personal Financial Performance Report (${periodName})</p>
             </div>
             <div style="text-align:right;">
@@ -1491,7 +1491,7 @@ class FinPulseApp {
         </div>
 
         <div class="footer">
-          KoshWise Financial Tracker • Statement Generated on ${nowStr} • Confidential
+          MyExpense Financial Tracker • Statement Generated on ${nowStr} • Confidential
         </div>
       </body>
       </html>
@@ -1511,7 +1511,7 @@ class FinPulseApp {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `KoshWise_Report_${new Date().toISOString().split('T')[0]}.html`;
+      a.download = `MyExpense_Report_${new Date().toISOString().split('T')[0]}.html`;
       a.click();
       URL.revokeObjectURL(url);
       this.showToast("PDF Statement File generated.");
