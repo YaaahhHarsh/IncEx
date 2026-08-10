@@ -571,6 +571,42 @@
         </button>
       </section>
     </main>
+
+    <nav id="bottom-nav-bar" class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 py-2 px-3 shadow-lg bottom-nav-safe">
+      <div class="max-w-md mx-auto flex items-center justify-around">
+        
+        <button data-tab="home" class="nav-item flex flex-col items-center gap-1 text-emerald-600 font-bold transition-all touch-target">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <span class="nav-text text-[11px]">Home</span>
+        </button>
+
+        <button data-tab="transactions" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          <span class="nav-text text-[11px]">Transactions</span>
+        </button>
+
+        <button data-tab="budget" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
+          <span class="nav-text text-[11px]">Budget</span>
+        </button>
+
+        <button data-tab="reports" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <span class="nav-text text-[11px]">Reports</span>
+        </button>
+
+        <button data-tab="ai" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span class="nav-text text-[11px]">AI Advisor</span>
+        </button>
+
+        <button data-tab="profile" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          <span class="nav-text text-[11px]">Profile</span>
+        </button>
+
+      </div>
+    </nav>
   </div>
 
   <button id="floating-plus-btn" style="bottom: 7rem !important; right: 2.5rem !important;" class="fab-button fixed z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full text-white flex items-center justify-center hidden shadow-xl" title="Add Income, Expense or Investment">
@@ -720,42 +756,6 @@
       </form>
     </div>
   </div>
-
-  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 py-2 px-3 shadow-lg bottom-nav-safe">
-    <div class="max-w-md mx-auto flex items-center justify-around">
-      
-      <button data-tab="home" class="nav-item flex flex-col items-center gap-1 text-emerald-600 font-bold transition-all touch-target">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        <span class="nav-text text-[11px]">Home</span>
-      </button>
-
-      <button data-tab="transactions" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-        <span class="nav-text text-[11px]">Transactions</span>
-      </button>
-
-      <button data-tab="budget" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
-        <span class="nav-text text-[11px]">Budget</span>
-      </button>
-
-      <button data-tab="reports" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-        <span class="nav-text text-[11px]">Reports</span>
-      </button>
-
-      <button data-tab="ai" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        <span class="nav-text text-[11px]">AI Advisor</span>
-      </button>
-
-      <button data-tab="profile" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-        <span class="nav-text text-[11px]">Profile</span>
-      </button>
-
-    </div>
-  </nav>
 
   <div id="pin-lock-screen" class="fixed inset-0 z-[100] bg-slate-950/95 backdrop-blur-xl hidden flex-col items-center justify-center p-6 text-white text-center">
     <div class="w-16 h-16 rounded-2xl bg-emerald-600 flex items-center justify-center mb-4 shadow-xl border-2 border-emerald-400 overflow-hidden">
