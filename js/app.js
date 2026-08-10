@@ -695,24 +695,38 @@ class AuthManager {
   handleGoogleLogin() {
     if (typeof firebase !== 'undefined' && firebase.auth) {
       const provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('email');
+      provider.addScope('profile');
+
       firebase.auth().signInWithPopup(provider)
         .then(result => {
           const user = {
             uid: result.user.uid,
-            name: result.user.displayName,
+            name: result.user.displayName || result.user.email?.split('@')[0] || "User",
             email: result.user.email,
             phone: result.user.phoneNumber || "+91 98765 43210",
-            avatar: result.user.photoURL,
+            avatar: result.user.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
             authProvider: "Firebase Google OAuth"
           };
           this.onAuthSuccess(user, this.isRegisterMode);
         })
         .catch(err => {
-          console.warn("Firebase Google Auth Notice:", err.message);
-          const googleModal = document.getElementById('google-account-modal');
-          if (googleModal) {
-            googleModal.classList.remove('hidden');
-            googleModal.classList.add('flex');
+          console.warn("Firebase Google Auth Notice:", err.code, err.message);
+          if (err.code === 'auth/popup-blocked') {
+            firebase.auth().signInWithRedirect(provider);
+          } else if (err.code === 'auth/invalid-api-key' || err.code === 'auth/unauthorized-domain' || err.code === 'auth/operation-not-allowed') {
+            alert(`Firebase Console Setup Notice:\n\n1. Ensure 'Google' sign-in provider is enabled in Firebase Console -> Authentication -> Sign-in method.\n2. Ensure 'yaaahhharsh.github.io' (or localhost) is added under Authorized Domains.\n3. Paste your real Firebase credentials via '⚙️ Configure Custom Firebase SDK Keys'.`);
+            const googleModal = document.getElementById('google-account-modal');
+            if (googleModal) {
+              googleModal.classList.remove('hidden');
+              googleModal.classList.add('flex');
+            }
+          } else {
+            const googleModal = document.getElementById('google-account-modal');
+            if (googleModal) {
+              googleModal.classList.remove('hidden');
+              googleModal.classList.add('flex');
+            }
           }
         });
     } else {
@@ -995,6 +1009,21 @@ class FinPulseApp {
       exportBtn.addEventListener('click', () => this.exportFinancialData());
     }
 
+    const fbForm = document.getElementById('firebase-config-form');
+    if (fbForm) {
+      fbForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const apiKey = document.getElementById('fb-apikey-input').value.trim();
+        const authDomain = document.getElementById('fb-authdomain-input').value.trim();
+        const projectId = document.getElementById('fb-projectid-input').value.trim();
+        const appId = document.getElementById('fb-appid-input').value.trim();
+
+        if (apiKey && authDomain && projectId) {
+          window.firebaseService.saveCustomConfig({ apiKey, authDomain, projectId, appId });
+        }
+      });
+    }
+
     const resetBtn = document.getElementById('reset-data-btn');
     if (resetBtn) {
       resetBtn.addEventListener('click', () => {
@@ -1007,6 +1036,16 @@ class FinPulseApp {
         }
       });
     }
+  }
+
+  openFirebaseConfigModal() {
+    const savedConfig = localStorage.getItem('koshwise_firebase_config');
+    const config = savedConfig ? JSON.parse(savedConfig) : window.DEFAULT_FIREBASE_CONFIG;
+    document.getElementById('fb-apikey-input').value = config.apiKey || '';
+    document.getElementById('fb-authdomain-input').value = config.authDomain || '';
+    document.getElementById('fb-projectid-input').value = config.projectId || '';
+    document.getElementById('fb-appid-input').value = config.appId || '';
+    this.openModal('firebase-config-modal');
   }
 
   setCurrency(code) {
