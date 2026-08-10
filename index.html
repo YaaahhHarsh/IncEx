@@ -153,10 +153,6 @@
       </div>
 
       <div class="mt-5 pt-4 border-t border-slate-100 flex flex-col gap-2 text-center">
-        <button id="demo-login-btn" class="text-xs sm:text-sm text-emerald-700 font-bold hover:underline flex items-center justify-center gap-1.5 mx-auto">
-          <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          Quick Demo One-Click Sign In
-        </button>
         <button onclick="window.app.openFirebaseConfigModal()" class="text-[11px] text-slate-400 hover:text-emerald-600 font-semibold flex items-center justify-center gap-1 mx-auto mt-1">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/></svg>
           ⚙️ Configure Custom Firebase SDK Keys
@@ -199,32 +195,6 @@
           </button>
         </div>
       </form>
-    </div>
-  </div>
-
-  <div id="google-account-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b pb-3">
-        <h3 class="font-bold text-sm text-slate-800">Sign in to KoshWise with Google</h3>
-        <button class="close-modal-btn text-slate-400 hover:text-slate-600" data-modal="google-account-modal">✕</button>
-      </div>
-      <p class="text-xs text-slate-500">Choose a Google Account to continue to KoshWise:</p>
-
-      <div onclick="window.app.authManager.confirmGoogleAccount('alex.morgan@gmail.com', 'Alex Morgan', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80')" class="flex items-center gap-3 p-3 hover:bg-emerald-50 rounded-2xl cursor-pointer border border-slate-100 transition-all">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80" class="w-10 h-10 rounded-full object-cover">
-        <div>
-          <h4 class="font-bold text-xs text-slate-800">Alex Morgan (Demo Account)</h4>
-          <p class="text-[11px] text-slate-400">alex.morgan@gmail.com</p>
-        </div>
-      </div>
-
-      <div onclick="window.app.authManager.confirmGoogleAccount('new.user@gmail.com', 'New User', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80')" class="flex items-center gap-3 p-3 hover:bg-emerald-50 rounded-2xl cursor-pointer border border-slate-100 transition-all">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80" class="w-10 h-10 rounded-full object-cover">
-        <div>
-          <h4 class="font-bold text-xs text-slate-800">New User (Blank Slate Account)</h4>
-          <p class="text-[11px] text-slate-400">new.user@gmail.com</p>
-        </div>
-      </div>
     </div>
   </div>
 

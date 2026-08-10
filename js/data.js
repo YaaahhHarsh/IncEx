@@ -1,17 +1,4 @@
-export const DEFAULT_USER = {
-  name: "Alex Morgan",
-  email: "alex.morgan@gmail.com",
-  phone: "+91 98765 43210",
-  avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
-  currency: "₹",
-  currencyCode: "INR",
-  joinDate: "2026-01-15",
-  budgetLimit: 45000,
-  alertThreshold: 85,
-  pinEnabled: false,
-  pinCode: "1234",
-  notifications: true
-};
+export const DEFAULT_USER = null;
 
 export const CATEGORIES = {
   INCOME: [

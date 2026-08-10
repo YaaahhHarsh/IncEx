@@ -819,22 +819,12 @@ class AuthManager {
     this.onAuthSuccess(user, this.isRegisterMode);
   }
 
-  handleDemoLogin() {
-    const user = {
-      name: "Alex Morgan",
-      email: "alex.morgan@gmail.com",
-      phone: "+91 98765 43210",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
-      authProvider: "Demo Access"
-    };
-    this.onAuthSuccess(user, false);
-  }
 }
 
 class FinPulseApp {
   constructor() {
-    this.user = this.loadLocalStorage('KoshWise_last_user', DEFAULT_USER);
-    this.isLoggedIn = localStorage.getItem('KoshWise_logged_in') === 'true';
+    this.user = this.loadLocalStorage('KoshWise_last_user', null);
+    this.isLoggedIn = localStorage.getItem('KoshWise_logged_in') === 'true' && this.user !== null;
 
     this.currentTab = 'home';
     this.txFilter = 'all';
@@ -846,7 +836,8 @@ class FinPulseApp {
     if (this.isLoggedIn && this.user) {
       this.loadAccountData(this.user);
     } else {
-      this.transactions = [...DEMO_SAMPLE_TRANSACTIONS];
+      this.user = null;
+      this.transactions = [];
       this.categoryBudgets = DEFAULT_CATEGORY_BUDGETS;
     }
 
