@@ -1,10 +1,10 @@
 const DEFAULT_FIREBASE_CONFIG = {
-  apiKey: "AIzaSyDemoApiKeyForKoshWiseApp12345",
-  authDomain: "KoshWise-app-demo.firebaseapp.com",
-  projectId: "KoshWise-app-demo",
-  storageBucket: "KoshWise-app-demo.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:demo1234567890"
+  apiKey: "AIzaSyD3SA4sdPnbcs5V44YJhd0z0b77e-ISJJE",
+  authDomain: "myexpense-42695.firebaseapp.com",
+  projectId: "myexpense-42695",
+  storageBucket: "myexpense-42695.firebasestorage.app",
+  messagingSenderId: "629939635112",
+  appId: "1:629939635112:web:a18285083a10b74042539d"
 };
 
 class FirebaseService {
