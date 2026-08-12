@@ -1056,21 +1056,42 @@ class FinPulseApp {
   }
 
   handleLoginSuccess(user, isNewAccount) {
-    this.user = { ...this.user, ...user };
+    const defaultUserTemplate = {
+      name: "User",
+      email: "user@KoshWise.app",
+      phone: "+91 98765 43210",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
+      currency: "₹",
+      currencyCode: "INR",
+      budgetLimit: 45000,
+      alertThreshold: 85,
+      pinEnabled: false,
+      pinCode: "1234",
+      notifications: true,
+      joinDate: new Date().toISOString().split('T')[0]
+    };
+
+    this.user = {
+      ...defaultUserTemplate,
+      ...(this.user || {}),
+      ...user
+    };
+
+    if (!this.user.currencyCode) this.user.currencyCode = 'INR';
+    if (!this.user.currency) this.user.currency = '₹';
+
     this.isLoggedIn = true;
 
     if (isNewAccount) {
       this.transactions = [];
       this.categoryBudgets = DEFAULT_CATEGORY_BUDGETS;
-      this.saveState();
-      this.showToast(`New Blank Account Created! Welcome ${this.user.name}!`);
     } else {
-      this.loadAccountData(user);
-      this.saveState();
-      this.showToast(`Welcome back, ${this.user.name}!`);
+      this.loadAccountData(this.user);
     }
+    this.saveState();
 
     this.showMainApp();
+    this.showToast(`Welcome ${this.user.name}!`);
   }
 
   handleLogout() {
@@ -1242,7 +1263,7 @@ class FinPulseApp {
   }
 
   createTransactionItemEl(tx) {
-    const curr = this.user.currency || '₹';
+    const curr = (this.user && this.user.currency) ? this.user.currency : '₹';
     const isIncome = tx.type === 'income';
     const isInvestment = tx.type === 'investment';
 
