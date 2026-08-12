@@ -554,59 +554,59 @@ class AIFinancialAdvisor {
     const income = metrics.totalIncome;
     const expense = metrics.totalExpense;
 
-    // SIP / Compound Interest Calculation Engine
-    if (q.includes('sip') || q.includes('compound') || (q.includes('returns') && q.includes('year'))) {
-      const matchAmt = query.match(/(\d+[\d,]*)/);
-      const monthly = matchAmt ? parseInt(matchAmt[1].replace(/,/g, '')) : 5000;
-      const rate = 0.12; // 12% average returns
-      const years = 10;
-      const months = years * 12;
-      const i = rate / 12;
-      
-      const futureValue = Math.round(monthly * (Math.pow(1 + i, months) - 1) * (1 + i) / i);
-      const totalInvested = monthly * months;
-      const estimatedGain = futureValue - totalInvested;
-
+    // Cut Expenses / Food & Dining / Savings
+    if (q.includes('cut') || q.includes('reduce') || q.includes('save') || q.includes('food') || q.includes('dining') || q.includes('expense')) {
       return `
-        📊 <strong>SIP Compound Growth Calculator:</strong><br><br>
-        If you invest <strong>${curr}${monthly.toLocaleString()}/month</strong> at an estimated <strong>12% annual return</strong> for <strong>${years} years</strong>:<br><br>
-        • 💰 <strong>Total Amount Invested</strong>: ${curr}${totalInvested.toLocaleString()}<br>
-        • 📈 <strong>Estimated Wealth Gain</strong>: ${curr}${estimatedGain.toLocaleString()}<br>
-        • 🏆 <strong>Total Future Portfolio Value</strong>: <strong>${curr}${futureValue.toLocaleString()}</strong><br><br>
-        💡 <em>Key Insight: Compounding accelerates rapidly after Year 7! Starting early is more critical than investing large amounts later.</em>
+        ✂️ <strong>Actionable Steps to Cut Monthly Food & Dining Expenses:</strong><br><br>
+        1. 🍔 <strong>Cap Dining & Food Delivery Apps</strong>: Set a strict category budget limit in Spendly (e.g., max ${curr}3,000/month).<br>
+        2. ☕ <strong>Audit Daily Micro-Leaks</strong>: Log daily coffee, snacks, and delivery charges immediately.<br>
+        3. ⏳ <strong>The 48-Hour Impulse Rule</strong>: Wait 48 hours before buying non-essential items.<br>
+        4. 🧾 <strong>Meal Planning & Batch Groceries</strong>: Buy bulk groceries instead of ordering solo meals.<br><br>
+        • Your current total logged expenses this month: <strong>${curr}${expense.toLocaleString()}</strong>.<br>
+        💡 <em>Cutting just ${curr}200/day on impulse dining saves ${curr}6,000/month for your SIP investments!</em>
       `;
     }
 
-    // Business Ideas & Entrepreneurship
-    if (q.includes('business') || q.includes('idea') || q.includes('earning') || q.includes('side hustle')) {
+    // Smart Investments & Wealth Building
+    if (q.includes('invest') || q.includes('sip') || q.includes('mutual fund') || q.includes('stock') || q.includes('risk')) {
       return `
-        🚀 <strong>Top 5 Low-Investment Business & Side-Hustle Ideas:</strong><br><br>
-        1. 💻 <strong>Freelance Digital Services</strong>: Offer UI/UX design, web development, or content creation on Fiverr/Upwork.<br>
-        2. 🎓 <strong>Online Tutoring & Skill Courses</strong>: Teach subjects or specialized skills online.<br>
-        3. 📦 <strong>E-Commerce Niche Reselling</strong>: Curate unique products on Instagram or Shopify.<br>
-        4. 📈 <strong>Financial / Investment Affiliate Advisory</strong>: Share financial tools and earn referral commissions.<br>
-        5. 🎬 <strong>Niche Content Creation</strong>: Start a YouTube channel or blog around financial literacy or tech.<br><br>
-        💡 <em>Recommendation: Reinvest 50% of side hustle earnings directly into growth assets!</em>
+        📈 <strong>Top Smart Investment Strategies for ${userName}:</strong><br><br>
+        1. 💎 <strong>Equity Index Mutual Funds (SIP)</strong>: Ideal for long-term wealth (12-15% historical annual returns). Start a monthly SIP.<br>
+        2. 🛡️ <strong>Sovereign Gold Bonds (SGB) or Gold ETFs</strong>: Excellent hedge against inflation.<br>
+        3. 🏛️ <strong>Public Provident Fund (PPF) / Fixed Deposit</strong>: 100% tax-free guaranteed returns.<br>
+        4. 📊 <strong>Direct Bluechip Equities</strong>: Invest in top fundamental companies (Nifty 50).<br><br>
+        • Your current logged investments: <strong>${curr}${metrics.totalInvestment.toLocaleString()}</strong>.<br>
+        💡 <em>Maintain an Emergency Fund of 3-6 months of expenses before aggressive equity investing!</em>
       `;
     }
 
-    // Coding & Technology Queries
-    if (q.includes('code') || q.includes('python') || q.includes('javascript') || q.includes('program') || q.includes('app')) {
+    // Emergency Fund Benchmark
+    if (q.includes('emergency') || q.includes('fund') || q.includes('backup')) {
+      const monthlyExp = expense > 0 ? expense : 25000;
+      const targetMin = (monthlyExp * 3).toFixed(0);
+      const targetMax = (monthlyExp * 6).toFixed(0);
+
       return `
-        💻 <strong>Code & Software Development Solution:</strong><br><br>
-        Here is a clean snippet matching your request:<br><br>
-        <code class="bg-slate-100 px-2 py-1 rounded text-emerald-700 font-mono text-xs">
-        # Python Finance Tracker Helper<br>
-        income = ${income || 50000}<br>
-        expenses = ${expense || 20000}<br>
-        net_savings = income - expenses<br>
-        print(f"Monthly Savings Rate: {(net_savings/income)*100:.1f}%")
-        </code><br><br>
-        💡 <em>KoshWise PWA built with HTML5, Vanilla JavaScript ES6, TailwindCSS, & Firebase Cloud Auth!</em>
+        🛡️ <strong>Emergency Fund Benchmark for ${userName}:</strong><br><br>
+        Keep <strong>3 to 6 months</strong> of mandatory living expenses liquid in a High-Yield Savings Account or Liquid Mutual Fund.<br><br>
+        • Estimated monthly expenses: <strong>${curr}${monthlyExp.toLocaleString()}</strong><br>
+        • Target Emergency Fund: <strong>${curr}${targetMin.toLocaleString()} – ${curr}${targetMax.toLocaleString()}</strong><br><br>
+        💡 <em>Do not invest your emergency fund in volatile stocks! Keep it accessible for unexpected needs.</em>
       `;
     }
 
-    // 50/30/20 Rule
+    // Tax Saving (Section 80C / 80D)
+    if (q.includes('tax') || q.includes('80c') || q.includes('deduction')) {
+      return `
+        🧾 <strong>Smart Tax Saving Strategies:</strong><br><br>
+        • 📈 <strong>ELSS Tax Saver Mutual Funds</strong>: Shortest lock-in (3 years) + high growth potential (Up to ${curr}1.5 Lakh limit under Section 80C).<br>
+        • 🛡️ <strong>PPF (Public Provident Fund)</strong>: Risk-free EEE tax status.<br>
+        • 🏥 <strong>Health Insurance Premium (Section 80D)</strong>: Save up to ${curr}25,000 to ${curr}50,000 on medical cover.<br>
+        • 🎓 <strong>National Pension System (NPS - 80CCD)</strong>: Extra ${curr}50,000 tax deduction.
+      `;
+    }
+
+    // 50/30/20 Budgeting Rule
     if (q.includes('50/30/20') || q.includes('allocate') || q.includes('split') || q.includes('salary')) {
       const incVal = income > 0 ? income : 50000;
       const needs = (incVal * 0.50).toFixed(0);
@@ -623,9 +623,38 @@ class AIFinancialAdvisor {
       `;
     }
 
+    // Business Ideas & Side Hustles
+    if (q.includes('business') || q.includes('idea') || q.includes('earning') || q.includes('side hustle')) {
+      return `
+        🚀 <strong>Top 5 Low-Investment Business & Side-Hustle Ideas:</strong><br><br>
+        1. 💻 <strong>Freelance Digital Services</strong>: Offer UI/UX design, web development, or content creation on Fiverr/Upwork.<br>
+        2. 🎓 <strong>Online Tutoring & Skill Courses</strong>: Teach subjects or specialized skills online.<br>
+        3. 📦 <strong>E-Commerce Niche Reselling</strong>: Curate unique products on Instagram or Shopify.<br>
+        4. 📈 <strong>Financial / Investment Affiliate Advisory</strong>: Share financial tools and earn referral commissions.<br>
+        5. 🎬 <strong>Niche Content Creation</strong>: Start a YouTube channel or blog around financial literacy or tech.<br><br>
+        💡 <em>Recommendation: Reinvest 50% of side hustle earnings directly into growth assets!</em>
+      `;
+    }
+
+    // Coding & Software
+    if (q.includes('code') || q.includes('python') || q.includes('javascript') || q.includes('program') || q.includes('app')) {
+      return `
+        💻 <strong>Code & Software Development Solution:</strong><br><br>
+        Here is a clean snippet matching your request:<br><br>
+        <code class="bg-slate-100 px-2 py-1 rounded text-emerald-700 font-mono text-xs">
+        # Python Spendly Tracker Helper<br>
+        income = ${income || 50000}<br>
+        expenses = ${expense || 20000}<br>
+        net_savings = income - expenses<br>
+        print(f"Monthly Savings Rate: {(net_savings/income)*100:.1f}%")
+        </code><br><br>
+        💡 <em>Spendly PWA built with HTML5, Vanilla JavaScript ES6, TailwindCSS, & Firebase Cloud Auth!</em>
+      `;
+    }
+
     // General AI fallback for everything else
     return `
-      🧠 <strong>KoshWise ChatGPT AI Assistant Answer for ${userName}:</strong><br><br>
+      🧠 <strong>Spendly AI Assistant Answer for ${userName}:</strong><br><br>
       Here is a comprehensive breakdown regarding your query <em>"${query}"</em>:<br><br>
       • 📌 <strong>Key Overview</strong>: Smart planning and consistency yield long-term success.<br>
       • 📊 <strong>Your Live Financial Context</strong>: Available Balance: <strong>${curr}${balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong> | Income: <strong>${curr}${income.toLocaleString()}</strong> | Expenses: <strong>${curr}${expense.toLocaleString()}</strong>.<br>
