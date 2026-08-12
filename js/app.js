@@ -1129,9 +1129,10 @@ class FinPulseApp {
   }
 
   updateUserProfileHeader() {
-    document.querySelectorAll('.user-name-display').forEach(el => el.textContent = this.user.name);
-    document.querySelectorAll('.user-email-display').forEach(el => el.textContent = this.user.email);
-    document.querySelectorAll('.user-avatar-display').forEach(el => el.src = this.user.avatar);
+    if (!this.user) return;
+    document.querySelectorAll('.user-name-display').forEach(el => el.textContent = this.user.name || 'User');
+    document.querySelectorAll('.user-email-display').forEach(el => el.textContent = this.user.email || '');
+    document.querySelectorAll('.user-avatar-display').forEach(el => el.src = this.user.avatar || 'assets/logo.png');
   }
 
   switchTab(tabName) {
@@ -1177,6 +1178,10 @@ class FinPulseApp {
   }
 
   renderCurrentTab() {
+    if (!this.isLoggedIn || !this.user) {
+      this.showAuthScreen();
+      return;
+    }
     if (this.currentTab === 'home') this.renderHome();
     else if (this.currentTab === 'transactions') this.renderTransactions();
     else if (this.currentTab === 'budget') this.renderBudget();
@@ -1203,6 +1208,7 @@ class FinPulseApp {
   }
 
   renderHome() {
+    if (!this.user) return;
     const { totalIncome, totalExpense, totalInvestment, netBalance } = this.getMetrics();
     const curr = this.user.currency || '₹';
 
@@ -1579,10 +1585,11 @@ class FinPulseApp {
   }
 
   renderProfile() {
-    document.getElementById('profile-display-name').textContent = this.user.name;
-    document.getElementById('profile-display-email').textContent = this.user.email;
-    document.getElementById('profile-display-phone').textContent = this.user.phone;
-    document.getElementById('profile-display-avatar').src = this.user.avatar;
+    if (!this.user) return;
+    document.getElementById('profile-display-name').textContent = this.user.name || 'User';
+    document.getElementById('profile-display-email').textContent = this.user.email || '';
+    document.getElementById('profile-display-phone').textContent = this.user.phone || '';
+    document.getElementById('profile-display-avatar').src = this.user.avatar || 'assets/logo.png';
 
     const editProfileBtn = document.getElementById('open-edit-profile-btn');
     if (editProfileBtn) {
@@ -1591,10 +1598,11 @@ class FinPulseApp {
   }
 
   openEditProfileModal() {
-    document.getElementById('edit-profile-name-input').value = this.user.name;
-    document.getElementById('edit-profile-email-input').value = this.user.email;
-    document.getElementById('edit-profile-phone-input').value = this.user.phone;
-    document.getElementById('profile-avatar-preview').src = this.user.avatar;
+    if (!this.user) return;
+    document.getElementById('edit-profile-name-input').value = this.user.name || '';
+    document.getElementById('edit-profile-email-input').value = this.user.email || '';
+    document.getElementById('edit-profile-phone-input').value = this.user.phone || '';
+    document.getElementById('profile-avatar-preview').src = this.user.avatar || 'assets/logo.png';
     this.tempSelectedAvatar = this.user.avatar;
     this.openModal('edit-profile-modal');
   }
