@@ -608,8 +608,8 @@ class AuthManager {
             authProvider: "Firebase Cloud Auth"
           };
           this.onAuthSuccess(user, this.isRegisterMode);
-        } else if (!firebaseUser || isExplicitLogout) {
-          this.showAuthScreen();
+        } else if (window.app) {
+          window.app.showAuthScreen();
         }
       });
     }
