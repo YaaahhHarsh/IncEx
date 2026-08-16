@@ -1,24 +1,22 @@
-const CACHE_NAME = 'incex-v10.0';
+const CACHE_NAME = 'incex-v11.0';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './css/styles.css',
-  './js/app.js',
-  './js/auth.js',
-  './js/charts.js',
-  './js/data.js',
-  './js/firebase-config.js',
+  './css/styles.css?v=11.0',
+  './js/app.js?v=11.0',
+  './js/charts.js?v=11.0',
+  './js/firebase-config.js?v=11.0',
   './assets/logo.png',
   './manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS_TO_CACHE).catch(err => console.warn('Cache warning:', err));
     })
   );
-  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
@@ -27,6 +25,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
+            console.log('Clearing old cache:', cache);
             return caches.delete(cache);
           }
         })
@@ -38,17 +37,17 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+
+  // Network-first strategy to guarantee instant updates
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        fetch(event.request).then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
-          }
-        }).catch(() => {});
-        return cachedResponse;
+    fetch(event.request).then((networkResponse) => {
+      if (networkResponse && networkResponse.status === 200) {
+        const responseClone = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
       }
-      return fetch(event.request);
+      return networkResponse;
+    }).catch(() => {
+      return caches.match(event.request);
     })
   );
 });
