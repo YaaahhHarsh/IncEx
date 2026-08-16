@@ -996,16 +996,12 @@ class FinPulseApp {
     if (savedTxs !== null) {
       this.transactions = JSON.parse(savedTxs);
     } else {
-      if (this.user.email === 'alex.morgan@gmail.com') {
-        this.transactions = [...DEMO_SAMPLE_TRANSACTIONS];
-      } else {
-        this.transactions = [];
-      }
+      this.transactions = [];
     }
 
     this.categoryBudgets = this.loadLocalStorage(budgetKey, DEFAULT_CATEGORY_BUDGETS);
     this.customCategories = this.loadLocalStorage(customCatKey, []);
-    this.splitGroups = this.loadLocalStorage(groupsKey, INITIAL_GROUPS);
+    this.splitGroups = this.loadLocalStorage(groupsKey, []);
     this.activeGroupId = (this.splitGroups && this.splitGroups.length > 0) ? this.splitGroups[0].id : null;
 
     // Inject saved custom categories into global CATEGORIES array
@@ -2448,9 +2444,7 @@ class FinPulseApp {
   }
 
   renderSplitTab() {
-    if (!this.splitGroups || this.splitGroups.length === 0) {
-      this.splitGroups = INITIAL_GROUPS;
-    }
+    if (!this.splitGroups) this.splitGroups = [];
     if (!this.activeGroupId && this.splitGroups.length > 0) {
       this.activeGroupId = this.splitGroups[0].id;
     }
@@ -2462,6 +2456,11 @@ class FinPulseApp {
   renderSplitGroupsList() {
     const container = document.getElementById('split-groups-list');
     if (!container) return;
+
+    if (!this.splitGroups || this.splitGroups.length === 0) {
+      container.innerHTML = `<span class="text-xs font-bold text-slate-400 py-2 px-3">No groups created yet. Tap "+ Create Group" to start!</span>`;
+      return;
+    }
 
     container.innerHTML = this.splitGroups.map(g => {
       const isActive = g.id === this.activeGroupId;
@@ -2478,17 +2477,31 @@ class FinPulseApp {
   }
 
   renderActiveGroupWorkspace() {
-    const group = this.splitGroups.find(g => g.id === this.activeGroupId) || this.splitGroups[0];
-    if (!group) return;
-
-    const currSymbol = (this.user && this.user.currency) ? this.user.currency : '₹';
-
-    // Set Header Info
+    const group = this.splitGroups.find(g => g.id === this.activeGroupId) || (this.splitGroups.length > 0 ? this.splitGroups[0] : null);
+    
     const avatarEl = document.getElementById('active-group-avatar-display');
     const titleEl = document.getElementById('active-group-title');
     const membersEl = document.getElementById('active-group-members-count');
     const codeEl = document.getElementById('active-group-invite-code');
+    const balancesContainer = document.getElementById('group-balances-summary');
+    const expensesContainer = document.getElementById('group-expenses-list');
+    const chatsContainer = document.getElementById('group-chat-messages-container');
 
+    if (!group) {
+      if (avatarEl) avatarEl.textContent = '🤝';
+      if (titleEl) titleEl.textContent = 'No Active Split Group';
+      if (membersEl) membersEl.textContent = 'Create or join a group to split bills & chat with friends';
+      if (codeEl) codeEl.textContent = 'N/A';
+
+      if (balancesContainer) balancesContainer.innerHTML = `<div class="p-4 text-center text-xs font-semibold text-slate-400">Create a group above to calculate split balances!</div>`;
+      if (expensesContainer) expensesContainer.innerHTML = `<div class="p-4 text-center text-xs font-semibold text-slate-400">No group bill entries logged yet.</div>`;
+      if (chatsContainer) chatsContainer.innerHTML = `<div class="p-4 text-center text-xs font-semibold text-slate-400">Group trip chat will appear here!</div>`;
+      return;
+    }
+
+    const currSymbol = (this.user && this.user.currency) ? this.user.currency : '₹';
+
+    // Set Header Info
     if (avatarEl) avatarEl.textContent = group.avatar || '🌴';
     if (titleEl) titleEl.textContent = group.name;
     if (membersEl) membersEl.textContent = `${group.members.length} members participating`;
@@ -2509,7 +2522,6 @@ class FinPulseApp {
     });
 
     // Render Net Balances & Settlement Cards
-    const balancesContainer = document.getElementById('group-balances-summary');
     if (balancesContainer) {
       balancesContainer.innerHTML = group.members.map(m => {
         const bal = netBalances[m.id] || 0;
