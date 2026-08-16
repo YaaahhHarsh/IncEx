@@ -639,16 +639,16 @@ class AIFinancialAdvisor {
       `;
     }
 
-    // Smart Investments & Wealth Building
-    if (q.includes('invest') || q.includes('sip') || q.includes('mutual fund') || q.includes('stock') || q.includes('risk')) {
+    // Smart Investments, ETFs & Wealth Building
+    if (q.includes('etf') || q.includes('invet') || q.includes('invest') || q.includes('sip') || q.includes('mutual fund') || q.includes('stock') || q.includes('share') || q.includes('gold') || q.includes('risk')) {
       return `
-        📈 <strong>Top Smart Investment Strategies for ${userName}:</strong><br><br>
-        1. 💎 <strong>Equity Index Mutual Funds (SIP)</strong>: Ideal for long-term wealth (12-15% historical annual returns). Start a monthly SIP.<br>
-        2. 🛡️ <strong>Sovereign Gold Bonds (SGB) or Gold ETFs</strong>: Excellent hedge against inflation.<br>
-        3. 🏛️ <strong>Public Provident Fund (PPF) / Fixed Deposit</strong>: 100% tax-free guaranteed returns.<br>
-        4. 📊 <strong>Direct Bluechip Equities</strong>: Invest in top fundamental companies (Nifty 50).<br><br>
+        📈 <strong>Top ETF & Smart Investment Guide for ${userName}:</strong><br><br>
+        1. 📊 <strong>Nifty 50 Index ETFs</strong> (e.g. NIFTYBEES, SETFNIF50): Low-cost index tracking top 50 Indian bluechip companies.<br>
+        2. 🚀 <strong>Nifty Next 50 / Midcap 150 ETFs</strong>: Higher growth potential for long-term wealth compounding.<br>
+        3. 🥇 <strong>Gold ETFs & Sovereign Gold Bonds (SGB)</strong>: Best inflation hedge and portfolio diversification.<br>
+        4. 🌎 <strong>International Equity ETFs</strong> (e.g. MON100 - Nasdaq 100 ETF): Exposure to global tech giants (Apple, Microsoft, Nvidia).<br><br>
         • Your current logged investments: <strong>${curr}${metrics.totalInvestment.toLocaleString()}</strong>.<br>
-        💡 <em>Maintain an Emergency Fund of 3-6 months of expenses before aggressive equity investing!</em>
+        💡 <em>Pro Tip: Invest via Monthly SIP in Index ETFs to average out market volatility!</em>
       `;
     }
 
@@ -723,7 +723,7 @@ class AIFinancialAdvisor {
 
     // General AI fallback for everything else
     return `
-      🧠 <strong>Spendly AI Assistant Answer for ${userName}:</strong><br><br>
+      🧠 <strong>IncEx AI Advisor Answer for ${userName}:</strong><br><br>
       Here is a comprehensive breakdown regarding your query <em>"${query}"</em>:<br><br>
       • 📌 <strong>Key Overview</strong>: Smart planning and consistency yield long-term success.<br>
       • 📊 <strong>Your Live Financial Context</strong>: Available Balance: <strong>${curr}${balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong> | Income: <strong>${curr}${income.toLocaleString()}</strong> | Expenses: <strong>${curr}${expense.toLocaleString()}</strong>.<br>
