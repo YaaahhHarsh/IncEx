@@ -513,38 +513,50 @@ class AIFinancialAdvisor {
 
     const geminiKey = localStorage.getItem('IncEx_gemini_key');
 
-    // 1. Direct Live Google Gemini 1.5 Flash API Call (If User entered free key)
+    // 1. Direct Live Google Gemini API Call (If User entered free key)
     if (geminiKey) {
       try {
         const systemPrompt = `You are IncEx AI, an intelligent real AI financial advisor chatbot. User Name: ${userName}. User Financial Overview: Balance ${curr}${metrics.netBalance}, Monthly Income ${curr}${metrics.totalIncome}, Monthly Expenses ${curr}${metrics.totalExpense}, Logged Investments ${curr}${metrics.totalInvestment}. Answer ANY query (personal finance, SIPs, stocks, budgeting, coding, math, general advice) clearly with bold markdown, bullet points, and emojis.`;
 
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 12000);
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
+        let response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           signal: controller.signal,
           body: JSON.stringify({
-            contents: [{
-              parts: [{ text: `${systemPrompt}\n\nUser Question: ${query}` }]
-            }]
+            contents: [{ parts: [{ text: `${systemPrompt}\n\nUser Question: ${query}` }] }]
           })
         });
+
+        if (!response.ok) {
+          response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            signal: controller.signal,
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `${systemPrompt}\n\nUser Question: ${query}` }] }]
+            })
+          });
+        }
         clearTimeout(timeoutId);
 
         if (response.ok) {
           const data = await response.json();
-          if (data && data.candidates && data.candidates[0] && data.candidates[0].content) {
+          if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
             const text = data.candidates[0].content.parts[0].text;
             this.showTyping(false);
             const formattedHTML = this.formatMarkdownToHTML(text);
             this.streamAIMessage(formattedHTML);
             return;
           }
+        } else {
+          const errData = await response.json().catch(() => ({}));
+          console.warn("Gemini API Error:", response.status, errData);
         }
       } catch (err) {
-        console.log("Gemini API notice:", err.message);
+        console.log("Gemini API Notice:", err.message);
       }
     }
 
