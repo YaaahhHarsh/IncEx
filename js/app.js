@@ -1167,7 +1167,7 @@ class FinPulseApp {
   }
 
   openFirebaseConfigModal() {
-    const savedConfig = localStorage.getItem('koshwise_firebase_config');
+    const savedConfig = localStorage.getItem('incex_firebase_config');
     const config = savedConfig ? JSON.parse(savedConfig) : window.DEFAULT_FIREBASE_CONFIG;
     document.getElementById('fb-apikey-input').value = config.apiKey || '';
     document.getElementById('fb-authdomain-input').value = config.authDomain || '';
@@ -1192,7 +1192,7 @@ class FinPulseApp {
   handleLoginSuccess(user, isNewAccount) {
     const defaultUserTemplate = {
       name: "User",
-      email: "user@KoshWise.app",
+      email: "user@IncEx.app",
       phone: "+91 98765 43210",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
       currency: "₹",
@@ -1756,6 +1756,7 @@ class FinPulseApp {
     if (printWin) {
       printWin.document.open();
       printWin.document.write(reportHTML);
+      printWin.document.title = `IncEx_Report_${new Date().toISOString().split('T')[0]}`;
       printWin.document.close();
       setTimeout(() => {
         printWin.print();
@@ -1988,7 +1989,7 @@ class FinPulseApp {
           this.deferredInstallPrompt.prompt();
           this.deferredInstallPrompt.userChoice.then((choiceResult) => {
             if (choiceResult.outcome === 'accepted') {
-              this.showToast("KoshWise App installed successfully!");
+              this.showToast("IncEx App installed successfully!");
             }
             installBtn.classList.add('hidden');
           });
@@ -1999,15 +2000,20 @@ class FinPulseApp {
 
   // 2. OLED Dark Mode Toggle
   initDarkMode() {
-    const isDark = localStorage.getItem('koshwise_dark_mode') === 'true';
+    const isDark = localStorage.getItem('incex_dark_mode') === 'true';
     if (isDark) {
       document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
   }
 
   toggleDarkMode() {
     const isDark = document.documentElement.classList.toggle('dark');
-    localStorage.setItem('koshwise_dark_mode', isDark);
+    localStorage.setItem('incex_dark_mode', isDark);
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    }
     this.showToast(isDark ? "OLED Dark Mode Enabled 🌙" : "Light Mode Enabled ☀️");
   }
 
@@ -2103,7 +2109,7 @@ class FinPulseApp {
   // 5. Security PIN Lock System
   initSecurityPin() {
     this.currentPinInput = '';
-    const savedPin = localStorage.getItem('koshwise_pin_code');
+    const savedPin = localStorage.getItem('incex_pin_code');
     if (savedPin && savedPin.length === 4) {
       const lockScreen = document.getElementById('pin-lock-screen');
       if (lockScreen) {
@@ -2138,8 +2144,8 @@ class FinPulseApp {
     }
   }
 
-  submitPinKey() {
-    const savedPin = localStorage.getItem('koshwise_pin_code') || '1234';
+  verifyPinCode() {
+    const savedPin = localStorage.getItem('incex_pin_code') || '1234';
     if (this.currentPinInput === savedPin || this.currentPinInput === '1234') {
       const lockScreen = document.getElementById('pin-lock-screen');
       if (lockScreen) {
