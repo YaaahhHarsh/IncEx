@@ -563,45 +563,50 @@
       </section>
 
       <section id="page-profile" class="tab-view-page space-y-6 hidden">
-        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-5">
-          <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-            <img id="profile-display-avatar" src="" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-emerald-500 object-cover shadow-md">
+        <div class="bg-[#151827] p-6 sm:p-8 rounded-3xl border border-[#23273B] shadow-xl flex flex-col md:flex-row items-center justify-between gap-5 relative overflow-hidden">
+          <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#7B86D9]/10 rounded-full blur-2xl pointer-events-none"></div>
+
+          <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left relative">
+            <img id="profile-display-avatar" src="" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border-2 border-[#7B86D9] object-cover shadow-lg shadow-[#3F4B8F]/20">
             <div>
-              <h3 id="profile-display-name" class="text-xl sm:text-2xl font-extrabold text-slate-900">Alex Morgan</h3>
-              <p id="profile-display-email" class="text-xs sm:text-sm text-slate-400 mt-0.5">alex.morgan@gmail.com</p>
-              <span id="profile-display-phone" class="inline-block mt-2 px-3 py-1 bg-slate-100 text-slate-600 font-semibold text-xs rounded-full">
+              <div class="flex items-center justify-center sm:justify-start gap-2">
+                <h3 id="profile-display-name" class="text-xl sm:text-2xl font-black text-[#E0E2EF]">Alex Morgan</h3>
+                <span class="text-xs px-2 py-0.5 bg-[#3F4B8F]/30 text-[#7B86D9] font-bold rounded-full border border-[#7B86D9]/30">Verified</span>
+              </div>
+              <p id="profile-display-email" class="text-xs sm:text-sm text-[#777C91] mt-0.5">alex.morgan@gmail.com</p>
+              <span id="profile-display-phone" class="inline-block mt-2 px-3 py-1 bg-[#0B0D17] text-[#7B86D9] border border-[#23273B] font-bold text-xs rounded-xl">
                 +91 98765 43210
               </span>
             </div>
           </div>
-          <button id="open-edit-profile-btn" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all touch-target">
-            Edit Personal Profile
+          <button id="open-edit-profile-btn" class="px-5 py-3 bg-[#3F4B8F] hover:bg-[#5663B0] text-white font-extrabold text-xs sm:text-sm rounded-2xl shadow-md transition-all touch-target">
+            ✏️ Edit Personal Profile
           </button>
         </div>
 
-        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-5">
-          <div class="flex items-center gap-2 border-b pb-3">
-            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/></svg>
-            <h4 class="font-extrabold text-base sm:text-lg text-slate-900">Application Settings & Firebase Cloud</h4>
+        <div class="bg-[#151827] p-6 sm:p-8 rounded-3xl border border-[#23273B] shadow-xl space-y-5">
+          <div class="flex items-center gap-2 border-b border-[#23273B] pb-3">
+            <svg class="w-5 h-5 text-[#7B86D9]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/></svg>
+            <h4 class="font-extrabold text-base sm:text-lg text-[#E0E2EF]">Application Settings & Cloud Sync</h4>
           </div>
 
           <div class="space-y-4">
-            <div class="flex items-center justify-between py-2 border-b border-slate-50">
+            <div class="flex items-center justify-between py-2 border-b border-[#23273B]">
               <div>
-                <h5 class="font-bold text-sm text-slate-800">Firebase Cloud Backend</h5>
-                <p class="text-xs text-slate-400">Real-time Auth & Cloud Firestore sync status</p>
+                <h5 class="font-bold text-sm text-[#E0E2EF]">Firebase Cloud Backend</h5>
+                <p class="text-xs text-[#777C91]">Real-time Auth & Cloud Firestore sync status</p>
               </div>
-              <span class="px-3 py-1 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-full border border-emerald-200 flex items-center gap-1">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Active
+              <span class="px-3 py-1 bg-[#3F4B8F]/20 text-[#7B86D9] font-bold text-xs rounded-full border border-[#7B86D9]/30 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[#7B86D9] animate-ping"></span> Active
               </span>
             </div>
 
-            <div class="flex items-center justify-between py-2 border-b border-slate-50">
+            <div class="flex items-center justify-between py-2 border-b border-[#23273B]">
               <div>
-                <h5 class="font-bold text-sm text-slate-800">Primary Currency</h5>
-                <p class="text-xs text-slate-400">Select default currency symbol formatting</p>
+                <h5 class="font-bold text-sm text-[#E0E2EF]">Primary Currency</h5>
+                <p class="text-xs text-[#777C91]">Select default currency symbol formatting</p>
               </div>
-              <select id="settings-currency-select" class="header-currency-select px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-700 focus:outline-none cursor-pointer">
+              <select id="settings-currency-select" class="header-currency-select px-3.5 py-2 bg-[#0B0D17] border border-[#23273B] rounded-xl text-xs sm:text-sm font-bold text-[#E0E2EF] focus:outline-none cursor-pointer">
                 <option value="INR">₹ INR (Rupee)</option>
                 <option value="USD">$ USD (Dollar)</option>
                 <option value="EUR">€ EUR (Euro)</option>
@@ -612,36 +617,36 @@
               </select>
             </div>
 
-            <div class="flex items-center justify-between py-2 border-b border-slate-50">
+            <div class="flex items-center justify-between py-2 border-b border-[#23273B]">
               <div>
-                <h5 class="font-bold text-sm text-slate-800">Budget Exceeded Alerts</h5>
-                <p class="text-xs text-slate-400">Show visual alert banners when limit is breached</p>
+                <h5 class="font-bold text-sm text-[#E0E2EF]">Budget Exceeded Alerts</h5>
+                <p class="text-xs text-[#777C91]">Show visual alert banners when limit is breached</p>
               </div>
-              <input type="checkbox" checked class="w-5 h-5 accent-emerald-600 rounded cursor-pointer">
+              <input type="checkbox" checked class="w-5 h-5 accent-[#3F4B8F] rounded cursor-pointer">
             </div>
 
-            <div class="flex items-center justify-between py-2 border-b border-slate-50">
+            <div class="flex items-center justify-between py-2 border-b border-[#23273B]">
               <div>
-                <h5 class="font-bold text-sm text-slate-800">Security App PIN</h5>
-                <p class="text-xs text-slate-400">Require PIN code upon app startup</p>
+                <h5 class="font-bold text-sm text-[#E0E2EF]">Security App PIN</h5>
+                <p class="text-xs text-[#777C91]">Require PIN code upon app startup</p>
               </div>
-              <input type="checkbox" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer">
+              <input type="checkbox" class="w-5 h-5 accent-[#3F4B8F] rounded cursor-pointer">
             </div>
 
             <div class="flex items-center justify-between py-2">
               <div>
-                <h5 class="font-bold text-sm text-red-600">Reset Account Data</h5>
-                <p class="text-xs text-slate-400">Clear transactions and reset to sample data</p>
+                <h5 class="font-bold text-sm text-red-400">Reset Account Data</h5>
+                <p class="text-xs text-[#777C91]">Clear all logged entries and start clean</p>
               </div>
-              <button id="reset-data-btn" class="px-4 py-2 bg-red-50 text-red-600 hover:bg-red-100 font-bold text-xs rounded-xl border border-red-200 transition-all">
+              <button id="reset-data-btn" class="px-4 py-2 bg-red-950/40 text-red-400 hover:bg-red-900/60 font-bold text-xs rounded-xl border border-red-800/40 transition-all">
                 Reset Account Data
               </button>
             </div>
           </div>
         </div>
 
-        <button id="logout-btn" class="w-full py-3.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-sm rounded-2xl transition-all touch-target">
-          Sign Out of Account
+        <button id="logout-btn" class="w-full py-3.5 bg-[#151827] hover:bg-[#1E2338] text-[#E0E2EF] border border-[#23273B] font-extrabold text-sm rounded-2xl transition-all touch-target shadow-md">
+          Sign Out of Account 🚪
         </button>
       </section>
 
