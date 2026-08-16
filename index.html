@@ -221,9 +221,9 @@
           <button onclick="window.app.switchTab('split')" class="desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-emerald-600 transition-all flex items-center gap-1">
             <span>🤝</span> Split Bill
           </button>
-          <button onclick="window.app.switchTab('transactions')" class="desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-emerald-600 transition-all">Transactions</button>
-          <button onclick="window.app.switchTab('budget')" class="desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-emerald-600 transition-all">Budget</button>
-          <button onclick="window.app.switchTab('reports')" class="desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-emerald-600 transition-all">Reports</button>
+          <button onclick="window.app.openQuickHubModal()" class="desktop-nav-link px-4 py-2 text-xs font-extrabold rounded-xl text-emerald-800 bg-emerald-100/70 hover:bg-emerald-200/80 transition-all flex items-center gap-1.5 shadow-sm">
+            <span>⚡</span> Management Hub
+          </button>
           <button onclick="window.app.switchTab('ai')" class="desktop-nav-link px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-emerald-600 transition-all flex items-center gap-1.5">
             <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             AI Advisor
@@ -743,19 +743,9 @@
           <span class="nav-text text-[11px]">Split Bill</span>
         </button>
 
-        <button data-tab="transactions" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-          <span class="nav-text text-[11px]">Transactions</span>
-        </button>
-
-        <button data-tab="budget" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
-          <span class="nav-text text-[11px]">Budget</span>
-        </button>
-
-        <button data-tab="reports" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-          <span class="nav-text text-[11px]">Reports</span>
+        <button onclick="window.app.openQuickHubModal()" class="nav-item flex flex-col items-center gap-1 text-slate-400 hover:text-emerald-600 transition-all touch-target">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span class="nav-text text-[11px] font-extrabold text-emerald-700">Hub</span>
         </button>
 
         <button data-tab="ai" class="nav-item flex flex-col items-center gap-1 text-slate-400 transition-all touch-target">
