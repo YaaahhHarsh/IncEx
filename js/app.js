@@ -1632,11 +1632,11 @@ class FinPulseApp {
 
         txRowsHTML += `
           <tr style="background-color: ${bgRow};">
-            <td style="padding:10px; border-bottom:1px solid #E2E8F0; font-size:12px;">${tx.date}</td>
-            <td style="padding:10px; border-bottom:1px solid #E2E8F0; font-size:11px; font-weight:800; color:${typeColor};">${typeLabel}</td>
-            <td style="padding:10px; border-bottom:1px solid #E2E8F0; font-size:12px; font-weight:600;">${tx.categoryName || 'General'}</td>
-            <td style="padding:10px; border-bottom:1px solid #E2E8F0; font-size:12px; color:#64748B;">${tx.paymentMethod || 'Cash'} ${tx.notes ? '• (' + tx.notes + ')' : ''}</td>
-            <td style="padding:10px; border-bottom:1px solid #E2E8F0; font-size:12px; font-weight:700; text-align:right; color:${typeColor};">${curr}${Number(tx.amount).toFixed(2)}</td>
+            <td style="padding:10px; border-bottom:1px solid #23273B; font-size:12px; color:#E0E2EF;">${tx.date}</td>
+            <td style="padding:10px; border-bottom:1px solid #23273B; font-size:11px; font-weight:800; color:${typeColor};">${typeLabel}</td>
+            <td style="padding:10px; border-bottom:1px solid #23273B; font-size:12px; font-weight:600; color:#E0E2EF;">${tx.categoryName || 'General'}</td>
+            <td style="padding:10px; border-bottom:1px solid #23273B; font-size:12px; color:#777C91;">${tx.paymentMethod || 'Cash'} ${tx.notes ? '• (' + tx.notes + ')' : ''}</td>
+            <td style="padding:10px; border-bottom:1px solid #23273B; font-size:12px; font-weight:700; text-align:right; color:${typeColor};">${curr}${Number(tx.amount).toFixed(2)}</td>
           </tr>
         `;
       });
@@ -1647,36 +1647,36 @@ class FinPulseApp {
       <html>
       <head>
         <meta charset="utf-8">
-        <title>KoshWise Financial Report - ${this.user.name}</title>
+        <title>IncEx Financial Report - ${this.user.name}</title>
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap');
-          body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; background: #FFFFFF; color: #0F172A; margin: 0; padding: 30px; }
-          .header { background: linear-gradient(135deg, #059669 0%, #10B981 100%); color: #FFFFFF; padding: 24px; border-radius: 16px; margin-bottom: 24px; }
-          .header-title { margin: 0; font-size: 26px; font-weight: 900; letter-spacing: -0.5px; }
+          body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; background: #0B0D17; color: #E0E2EF; margin: 0; padding: 30px; }
+          .header { background: linear-gradient(135deg, #3F4B8F 0%, #5663B0 100%); color: #FFFFFF; padding: 24px; border-radius: 20px; margin-bottom: 24px; box-shadow: 0 10px 25px rgba(63, 75, 143, 0.3); }
+          .header-title { margin: 0; font-size: 28px; font-weight: 900; letter-spacing: -0.5px; }
           .header-sub { margin: 4px 0 0 0; font-size: 13px; opacity: 0.9; }
           .grid { display: flex; gap: 12px; margin-bottom: 24px; }
-          .card { flex: 1; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 14px; border-radius: 12px; text-align: center; }
-          .card-title { font-size: 10px; font-weight: 800; color: #64748B; display: block; text-transform: uppercase; }
-          .card-val { margin: 4px 0 0 0; font-size: 18px; font-weight: 900; }
+          .card { flex: 1; background: #151827; border: 1px solid #23273B; padding: 16px; border-radius: 16px; text-align: center; }
+          .card-title { font-size: 10px; font-weight: 800; color: #777C91; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+          .card-val { margin: 6px 0 0 0; font-size: 18px; font-weight: 900; }
           table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-          th { background: #F1F5F9; padding: 10px; font-size: 11px; color: #475569; text-align: left; font-weight: 800; text-transform: uppercase; }
-          .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #E2E8F0; text-align: center; font-size: 11px; color: #94A3B8; }
+          th { background: #151827; padding: 12px; font-size: 11px; color: #777C91; text-align: left; font-weight: 800; text-transform: uppercase; border-bottom: 2px solid #23273B; }
+          .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #23273B; text-align: center; font-size: 11px; color: #777C91; }
           @media print {
-            body { padding: 0; }
+            body { background: #0B0D17 !important; color: #E0E2EF !important; padding: 0; }
             .no-print { display: none !important; }
           }
         </style>
       </head>
       <body>
-        <div class="no-print" style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; background:#ECFDF5; padding:12px 20px; border-radius:12px; border:1px solid #A7F3D0;">
-          <span style="font-size:13px; font-weight:700; color:#047857;">📄 KoshWise PDF Statement Ready</span>
-          <button onclick="window.print()" style="background:#059669; color:#FFFFFF; border:none; padding:8px 18px; font-weight:800; border-radius:8px; cursor:pointer; font-size:12px;">Save as PDF / Print</button>
+        <div class="no-print" style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; background:#151827; padding:14px 20px; border-radius:16px; border:1px solid #23273B;">
+          <span style="font-size:13px; font-weight:700; color:#7B86D9;">📄 IncEx PDF Statement Ready</span>
+          <button onclick="window.print()" style="background:#3F4B8F; color:#FFFFFF; border:none; padding:10px 20px; font-weight:800; border-radius:12px; cursor:pointer; font-size:12px;">Save as PDF / Print</button>
         </div>
 
         <div class="header">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <div>
-              <h1 class="header-title">KoshWise</h1>
+              <h1 class="header-title">IncEx</h1>
               <p class="header-sub">Official Personal Financial Performance Report (${periodName})</p>
             </div>
             <div style="text-align:right;">
@@ -1688,31 +1688,31 @@ class FinPulseApp {
         </div>
 
         <div class="grid">
-          <div class="card" style="background:#ECFDF5; border-color:#A7F3D0;">
-            <span class="card-title" style="color:#047857;">Total Balance</span>
-            <h3 class="card-val" style="color:#047857;">${curr}${netBalance.toFixed(2)}</h3>
+          <div class="card">
+            <span class="card-title">Total Balance</span>
+            <h3 class="card-val" style="color:#7B86D9;">${curr}${netBalance.toFixed(2)}</h3>
           </div>
-          <div class="card" style="background:#F0FDF4; border-color:#BBF7D0;">
-            <span class="card-title" style="color:#15803D;">Income</span>
-            <h3 class="card-val" style="color:#15803D;">${curr}${totalIncome.toFixed(2)}</h3>
+          <div class="card">
+            <span class="card-title">Income</span>
+            <h3 class="card-val" style="color:#7B86D9;">${curr}${totalIncome.toFixed(2)}</h3>
           </div>
-          <div class="card" style="background:#FEF2F2; border-color:#FECACA;">
-            <span class="card-title" style="color:#B91C1C;">Expense</span>
-            <h3 class="card-val" style="color:#B91C1C;">${curr}${totalExpense.toFixed(2)}</h3>
+          <div class="card">
+            <span class="card-title">Expense</span>
+            <h3 class="card-val" style="color:#EF4444;">${curr}${totalExpense.toFixed(2)}</h3>
           </div>
-          <div class="card" style="background:#F5F3FF; border-color:#DDD6FE;">
-            <span class="card-title" style="color:#6D28D9;">Investments</span>
-            <h3 class="card-val" style="color:#6D28D9;">${curr}${totalInvestment.toFixed(2)}</h3>
+          <div class="card">
+            <span class="card-title">Investments</span>
+            <h3 class="card-val" style="color:#8B5CF6;">${curr}${totalInvestment.toFixed(2)}</h3>
           </div>
           <div class="card">
             <span class="card-title">Savings Rate</span>
-            <h3 class="card-val" style="color:#059669;">${savingsRate}%</h3>
+            <h3 class="card-val" style="color:#7B86D9;">${savingsRate}%</h3>
           </div>
         </div>
 
         ${catRowsHTML ? `
         <div style="margin-bottom:24px;">
-          <h4 style="margin:0 0 8px 0; font-size:14px; font-weight:800; color:#1E293B;">Category Expense Breakdown</h4>
+          <h4 style="margin:0 0 8px 0; font-size:14px; font-weight:800; color:#E0E2EF;">Category Expense Breakdown</h4>
           <table>
             <thead>
               <tr>
@@ -1728,7 +1728,7 @@ class FinPulseApp {
         ` : ''}
 
         <div>
-          <h4 style="margin:0 0 8px 0; font-size:14px; font-weight:800; color:#1E293B;">Full Itemized Transaction History (${this.transactions.length} items)</h4>
+          <h4 style="margin:0 0 8px 0; font-size:14px; font-weight:800; color:#E0E2EF;">Full Itemized Transaction History (${this.transactions.length} items)</h4>
           <table>
             <thead>
               <tr>
@@ -1746,7 +1746,7 @@ class FinPulseApp {
         </div>
 
         <div class="footer">
-          KoshWise Financial Tracker • Statement Generated on ${nowStr} • Confidential
+          IncEx Financial Tracker • Statement Generated on ${nowStr} • Confidential
         </div>
       </body>
       </html>
@@ -1760,7 +1760,7 @@ class FinPulseApp {
       setTimeout(() => {
         printWin.print();
       }, 400);
-      this.showToast("Opening PDF Financial Report...");
+      this.showToast("Opening IncEx PDF Financial Report...");
     } else {
       const blob = new Blob([reportHTML], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
