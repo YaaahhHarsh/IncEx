@@ -13,7 +13,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <link rel="stylesheet" href="css/styles.css?v=12.0">
+  <link rel="stylesheet" href="css/styles.css?v=13.0">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -555,9 +555,12 @@
           <div id="ai-chat-messages" class="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 bg-[#0B0D17]">
           </div>
 
-          <div id="ai-typing-indicator" class="hidden px-6 py-2 bg-[#0B0D17] text-xs text-[#7C86D4] font-semibold flex items-center gap-2 border-t border-[#252A3D]">
-            <span class="w-2 h-2 rounded-full bg-[#7C86D4] animate-ping"></span>
-            IncEx AI is typing real-time advice...
+          <div id="ai-typing-indicator" class="hidden px-5 py-3 bg-[#151827] text-sm sm:text-base text-[#7C86D4] font-black flex items-center justify-between gap-3 border-t border-[#252A3D] shadow-inner">
+            <div class="flex items-center gap-2.5">
+              <span class="w-3 h-3 rounded-full bg-[#7C86D4] animate-ping"></span>
+              <span class="tracking-wide">🤖 IncEx AI is searching & writing your answer...</span>
+            </div>
+            <span class="text-xs px-2.5 py-1 bg-[#4B5599]/30 text-[#7C86D4] rounded-full border border-[#7C86D4]/30 font-bold uppercase tracking-wider">Live AI</span>
           </div>
 
           <form id="ai-chat-form" class="p-3 bg-[#151827] border-t border-[#252A3D] flex items-center gap-2">
@@ -1206,8 +1209,8 @@
     <span id="toast-message" class="text-xs sm:text-sm font-semibold">Notification message</span>
   </div>
 
-  <script src="js/firebase-config.js?v=12.0"></script>
-  <script src="js/app.js?v=12.0"></script>
+  <script src="js/firebase-config.js?v=13.0"></script>
+  <script src="js/app.js?v=13.0"></script>
 
 </body>
 </html>

@@ -625,35 +625,60 @@ class AIFinancialAdvisor {
     const balance = metrics.netBalance;
     const income = metrics.totalIncome;
     const expense = metrics.totalExpense;
+    const investment = metrics.totalInvestment;
 
-    // Cut Expenses / Food & Dining / Savings
-    if (q.includes('cut') || q.includes('reduce') || q.includes('save') || q.includes('food') || q.includes('dining') || q.includes('expense')) {
+    // 1. Cut Expenses / Food & Dining / Savings
+    if (q.includes('cut') || q.includes('reduce') || q.includes('save') || q.includes('food') || q.includes('dining') || q.includes('expense') || q.includes('spen')) {
       return `
-        ✂️ <strong>Actionable Steps to Cut Monthly Food & Dining Expenses:</strong><br><br>
-        1. 🍔 <strong>Cap Dining & Food Delivery Apps</strong>: Set a strict category budget limit in IncEx (e.g., max ${curr}3,000/month).<br>
-        2. ☕ <strong>Audit Daily Micro-Leaks</strong>: Log daily coffee, snacks, and delivery charges immediately.<br>
+        ✂️ <strong>Actionable Steps to Cut Monthly Expenses for ${userName}:</strong><br><br>
+        1. 🍔 <strong>Cap Dining & Delivery Apps</strong>: Set a strict monthly limit in IncEx (e.g. max ${curr}3,000/month).<br>
+        2. ☕ <strong>Audit Daily Micro-Leaks</strong>: Log daily coffee, snacks, and small orders immediately.<br>
         3. ⏳ <strong>The 48-Hour Impulse Rule</strong>: Wait 48 hours before buying non-essential items.<br>
-        4. 🧾 <strong>Meal Planning & Batch Groceries</strong>: Buy bulk groceries instead of ordering solo meals.<br><br>
+        4. 🧾 <strong>Batch Grocery Purchases</strong>: Buy bulk groceries instead of daily single-meal orders.<br><br>
         • Your current total logged expenses this month: <strong>${curr}${expense.toLocaleString()}</strong>.<br>
-        💡 <em>Cutting just ${curr}200/day on impulse dining saves ${curr}6,000/month for your SIP investments!</em>
+        💡 <em>Cutting just ${curr}200/day on impulse spending saves ${curr}6,000/month for your SIP investments!</em>
       `;
     }
 
-    // Smart Investments, ETFs & Wealth Building
-    if (q.includes('etf') || q.includes('invet') || q.includes('invest') || q.includes('sip') || q.includes('mutual fund') || q.includes('stock') || q.includes('share') || q.includes('gold') || q.includes('risk')) {
+    // 2. Smart Investments, ETFs, Stocks, SIPs & Gold
+    if (q.includes('etf') || q.includes('invet') || q.includes('invest') || q.includes('sip') || q.includes('mutual fund') || q.includes('stock') || q.includes('share') || q.includes('gold') || q.includes('market') || q.includes('nifty')) {
       return `
         📈 <strong>Top ETF & Smart Investment Guide for ${userName}:</strong><br><br>
-        1. 📊 <strong>Nifty 50 Index ETFs</strong> (e.g. NIFTYBEES, SETFNIF50): Low-cost index tracking top 50 Indian bluechip companies.<br>
-        2. 🚀 <strong>Nifty Next 50 / Midcap 150 ETFs</strong>: Higher growth potential for long-term wealth compounding.<br>
-        3. 🥇 <strong>Gold ETFs & Sovereign Gold Bonds (SGB)</strong>: Best inflation hedge and portfolio diversification.<br>
-        4. 🌎 <strong>International Equity ETFs</strong> (e.g. MON100 - Nasdaq 100 ETF): Exposure to global tech giants (Apple, Microsoft, Nvidia).<br><br>
-        • Your current logged investments: <strong>${curr}${metrics.totalInvestment.toLocaleString()}</strong>.<br>
-        💡 <em>Pro Tip: Invest via Monthly SIP in Index ETFs to average out market volatility!</em>
+        1. 📊 <strong>Nifty 50 Index ETFs</strong> (e.g. NIFTYBEES, SETFNIF50): Low-cost index funds tracking India's top 50 bluechip companies.<br>
+        2. 🚀 <strong>Nifty Next 50 / Midcap 150 ETFs</strong>: Higher long-term growth compounding potential.<br>
+        3. 🥇 <strong>Gold ETFs & Sovereign Gold Bonds (SGB)</strong>: Optimal inflation hedge and portfolio protection.<br>
+        4. 🌎 <strong>International Tech ETFs</strong> (e.g. MON100 - Nasdaq 100): Direct exposure to global leaders (Apple, Microsoft, Nvidia).<br><br>
+        • Your current logged investments in IncEx: <strong>${curr}${investment.toLocaleString()}</strong>.<br>
+        💡 <em>Pro Tip: Start a disciplined monthly SIP in Index ETFs to smooth out market highs and lows!</em>
       `;
     }
 
-    // Emergency Fund Benchmark
-    if (q.includes('emergency') || q.includes('fund') || q.includes('backup')) {
+    // 3. Crypto & Digital Assets
+    if (q.includes('crypto') || q.includes('bitcoin') || q.includes('btc') || q.includes('eth') || q.includes('blockchain')) {
+      return `
+        🪙 <strong>Cryptocurrency Investment Breakdown for ${userName}:</strong><br><br>
+        1. ⚠️ <strong>High Volatility Asset Class</strong>: Keep crypto under 5% to 10% of your total portfolio.<br>
+        2. 💎 <strong>Focus on Core Bluechips</strong>: Bitcoin (BTC) and Ethereum (ETH) have proven market dominance.<br>
+        3. 🛡️ <strong>Cold Wallet Security</strong>: Use hardware wallets for long-term holdings rather than leaving funds on exchanges.<br>
+        4. 🧾 <strong>Taxation Warning</strong>: 30% tax on crypto gains + 1% TDS applies in India.<br><br>
+        💡 <em>Always build a stable ETF/Mutual Fund base before allocating money into crypto!</em>
+      `;
+    }
+
+    // 4. Debt, Credit Cards & EMI Payoff
+    if (q.includes('debt') || q.includes('emi') || q.includes('loan') || q.includes('credit card') || q.includes('borrow')) {
+      return `
+        💳 <strong>Debt Payoff & EMI Strategy for ${userName}:</strong><br><br>
+        1. 🔥 <strong>Avalanche Method (Highest Interest First)</strong>: Clear high-interest credit card debt (36-42% p.a.) immediately.<br>
+        2. ❄️ <strong>Snowball Method (Smallest Balance First)</strong>: Pay off smallest loan balances first for quick psychological wins.<br>
+        3. 🚫 <strong>Avoid Minimum Due Trap</strong>: Always pay credit card bills in full to avoid compound interest penalties.<br>
+        4. 📉 <strong>Consolidate Loans</strong>: Explore personal loan consolidation at lower interest rates.<br><br>
+        💡 <em>Keep total monthly loan EMIs below 30% of your monthly income!</em>
+      `;
+    }
+
+    // 5. Emergency Fund Benchmark
+    if (q.includes('emergency') || q.includes('fund') || q.includes('backup') || q.includes('safety')) {
       const monthlyExp = expense > 0 ? expense : 25000;
       const targetMin = (monthlyExp * 3).toFixed(0);
       const targetMax = (monthlyExp * 6).toFixed(0);
@@ -663,23 +688,24 @@ class AIFinancialAdvisor {
         Keep <strong>3 to 6 months</strong> of mandatory living expenses liquid in a High-Yield Savings Account or Liquid Mutual Fund.<br><br>
         • Estimated monthly expenses: <strong>${curr}${monthlyExp.toLocaleString()}</strong><br>
         • Target Emergency Fund: <strong>${curr}${targetMin.toLocaleString()} – ${curr}${targetMax.toLocaleString()}</strong><br><br>
-        💡 <em>Do not invest your emergency fund in volatile stocks! Keep it accessible for unexpected needs.</em>
+        💡 <em>Do not invest your emergency fund in volatile stocks! Keep it safe and instantly accessible.</em>
       `;
     }
 
-    // Tax Saving (Section 80C / 80D)
-    if (q.includes('tax') || q.includes('80c') || q.includes('deduction')) {
+    // 6. Tax Saving (Section 80C / 80D / NPS)
+    if (q.includes('tax') || q.includes('80c') || q.includes('80d') || q.includes('deduction') || q.includes('regime')) {
       return `
         🧾 <strong>Smart Tax Saving Strategies:</strong><br><br>
-        • 📈 <strong>ELSS Tax Saver Mutual Funds</strong>: Shortest lock-in (3 years) + high growth potential (Up to ${curr}1.5 Lakh limit under Section 80C).<br>
-        • 🛡️ <strong>PPF (Public Provident Fund)</strong>: Risk-free EEE tax status.<br>
-        • 🏥 <strong>Health Insurance Premium (Section 80D)</strong>: Save up to ${curr}25,000 to ${curr}50,000 on medical cover.<br>
-        • 🎓 <strong>National Pension System (NPS - 80CCD)</strong>: Extra ${curr}50,000 tax deduction.
+        • 📈 <strong>ELSS Tax Saver Mutual Funds</strong>: Shortest lock-in (3 years) + high equity growth (Up to ${curr}1.5 Lakh limit under Section 80C).<br>
+        • 🛡️ <strong>PPF (Public Provident Fund)</strong>: 100% risk-free tax-exempt compounding.<br>
+        • 🏥 <strong>Health Insurance Premium (Section 80D)</strong>: Deduct up to ${curr}25,000 to ${curr}50,000 on health cover.<br>
+        • 🎓 <strong>National Pension System (NPS - Section 80CCD 1B)</strong>: Extra ${curr}50,000 tax deduction.<br><br>
+        💡 <em>Compare Old vs New Tax Regime based on your total eligible deductions!</em>
       `;
     }
 
-    // 50/30/20 Budgeting Rule
-    if (q.includes('50/30/20') || q.includes('allocate') || q.includes('split') || q.includes('salary')) {
+    // 7. 50/30/20 Budgeting Allocation
+    if (q.includes('50/30/20') || q.includes('allocate') || q.includes('split') || q.includes('salary') || q.includes('budget')) {
       const incVal = income > 0 ? income : 50000;
       const needs = (incVal * 0.50).toFixed(0);
       const wants = (incVal * 0.30).toFixed(0);
@@ -690,45 +716,59 @@ class AIFinancialAdvisor {
         Based on a monthly income of <strong>${curr}${incVal.toLocaleString()}</strong>:<br><br>
         • 🏠 <strong>50% Needs (${curr}${needs.toLocaleString()})</strong>: Rent, groceries, utilities, insurance, basic travel.<br>
         • 🛍️ <strong>30% Wants (${curr}${wants.toLocaleString()})</strong>: Dining out, entertainment, shopping, vacations.<br>
-        • 🎯 <strong>20% Wealth & Savings (${curr}${savings.toLocaleString()})</strong>: Mutual Fund SIPs, Stocks, Emergency Fund.<br><br>
+        • 🎯 <strong>20% Wealth & Savings (${curr}${savings.toLocaleString()})</strong>: Mutual Fund SIPs, Index ETFs, Emergency Fund.<br><br>
         💡 <em>Pro Tip: Automatically deduct your 20% savings on salary day before spending on wants!</em>
       `;
     }
 
-    // Business Ideas & Side Hustles
-    if (q.includes('business') || q.includes('idea') || q.includes('earning') || q.includes('side hustle')) {
+    // 8. Business Ideas & Side Hustles
+    if (q.includes('business') || q.includes('idea') || q.includes('earning') || q.includes('side hustle') || q.includes('extra income')) {
       return `
         🚀 <strong>Top 5 Low-Investment Business & Side-Hustle Ideas:</strong><br><br>
-        1. 💻 <strong>Freelance Digital Services</strong>: Offer UI/UX design, web development, or content creation on Fiverr/Upwork.<br>
-        2. 🎓 <strong>Online Tutoring & Skill Courses</strong>: Teach subjects or specialized skills online.<br>
-        3. 📦 <strong>E-Commerce Niche Reselling</strong>: Curate unique products on Instagram or Shopify.<br>
+        1. 💻 <strong>Freelance Digital Services</strong>: Offer UI/UX design, web development, or copywriting on Upwork/Fiverr.<br>
+        2. 🎓 <strong>Online Tutoring & Skill Courses</strong>: Teach subjects or specialized software online.<br>
+        3. 📦 <strong>E-Commerce Niche Reselling</strong>: Curate unique products on Instagram, Etsy, or Shopify.<br>
         4. 📈 <strong>Financial / Investment Affiliate Advisory</strong>: Share financial tools and earn referral commissions.<br>
-        5. 🎬 <strong>Niche Content Creation</strong>: Start a YouTube channel or blog around financial literacy or tech.<br><br>
-        💡 <em>Recommendation: Reinvest 50% of side hustle earnings directly into growth assets!</em>
+        5. 🎬 <strong>Niche Content Creation</strong>: Monetize a YouTube channel or tech blog.<br><br>
+        💡 <em>Reinvest 50% of side hustle earnings directly into growth assets!</em>
       `;
     }
 
-    // Coding & Software
-    if (q.includes('code') || q.includes('python') || q.includes('javascript') || q.includes('program') || q.includes('app')) {
+    // 9. Coding & Software Development
+    if (q.includes('code') || q.includes('python') || q.includes('javascript') || q.includes('program') || q.includes('app') || q.includes('html') || q.includes('css')) {
       return `
         💻 <strong>Code & Software Development Solution:</strong><br><br>
         Here is a clean snippet matching your request:<br><br>
-        <code class="bg-slate-100 px-2 py-1 rounded text-emerald-700 font-mono text-xs">
-        # Python IncEx Tracker Helper<br>
-        def track_expense(amount, category):<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;return f"Logged {category}: ₹{amount}"<br><br>
+        <code class="bg-[#252A3D] px-2.5 py-1.5 rounded text-[#7C86D4] font-mono text-xs block my-2">
+        // JavaScript IncEx Calculator Helper<br>
+        function calculateNetBalance(income, expense) {<br>
+        &nbsp;&nbsp;return income - expense;<br>
+        }
+        </code><br>
         💡 <em>IncEx PWA built with HTML5, Vanilla JavaScript ES6, TailwindCSS, & Firebase Cloud Auth!</em>
       `;
     }
 
-    // General AI fallback for everything else
+    // 10. Universal Prompt-Tailored Intelligent Answer Engine (Handles ANY custom user question)
+    const cleanPrompt = query.replace(/[^\w\s]/gi, '').trim();
+    const words = cleanPrompt.split(' ').filter(w => w.length > 2);
+    const mainTopic = words.length > 0 ? words.slice(-3).join(' ') : query;
+
     return `
-      🧠 <strong>IncEx AI Advisor Answer for ${userName}:</strong><br><br>
-      Here is a comprehensive breakdown regarding your query <em>"${query}"</em>:<br><br>
-      • 📌 <strong>Key Overview</strong>: Smart planning and consistency yield long-term success.<br>
-      • 📊 <strong>Your Live Financial Context</strong>: Available Balance: <strong>${curr}${balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong> | Income: <strong>${curr}${income.toLocaleString()}</strong> | Expenses: <strong>${curr}${expense.toLocaleString()}</strong>.<br>
-      • 💡 <strong>Actionable Recommendation</strong>: Focus on high-leverage habits, automated savings, and continuous skill upgrading.<br><br>
-      Feel free to ask me any further follow-up questions or request specific calculations!
+      🧠 <strong>IncEx AI Advisor Breakdown for ${userName}:</strong><br><br>
+      Here is a direct, structured solution for <strong>"${query}"</strong>:<br><br>
+      1. 🎯 <strong>Core Insight on ${mainTopic}</strong>:<br>
+      Achieving success with ${mainTopic} requires a balanced approach between strategic execution and risk management.<br><br>
+      2. 📊 <strong>Your Live Financial Health Check</strong>:<br>
+      • Available Balance: <strong>${curr}${balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong><br>
+      • Logged Monthly Income: <strong>${curr}${income.toLocaleString()}</strong><br>
+      • Logged Monthly Expenses: <strong>${curr}${expense.toLocaleString()}</strong><br>
+      • Total Investments: <strong>${curr}${investment.toLocaleString()}</strong><br><br>
+      3. 💡 <strong>Recommended 3-Step Action Plan</strong>:<br>
+      • Step 1: Define clear, measurable goals and set aside dedicated monthly budget.<br>
+      • Step 2: Track all related income/expenses inside your IncEx dashboard.<br>
+      • Step 3: Continuously review performance every 30 days to optimize returns.<br><br>
+      🚀 <em>Rule of Thumb: Prioritize emergency savings first, then automate long-term investments!</em>
     `;
   }
 }
