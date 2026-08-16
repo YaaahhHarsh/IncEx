@@ -497,30 +497,59 @@ class AIFinancialAdvisor {
     const curr = (this.app.user && this.app.user.currency) ? this.app.user.currency : '₹';
     const metrics = this.app.getMetrics ? this.app.getMetrics() : { netBalance: 0, totalIncome: 0, totalExpense: 0, totalInvestment: 0 };
 
-    const systemPrompt = `You are IncEx AI, an intelligent, helpful, friendly ChatGPT-style universal AI assistant. The user's name is ${userName}. Their live financial summary: Net Balance: ${curr}${metrics.netBalance}, Monthly Income: ${curr}${metrics.totalIncome}, Monthly Expenses: ${curr}${metrics.totalExpense}, Logged Investments: ${curr}${metrics.totalInvestment}. Answer ANY query the user asks with rich formatting, bullet points, numbers, and actionable advice. If the user asks non-financial questions (coding, science, general advice, history, math), answer thoroughly like ChatGPT. Keep answers clear, engaging, and well-structured.`;
+    const systemPrompt = `You are IncEx AI, an intelligent real AI financial advisor chatbot. User: ${userName}. Balance ${curr}${metrics.netBalance}, Income ${curr}${metrics.totalIncome}, Expenses ${curr}${metrics.totalExpense}, Investments ${curr}${metrics.totalInvestment}. Answer ANY query clearly with markdown bolding, bullet points, and emojis.`;
 
+    // 1. Fast Primary Real AI Chatbot Endpoint (Live Mistral / Llama AI)
     try {
-      const encodedPrompt = encodeURIComponent(`${systemPrompt}\nUser Query: ${query}`);
+      const fullPrompt = `${systemPrompt}\n\nUser Question: ${query}`;
+      const encoded = encodeURIComponent(fullPrompt);
+      const seed = Date.now();
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 6000);
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-      const response = await fetch(`https://text.pollinations.ai/${encodedPrompt}?model=openai`, {
+      const response = await fetch(`https://text.pollinations.ai/${encoded}?seed=${seed}`, {
         signal: controller.signal
       });
       clearTimeout(timeoutId);
 
       if (response.ok) {
         const text = await response.text();
-        this.showTyping(false);
-        const formattedHTML = this.formatMarkdownToHTML(text);
-        this.streamAIMessage(formattedHTML);
-        return;
+        if (text && text.trim() && !text.includes('Payment Required') && text.length > 10) {
+          this.showTyping(false);
+          const formattedHTML = this.formatMarkdownToHTML(text);
+          this.streamAIMessage(formattedHTML);
+          return;
+        }
       }
     } catch (err) {
-      console.log("Online AI API Notice (using local intelligence engine):", err.message);
+      console.log("Primary Real AI API notice:", err.message);
     }
 
-    // Fallback to local intelligent NLP solver engine
+    // 2. Secondary Direct Free AI Endpoint
+    try {
+      const encoded2 = encodeURIComponent(query);
+      const controller2 = new AbortController();
+      const timeoutId2 = setTimeout(() => controller2.abort(), 8000);
+
+      const res2 = await fetch(`https://text.pollinations.ai/${encoded2}`, {
+        signal: controller2.signal
+      });
+      clearTimeout(timeoutId2);
+
+      if (res2.ok) {
+        const text2 = await res2.text();
+        if (text2 && text2.trim() && !text2.includes('Payment Required') && text2.length > 5) {
+          this.showTyping(false);
+          const formattedHTML = this.formatMarkdownToHTML(text2);
+          this.streamAIMessage(formattedHTML);
+          return;
+        }
+      }
+    } catch (err2) {
+      console.log("Secondary Real AI API notice:", err2.message);
+    }
+
+    // 3. Fallback to Local Intelligence Engine
     this.showTyping(false);
     const fallbackResponse = this.generateLocalEngineResponse(query, userName, curr, metrics);
     this.streamAIMessage(fallbackResponse);
@@ -534,7 +563,7 @@ class AIFinancialAdvisor {
       .replace(/>/g, '&gt;')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/`([^`]+)`/g, '<code class="bg-slate-100 px-1.5 py-0.5 rounded text-emerald-700 font-mono text-xs">$1</code>')
+      .replace(/`([^`]+)`/g, '<code class="bg-[#252A3D] px-1.5 py-0.5 rounded text-[#7C86D4] font-mono text-xs">$1</code>')
       .replace(/\n\n/g, '<br><br>')
       .replace(/\n/g, '<br>')
       .replace(/• /g, '• ')
