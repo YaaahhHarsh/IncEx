@@ -1329,7 +1329,7 @@ class FinPulseApp {
 
     const fabBtn = document.getElementById('floating-plus-btn');
     if (fabBtn) {
-      if (['home', 'transactions', 'budget', 'reports', 'ai'].includes(tabName)) {
+      if (['home', 'hub', 'transactions', 'budget', 'reports', 'ai'].includes(tabName)) {
         fabBtn.classList.remove('hidden');
       } else {
         fabBtn.classList.add('hidden');
@@ -1339,16 +1339,49 @@ class FinPulseApp {
     this.renderCurrentTab();
   }
 
+  switchHubSubTab(subTabName) {
+    this.activeHubSubTab = subTabName;
+    document.querySelectorAll('.hub-subtab-btn').forEach(btn => {
+      btn.classList.remove('bg-white', 'text-emerald-800', 'shadow-md');
+      btn.classList.add('text-emerald-100');
+    });
+
+    const activeBtn = document.getElementById(`hub-tab-btn-${subTabName}`);
+    if (activeBtn) {
+      activeBtn.classList.add('bg-white', 'text-emerald-800', 'shadow-md');
+      activeBtn.classList.remove('text-emerald-100');
+    }
+
+    document.querySelectorAll('.hub-subview-content').forEach(view => {
+      view.classList.add('hidden');
+    });
+
+    const targetView = document.getElementById(`hub-subview-${subTabName}`);
+    if (targetView) targetView.classList.remove('hidden');
+
+    if (subTabName === 'transactions') this.renderTransactions();
+    else if (subTabName === 'budget') this.renderBudget();
+    else if (subTabName === 'reports') this.renderReports();
+  }
+
+  renderHub() {
+    if (!this.activeHubSubTab) this.activeHubSubTab = 'transactions';
+    this.switchHubSubTab(this.activeHubSubTab);
+  }
+
   renderCurrentTab() {
     if (!this.isLoggedIn || !this.user) {
       this.showAuthScreen();
       return;
     }
     if (this.currentTab === 'home') this.renderHome();
+    else if (this.currentTab === 'hub') this.renderHub();
     else if (this.currentTab === 'split') this.renderSplitTab();
-    else if (this.currentTab === 'transactions') this.renderTransactions();
-    else if (this.currentTab === 'budget') this.renderBudget();
-    else if (this.currentTab === 'reports') this.renderReports();
+    else if (this.currentTab === 'transactions' || this.currentTab === 'budget' || this.currentTab === 'reports') {
+      const targetSub = this.currentTab;
+      this.switchTab('hub');
+      this.switchHubSubTab(targetSub);
+    }
     else if (this.currentTab === 'profile') this.renderProfile();
   }
 
