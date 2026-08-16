@@ -920,6 +920,45 @@
     </div>
   </div>
 
+  <!-- Google Account Quick Selector Modal -->
+  <div id="google-account-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 relative">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="font-extrabold text-base text-slate-900 flex items-center gap-2">
+          <span>Google</span> Account Login
+        </h3>
+        <button onclick="document.getElementById('google-account-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 font-extrabold text-lg">✕</button>
+      </div>
+      <p class="text-xs text-slate-500">Select an account to sign in to Spendly:</p>
+
+      <div class="space-y-2.5">
+        <button onclick="window.app.authManager.confirmGoogleAccount('alex.morgan@gmail.com', 'Alex Morgan', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80')" class="w-full p-3.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-2xl flex items-center justify-between transition-all">
+          <div class="flex items-center gap-3 text-left">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80" class="w-9 h-9 rounded-full object-cover border border-emerald-200">
+            <div>
+              <h5 class="font-bold text-xs text-slate-900">Alex Morgan</h5>
+              <span class="text-[10px] text-slate-400 font-medium">alex.morgan@gmail.com</span>
+            </div>
+          </div>
+          <span class="text-xs text-emerald-700 font-extrabold">Sign In ➔</span>
+        </button>
+
+        <button onclick="window.app.authManager.confirmGoogleAccount('new.user@gmail.com', 'New Spendly User', 'assets/logo.png')" class="w-full p-3.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-2xl flex items-center justify-between transition-all">
+          <div class="flex items-center gap-3 text-left">
+            <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">
+              👤
+            </div>
+            <div>
+              <h5 class="font-bold text-xs text-slate-900">Create New Blank Account</h5>
+              <span class="text-[10px] text-slate-400 font-medium">Start fresh zero data account</span>
+            </div>
+          </div>
+          <span class="text-xs text-emerald-700 font-extrabold">Sign Up ➔</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Consolidated Quick Management Hub Modal -->
   <div id="quick-hub-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4 relative">
