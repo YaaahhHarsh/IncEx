@@ -1413,9 +1413,9 @@ class FinPulseApp {
 
     if (recent.length === 0) {
       recentContainer.innerHTML = `
-        <div class="text-center py-8 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-          <p class="text-sm font-semibold text-slate-700">No transactions logged yet.</p>
-          <p class="text-xs text-slate-400 mt-1">Tap '+' to log your first income, expense, or investment!</p>
+        <div class="text-center py-8 bg-[#0B0D17] rounded-2xl border border-dashed border-[#252A3D]">
+          <p class="text-sm font-bold text-[#E1E3ED]">No transactions logged yet.</p>
+          <p class="text-xs text-[#777C91] mt-1">Tap '+' to log your first income, expense, or investment!</p>
         </div>
       `;
     } else {
@@ -1435,9 +1435,9 @@ class FinPulseApp {
     const isIncome = tx.type === 'income';
     const isInvestment = tx.type === 'investment';
 
-    let colorClass = isIncome ? 'text-emerald-600' : isInvestment ? 'text-purple-600' : 'text-slate-800';
+    let colorStyle = isIncome ? 'color:#4FAF91;' : isInvestment ? 'color:#7C86D4;' : 'color:#B85C6B;';
     let sign = isIncome ? '+' : isInvestment ? '↗' : '-';
-    let bgIconClass = isIncome ? 'bg-emerald-50 text-emerald-600' : isInvestment ? 'bg-purple-50 text-purple-600' : 'bg-red-50 text-red-600';
+    let iconColor = isIncome ? '#4FAF91' : isInvestment ? '#7C86D4' : '#B85C6B';
     let svgIcon = isIncome 
       ? '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>'
       : isInvestment
@@ -1445,20 +1445,19 @@ class FinPulseApp {
       : '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>';
 
     const div = document.createElement('div');
-    div.className = 'flex items-center justify-between p-3.5 sm:p-4 bg-white rounded-2xl border border-slate-100 hover:border-emerald-200 transition-all shadow-sm';
+    div.className = 'flex items-center justify-between p-3.5 sm:p-4 bg-[#0B0D17] rounded-xl border border-[#252A3D] hover:border-[#4B5599] transition-all shadow-sm';
     div.innerHTML = `
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full ${bgIconClass} flex items-center justify-center font-bold text-sm shrink-0">
+        <div class="w-10 h-10 rounded-xl bg-[#252A3D] flex items-center justify-center font-bold text-sm shrink-0" style="color: ${iconColor};">
           ${svgIcon}
         </div>
         <div>
-          <h5 class="font-semibold text-slate-800 text-sm leading-snug">${tx.categoryName || 'Transaction'}</h5>
-          <p class="text-xs text-slate-400">${tx.date} • ${tx.paymentMethod || 'Cash'}</p>
+          <h5 class="font-bold text-[#E1E3ED] text-sm leading-snug">${tx.categoryName || 'Transaction'}</h5>
+          <p class="text-xs text-[#777C91]">${tx.date} • ${tx.paymentMethod || 'Cash'} ${tx.notes ? '• ' + tx.notes : ''}</p>
         </div>
       </div>
       <div class="text-right">
-        <span class="font-bold text-sm md:text-base ${colorClass}">${sign}${curr}${Number(tx.amount).toFixed(2)}</span>
-        <p class="text-[11px] text-slate-400 capitalize">${tx.type}</p>
+        <span class="font-extrabold text-sm md:text-base" style="${colorStyle}">${sign}${curr}${Number(tx.amount).toFixed(2)}</span>
       </div>
     `;
     return div;

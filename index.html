@@ -260,64 +260,71 @@
     <main class="max-w-5xl lg:max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-5 space-y-6">
 
       <section id="page-home" class="tab-view-page space-y-6">
-        <div id="home-budget-exceeded-banner" class="hidden p-4 bg-red-50 border-2 border-red-200 rounded-2xl shadow-sm"></div>
+        <div id="home-budget-exceeded-banner" class="hidden p-4 bg-red-950/40 border border-red-800/60 text-red-300 rounded-2xl shadow-sm"></div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-          <div class="emerald-gradient text-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl shadow-lg emerald-glow">
-            <div class="flex items-center justify-between opacity-85 mb-2">
-              <span class="text-xs font-semibold">Total Balance</span>
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            </div>
-            <h3 id="home-balance-amount" class="text-xl sm:text-2xl lg:text-3xl font-black">₹0.00</h3>
-            <p class="text-[10px] sm:text-xs opacity-90 mt-1">Available Savings</p>
+        <!-- Available Balance Top Card -->
+        <div class="bg-[#151827] p-6 sm:p-7 rounded-2xl border border-[#252A3D] shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold text-[#777C91] uppercase tracking-wider">Available Balance</span>
+            <h2 id="home-balance-amount" class="text-3xl sm:text-4xl lg:text-5xl font-black text-[#E1E3ED] mt-1 tracking-tight">₹0.00</h2>
+            <p class="text-xs text-[#777C91] mt-1.5 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#4FAF91]"></span> Net Liquid Cash & Savings Balance
+            </p>
           </div>
+          <button onclick="window.app.openAddTxModal('expense')" class="w-full sm:w-auto px-5 py-3 bg-[#4B5599] hover:bg-[#626DB5] text-[#E1E3ED] font-bold text-xs sm:text-sm rounded-xl transition-all shadow flex items-center justify-center gap-2">
+            <span>➕</span> Log Transaction
+          </button>
+        </div>
 
-          <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm hover:border-emerald-200 transition-all">
-            <div class="flex items-center justify-between text-emerald-600 mb-2">
-              <span class="text-xs font-bold text-slate-500">Income</span>
+        <!-- Income, Expense, Investment Summary Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-[#151827] p-5 rounded-2xl border border-[#252A3D] shadow-sm">
+            <div class="flex items-center justify-between text-[#4FAF91] mb-2">
+              <span class="text-xs font-bold text-[#777C91] uppercase tracking-wider">Total Income</span>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
             </div>
-            <h3 id="home-income-amount" class="text-lg sm:text-xl lg:text-2xl font-bold text-emerald-600">₹0.00</h3>
-            <p class="text-[10px] sm:text-xs text-slate-400 mt-1">This month</p>
+            <h3 id="home-income-amount" class="text-2xl font-bold text-[#4FAF91]">₹0.00</h3>
+            <p class="text-[11px] text-[#777C91] mt-1">This month earnings</p>
           </div>
 
-          <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm hover:border-red-200 transition-all">
-            <div class="flex items-center justify-between text-red-500 mb-2">
-              <span class="text-xs font-bold text-slate-500">Expenses</span>
+          <div class="bg-[#151827] p-5 rounded-2xl border border-[#252A3D] shadow-sm">
+            <div class="flex items-center justify-between text-[#B85C6B] mb-2">
+              <span class="text-xs font-bold text-[#777C91] uppercase tracking-wider">Total Expenses</span>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
             </div>
-            <h3 id="home-expense-amount" class="text-lg sm:text-xl lg:text-2xl font-bold text-red-500">₹0.00</h3>
-            <p class="text-[10px] sm:text-xs text-slate-400 mt-1">This month</p>
+            <h3 id="home-expense-amount" class="text-2xl font-bold text-[#B85C6B]">₹0.00</h3>
+            <p class="text-[11px] text-[#777C91] mt-1">This month spending</p>
           </div>
 
-          <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm hover:border-purple-200 transition-all">
-            <div class="flex items-center justify-between text-purple-600 mb-2">
-              <span class="text-xs font-bold text-slate-500">Investments</span>
+          <div class="bg-[#151827] p-5 rounded-2xl border border-[#252A3D] shadow-sm">
+            <div class="flex items-center justify-between text-[#7C86D4] mb-2">
+              <span class="text-xs font-bold text-[#777C91] uppercase tracking-wider">Investments</span>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
             </div>
-            <h3 id="home-investment-amount" class="text-lg sm:text-xl lg:text-2xl font-bold text-purple-600">₹0.00</h3>
-            <p class="text-[10px] sm:text-xs text-slate-400 mt-1">Stocks, SIPs & Mutual Funds</p>
+            <h3 id="home-investment-amount" class="text-2xl font-bold text-[#7C86D4]">₹0.00</h3>
+            <p class="text-[11px] text-[#777C91] mt-1">Stocks, SIPs & Mutual Funds</p>
           </div>
         </div>
 
+        <!-- Income vs Expense Chart & Expense Breakdown -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
-          <div class="lg:col-span-2 bg-white p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm">
+          <div class="lg:col-span-2 bg-[#151827] p-5 sm:p-6 rounded-2xl border border-[#252A3D] shadow-sm">
             <div class="flex items-center justify-between mb-4">
               <div>
-                <h4 class="font-bold text-sm sm:text-base text-slate-800">Income vs Expense Trend</h4>
-                <p class="text-xs text-slate-400">Monthly financial cashflow overview</p>
+                <h4 class="font-extrabold text-sm sm:text-base text-[#E1E3ED]">Income vs Expense Trend</h4>
+                <p class="text-xs text-[#777C91]">Monthly financial cashflow overview</p>
               </div>
-              <span class="text-xs font-bold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200">6 Months</span>
+              <span class="text-xs font-bold px-2.5 py-1 bg-[#252A3D] text-[#7C86D4] rounded-lg border border-[#252A3D]">6 Months</span>
             </div>
-            <div class="h-60 sm:h-72 lg:h-80 relative w-full">
+            <div class="h-60 sm:h-72 lg:h-80 relative w-full flex items-center justify-center">
               <canvas id="home-trend-chart-canvas"></canvas>
             </div>
           </div>
 
-          <div class="bg-white p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm">
+          <div class="bg-[#151827] p-5 sm:p-6 rounded-2xl border border-[#252A3D] shadow-sm">
             <div class="mb-4">
-              <h4 class="font-bold text-sm sm:text-base text-slate-800">Expenses Breakdown</h4>
-              <p class="text-xs text-slate-400">Category spending distribution</p>
+              <h4 class="font-extrabold text-sm sm:text-base text-[#E1E3ED]">Expenses Breakdown</h4>
+              <p class="text-xs text-[#777C91]">Category spending distribution</p>
             </div>
             <div class="h-60 sm:h-72 lg:h-80 relative w-full flex items-center justify-center">
               <canvas id="home-pie-chart-canvas"></canvas>
@@ -325,51 +332,46 @@
           </div>
         </div>
 
-        <!-- Quick Action Bar (Daily Expense Chips + Unified Hub + Add Custom Category) -->
-        <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm space-y-3">
+        <!-- Quick Action Bar -->
+        <div class="bg-[#151827] p-4 sm:p-5 rounded-2xl border border-[#252A3D] shadow-sm space-y-3">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <h4 class="font-extrabold text-xs sm:text-sm text-slate-900 uppercase tracking-wider">Quick Actions & Daily Expenses</h4>
+              <span class="w-2 h-2 rounded-full bg-[#7C86D4] animate-pulse"></span>
+              <h4 class="font-extrabold text-xs sm:text-sm text-[#E1E3ED] uppercase tracking-wider">Quick Actions & Daily Expenses</h4>
             </div>
-            <button onclick="window.app.openAddCustomCategoryModal()" class="text-xs font-extrabold text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
-              <span>➕</span> Add Custom Category
+            <button onclick="window.app.openAddCustomCategoryModal()" class="text-xs font-extrabold text-[#7C86D4] hover:text-white bg-[#0B0D17] hover:bg-[#252A3D] border border-[#252A3D] px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+              <span>➕</span> Add Category
             </button>
           </div>
 
           <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-            <!-- Consolidated Management Hub Button -->
-            <button onclick="window.app.openQuickHubModal()" class="px-3.5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-extrabold text-xs rounded-2xl shadow-md hover:shadow-lg transition-all shrink-0 flex items-center gap-1.5">
+            <button onclick="window.app.openQuickHubModal()" class="px-4 py-2.5 bg-[#4B5599] hover:bg-[#626DB5] text-[#E1E3ED] font-extrabold text-xs rounded-xl shadow transition-all shrink-0 flex items-center gap-1.5">
               <span>⚡</span> Management Hub
             </button>
 
-            <!-- 1-Tap Daily Expense Chips -->
-            <button onclick="window.app.quickAddCategory('transport', 'Fuel')" class="px-3 py-2 bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-slate-800 hover:text-emerald-800 text-xs font-bold rounded-2xl shrink-0 transition-all flex items-center gap-1.5 shadow-sm">
+            <button onclick="window.app.quickAddCategory('transport', 'Fuel')" class="px-3.5 py-2 bg-[#0B0D17] hover:bg-[#252A3D] border border-[#252A3D] text-[#E1E3ED] text-xs font-bold rounded-xl shrink-0 transition-all flex items-center gap-1.5 shadow-sm">
               <span>⛽</span> Fuel
             </button>
 
-            <button onclick="window.app.quickAddCategory('food', 'Food & Dining')" class="px-3 py-2 bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-slate-800 hover:text-emerald-800 text-xs font-bold rounded-2xl shrink-0 transition-all flex items-center gap-1.5 shadow-sm">
+            <button onclick="window.app.quickAddCategory('food', 'Food & Dining')" class="px-3.5 py-2 bg-[#0B0D17] hover:bg-[#252A3D] border border-[#252A3D] text-[#E1E3ED] text-xs font-bold rounded-xl shrink-0 transition-all flex items-center gap-1.5 shadow-sm">
               <span>🍔</span> Food
             </button>
 
-            <button onclick="window.app.quickAddCategory('shopping', 'Shopping')" class="px-3 py-2 bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-slate-800 hover:text-emerald-800 text-xs font-bold rounded-2xl shrink-0 transition-all flex items-center gap-1.5 shadow-sm">
+            <button onclick="window.app.quickAddCategory('shopping', 'Shopping')" class="px-3.5 py-2 bg-[#0B0D17] hover:bg-[#252A3D] border border-[#252A3D] text-[#E1E3ED] text-xs font-bold rounded-xl shrink-0 transition-all flex items-center gap-1.5 shadow-sm">
               <span>🛍️</span> Shop
             </button>
 
-            <button onclick="window.app.quickAddCategory('transport', 'Travel')" class="px-3 py-2 bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-slate-800 hover:text-emerald-800 text-xs font-bold rounded-2xl shrink-0 transition-all flex items-center gap-1.5 shadow-sm">
+            <button onclick="window.app.quickAddCategory('transport', 'Travel')" class="px-3.5 py-2 bg-[#0B0D17] hover:bg-[#252A3D] border border-[#252A3D] text-[#E1E3ED] text-xs font-bold rounded-xl shrink-0 transition-all flex items-center gap-1.5 shadow-sm">
               <span>✈️</span> Travel
-            </button>
-
-            <button onclick="window.app.openAddCustomCategoryModal()" class="px-3 py-2 bg-emerald-50/60 border border-dashed border-emerald-300 text-emerald-700 hover:bg-emerald-100 text-xs font-bold rounded-2xl shrink-0 transition-all flex items-center gap-1">
-              <span>➕</span> Custom
             </button>
           </div>
         </div>
 
-        <div class="bg-white p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm space-y-4">
+        <!-- Recent Transactions Card -->
+        <div class="bg-[#151827] p-5 sm:p-6 rounded-2xl border border-[#252A3D] shadow-sm space-y-4">
           <div class="flex items-center justify-between">
-            <h4 class="font-bold text-sm sm:text-base text-slate-800">Recent Transactions</h4>
-            <button onclick="window.app.switchTab('transactions')" class="text-xs font-bold text-emerald-700 hover:underline">View All History</button>
+            <h4 class="font-extrabold text-sm sm:text-base text-[#E1E3ED]">Recent Transactions</h4>
+            <button onclick="window.app.switchTab('hub')" class="text-xs font-bold text-[#7C86D4] hover:underline">View All History ➔</button>
           </div>
           <div id="home-recent-tx-list" class="space-y-3"></div>
         </div>

@@ -3,20 +3,54 @@ let homePieChartInstance = null;
 let reportBarChartInstance = null;
 let reportPieChartInstance = null;
 
-const ACCENT_INDIGO = '#7B86D9';
-const BTN_PRIMARY = '#3F4B8F';
-const RED_ACCENT = '#EF4444';
-const AMBER_ACCENT = '#F59E0B';
-const PURPLE_ACCENT = '#8B5CF6';
-const BLUE_ACCENT = '#3B82F6';
-const TEAL_ACCENT = '#14B8A6';
-const TEXT_MAIN = '#E0E2EF';
+const COLOR_INCOME = '#4FAF91';
+const COLOR_EXPENSE = '#B85C6B';
+const COLOR_ACCENT = '#7C86D4';
+const COLOR_PRIMARY = '#4B5599';
+const TEXT_MAIN = '#E1E3ED';
 const TEXT_MUTED = '#777C91';
-const BORDER_COLOR = '#23273B';
+const BORDER_COLOR = '#252A3D';
 
 export function renderHomeTrendChart(canvasId, transactions, currency = '₹') {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
+
+  const parentDiv = canvas.parentElement;
+  let emptyStateContainer = document.getElementById(canvasId + '-empty');
+
+  const hasData = transactions && Array.isArray(transactions) && transactions.length > 0;
+
+  if (!hasData) {
+    if (homeTrendChartInstance) {
+      homeTrendChartInstance.destroy();
+      homeTrendChartInstance = null;
+    }
+    canvas.style.display = 'none';
+
+    if (!emptyStateContainer) {
+      emptyStateContainer = document.createElement('div');
+      emptyStateContainer.id = canvasId + '-empty';
+      emptyStateContainer.className = 'flex flex-col items-center justify-center py-10 text-center space-y-3';
+      emptyStateContainer.innerHTML = `
+        <div class="w-12 h-12 rounded-2xl bg-[#252A3D] text-[#7C86D4] flex items-center justify-center text-xl shadow-inner">📈</div>
+        <h5 class="font-bold text-sm text-[#E1E3ED]">No transactions yet</h5>
+        <p class="text-xs text-[#777C91] max-w-xs">Add your first transaction to see your income and spending trends.</p>
+        <button onclick="window.app.openAddTxModal('expense')" class="mt-2 px-4 py-2 bg-[#4B5599] hover:bg-[#626DB5] text-[#E1E3ED] font-bold text-xs rounded-xl shadow transition-all">
+          + Add Transaction
+        </button>
+      `;
+      parentDiv.appendChild(emptyStateContainer);
+    } else {
+      emptyStateContainer.style.display = 'flex';
+    }
+    return;
+  }
+
+  // Data exists
+  canvas.style.display = 'block';
+  if (emptyStateContainer) {
+    emptyStateContainer.style.display = 'none';
+  }
 
   const labels = ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
   const incomeData = [0, 0, 0, 0, 0, 0];
@@ -27,14 +61,12 @@ export function renderHomeTrendChart(canvasId, transactions, currency = '₹') {
   const now = new Date();
   const currentMonthPrefix = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
 
-  if (transactions && Array.isArray(transactions)) {
-    transactions.forEach(tx => {
-      if (tx.date && tx.date.startsWith(currentMonthPrefix)) {
-        if (tx.type === 'income') currentMonthIncome += Number(tx.amount || 0);
-        if (tx.type === 'expense') currentMonthExpense += Number(tx.amount || 0);
-      }
-    });
-  }
+  transactions.forEach(tx => {
+    if (tx.date && tx.date.startsWith(currentMonthPrefix)) {
+      if (tx.type === 'income') currentMonthIncome += Number(tx.amount || 0);
+      if (tx.type === 'expense') currentMonthExpense += Number(tx.amount || 0);
+    }
+  });
 
   incomeData[5] = currentMonthIncome;
   expenseData[5] = currentMonthExpense;
@@ -46,12 +78,12 @@ export function renderHomeTrendChart(canvasId, transactions, currency = '₹') {
   const ctx = canvas.getContext('2d');
   
   const incomeGradient = ctx.createLinearGradient(0, 0, 0, 300);
-  incomeGradient.addColorStop(0, 'rgba(123, 134, 217, 0.4)');
-  incomeGradient.addColorStop(1, 'rgba(123, 134, 217, 0.0)');
+  incomeGradient.addColorStop(0, 'rgba(79, 175, 145, 0.35)');
+  incomeGradient.addColorStop(1, 'rgba(79, 175, 145, 0.0)');
 
   const expenseGradient = ctx.createLinearGradient(0, 0, 0, 300);
-  expenseGradient.addColorStop(0, 'rgba(239, 68, 68, 0.3)');
-  expenseGradient.addColorStop(1, 'rgba(239, 68, 68, 0.0)');
+  expenseGradient.addColorStop(0, 'rgba(184, 92, 107, 0.3)');
+  expenseGradient.addColorStop(1, 'rgba(184, 92, 107, 0.0)');
 
   homeTrendChartInstance = new window.Chart(ctx, {
     type: 'line',
@@ -61,45 +93,42 @@ export function renderHomeTrendChart(canvasId, transactions, currency = '₹') {
         {
           label: 'Income',
           data: incomeData,
-          borderColor: ACCENT_INDIGO,
+          borderColor: COLOR_INCOME,
           backgroundColor: incomeGradient,
           fill: true,
           tension: 0.4,
-          borderWidth: 3,
-          pointBackgroundColor: ACCENT_INDIGO,
+          borderWidth: 2.5,
+          pointBackgroundColor: COLOR_INCOME,
           pointBorderColor: '#151827',
           pointBorderWidth: 2,
-          pointHoverRadius: 7
+          pointHoverRadius: 6
         },
         {
           label: 'Expense',
           data: expenseData,
-          borderColor: RED_ACCENT,
+          borderColor: COLOR_EXPENSE,
           backgroundColor: expenseGradient,
           fill: true,
           tension: 0.4,
-          borderWidth: 3,
-          pointBackgroundColor: RED_ACCENT,
+          borderWidth: 2.5,
+          pointBackgroundColor: COLOR_EXPENSE,
           pointBorderColor: '#151827',
           pointBorderWidth: 2,
-          pointHoverRadius: 7
+          pointHoverRadius: 6
         }
       ]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      interaction: {
-        mode: 'index',
-        intersect: false,
-      },
+      interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: {
           position: 'top',
           labels: {
             usePointStyle: true,
             color: TEXT_MAIN,
-            font: { family: 'Plus Jakarta Sans, sans-serif', weight: '700', size: 12 }
+            font: { family: 'Inter, sans-serif', weight: '600', size: 11 }
           }
         },
         tooltip: {
@@ -117,13 +146,13 @@ export function renderHomeTrendChart(canvasId, transactions, currency = '₹') {
       scales: {
         x: {
           grid: { display: false },
-          ticks: { color: TEXT_MUTED, font: { family: 'Plus Jakarta Sans, sans-serif', weight: '600' } }
+          ticks: { color: TEXT_MUTED, font: { family: 'Inter, sans-serif', size: 11 } }
         },
         y: {
-          grid: { color: BORDER_COLOR },
+          grid: { color: BORDER_COLOR, drawBorder: false },
           ticks: {
             color: TEXT_MUTED,
-            font: { family: 'Plus Jakarta Sans, sans-serif', weight: '600' },
+            font: { family: 'Inter, sans-serif', size: 11 },
             callback: (val) => `${currency}${val}`
           }
         }
@@ -136,26 +165,55 @@ export function renderHomePieChart(canvasId, transactions, currency = '₹') {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
 
-  const categoryTotals = {};
-  if (transactions && Array.isArray(transactions)) {
-    transactions.filter(t => t.type === 'expense').forEach(t => {
-      const cat = t.categoryName || 'Other';
-      categoryTotals[cat] = (categoryTotals[cat] || 0) + Number(t.amount || 0);
-    });
+  const parentDiv = canvas.parentElement;
+  let emptyStateContainer = document.getElementById(canvasId + '-empty');
+
+  const expenseTxs = (transactions && Array.isArray(transactions)) ? transactions.filter(t => t.type === 'expense') : [];
+
+  if (expenseTxs.length === 0) {
+    if (homePieChartInstance) {
+      homePieChartInstance.destroy();
+      homePieChartInstance = null;
+    }
+    canvas.style.display = 'none';
+
+    if (!emptyStateContainer) {
+      emptyStateContainer = document.createElement('div');
+      emptyStateContainer.id = canvasId + '-empty';
+      emptyStateContainer.className = 'flex flex-col items-center justify-center py-10 text-center space-y-3';
+      emptyStateContainer.innerHTML = `
+        <div class="w-12 h-12 rounded-2xl bg-[#252A3D] text-[#7C86D4] flex items-center justify-center text-xl shadow-inner">🍕</div>
+        <h5 class="font-bold text-sm text-[#E1E3ED]">No expenses yet</h5>
+        <p class="text-xs text-[#777C91] max-w-xs">Your spending breakdown will appear here once you add expenses.</p>
+        <button onclick="window.app.openAddTxModal('expense')" class="mt-2 px-4 py-2 bg-[#4B5599] hover:bg-[#626DB5] text-[#E1E3ED] font-bold text-xs rounded-xl shadow transition-all">
+          + Log Expense
+        </button>
+      `;
+      parentDiv.appendChild(emptyStateContainer);
+    } else {
+      emptyStateContainer.style.display = 'flex';
+    }
+    return;
   }
+
+  // Data exists
+  canvas.style.display = 'block';
+  if (emptyStateContainer) {
+    emptyStateContainer.style.display = 'none';
+  }
+
+  const categoryTotals = {};
+  expenseTxs.forEach(t => {
+    const cat = t.categoryName || 'Other';
+    categoryTotals[cat] = (categoryTotals[cat] || 0) + Number(t.amount || 0);
+  });
 
   const labels = Object.keys(categoryTotals);
   const data = Object.values(categoryTotals);
-  let bgColors = [
-    ACCENT_INDIGO, RED_ACCENT, AMBER_ACCENT, PURPLE_ACCENT,
-    BLUE_ACCENT, TEAL_ACCENT, '#EC4899', '#06B6D4'
+  const bgColors = [
+    COLOR_ACCENT, COLOR_INCOME, COLOR_EXPENSE, COLOR_PRIMARY,
+    '#9187C4', '#5663B0', '#38BDF8', '#F59E0B'
   ];
-
-  if (labels.length === 0) {
-    labels.push('No Expenses Logged');
-    data.push(1);
-    bgColors = ['#23273B'];
-  }
 
   if (homePieChartInstance) {
     homePieChartInstance.destroy();
@@ -171,20 +229,20 @@ export function renderHomePieChart(canvasId, transactions, currency = '₹') {
         backgroundColor: bgColors,
         borderWidth: 2,
         borderColor: '#151827',
-        hoverOffset: 6
+        hoverOffset: 5
       }]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      cutout: '74%',
+      cutout: '72%',
       plugins: {
         legend: {
           position: 'right',
           labels: {
             boxWidth: 12,
             color: TEXT_MAIN,
-            font: { family: 'Plus Jakarta Sans, sans-serif', size: 11, weight: '600' }
+            font: { family: 'Inter, sans-serif', size: 11, weight: '500' }
           }
         },
         tooltip: {
@@ -233,14 +291,14 @@ export function renderReportBarChart(canvasId, filterType, transactions, currenc
         {
           label: 'Income',
           data: incomeSeries,
-          backgroundColor: ACCENT_INDIGO,
-          borderRadius: 8
+          backgroundColor: COLOR_INCOME,
+          borderRadius: 6
         },
         {
           label: 'Expense',
           data: expenseSeries,
-          backgroundColor: RED_ACCENT,
-          borderRadius: 8
+          backgroundColor: COLOR_EXPENSE,
+          borderRadius: 6
         }
       ]
     },
@@ -250,7 +308,7 @@ export function renderReportBarChart(canvasId, filterType, transactions, currenc
       plugins: {
         legend: {
           position: 'top',
-          labels: { color: TEXT_MAIN, font: { family: 'Plus Jakarta Sans, sans-serif', weight: '700' } }
+          labels: { color: TEXT_MAIN, font: { family: 'Inter, sans-serif', weight: '600', size: 11 } }
         },
         tooltip: {
           backgroundColor: '#151827',
@@ -266,7 +324,7 @@ export function renderReportBarChart(canvasId, filterType, transactions, currenc
       scales: {
         x: { grid: { display: false }, ticks: { color: TEXT_MUTED } },
         y: {
-          grid: { color: BORDER_COLOR },
+          grid: { color: BORDER_COLOR, drawBorder: false },
           ticks: { color: TEXT_MUTED, callback: (val) => `${currency}${val}` }
         }
       }
@@ -303,7 +361,7 @@ export function renderReportPieChart(canvasId, transactions, currency = '₹') {
       labels: ['Income', 'Expenses', 'Investments'],
       datasets: [{
         data: [typeTotals.Income, typeTotals.Expense, typeTotals.Investment],
-        backgroundColor: [ACCENT_INDIGO, RED_ACCENT, PURPLE_ACCENT],
+        backgroundColor: [COLOR_INCOME, COLOR_EXPENSE, COLOR_ACCENT],
         borderWidth: 2,
         borderColor: '#151827'
       }]
@@ -314,7 +372,7 @@ export function renderReportPieChart(canvasId, transactions, currency = '₹') {
       plugins: {
         legend: {
           position: 'bottom',
-          labels: { color: TEXT_MAIN, font: { family: 'Plus Jakarta Sans, sans-serif', size: 12, weight: '700' } }
+          labels: { color: TEXT_MAIN, font: { family: 'Inter, sans-serif', size: 12, weight: '600' } }
         },
         tooltip: {
           backgroundColor: '#151827',
