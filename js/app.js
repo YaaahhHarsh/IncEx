@@ -54,6 +54,48 @@ const DEFAULT_CATEGORY_BUDGETS = {
   other_expense: 2000
 };
 
+const INITIAL_GROUPS = [
+  {
+    id: "grp-goa-789",
+    name: "Goa Trip 🌴",
+    code: "GOA-789",
+    avatar: "🌴",
+    createdAt: "2026-08-10",
+    members: [
+      { id: "mem-user", name: "You (Alex)", email: "alex@gmail.com", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80" },
+      { id: "mem-2", name: "Rohan", email: "rohan@gmail.com", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80" },
+      { id: "mem-3", name: "Priya", email: "priya@gmail.com", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=256&q=80" }
+    ],
+    expenses: [
+      {
+        id: "spex-1",
+        title: "Beach Resort Booking",
+        amount: 12000,
+        paidBy: "mem-user",
+        paidByName: "You (Alex)",
+        date: "2026-08-11",
+        splitType: "equal",
+        splits: { "mem-user": 4000, "mem-2": 4000, "mem-3": 4000 }
+      },
+      {
+        id: "spex-2",
+        title: "Scooter Rental & Fuel",
+        amount: 3000,
+        paidBy: "mem-2",
+        paidByName: "Rohan",
+        date: "2026-08-12",
+        splitType: "equal",
+        splits: { "mem-user": 1000, "mem-2": 1000, "mem-3": 1000 }
+      }
+    ],
+    chats: [
+      { id: "chat-1", senderId: "mem-2", senderName: "Rohan", text: "Hey guys! I booked the scooters for tomorrow 🛵", timestamp: "10:15 AM" },
+      { id: "chat-2", senderId: "mem-user", senderName: "You (Alex)", text: "Awesome! Added the resort booking to Spendly bill splitter 👍", timestamp: "10:18 AM" },
+      { id: "chat-3", senderId: "mem-3", senderName: "Priya", text: "Yay! Can't wait for the beach sunset 🌅", timestamp: "10:20 AM" }
+    ]
+  }
+];
+
 const DEMO_SAMPLE_TRANSACTIONS = [
   {
     id: "tx-101",
