@@ -718,12 +718,12 @@ class AuthManager {
   initFirebaseAuthListener() {
     if (typeof firebase !== 'undefined' && firebase.auth) {
       firebase.auth().onAuthStateChanged(firebaseUser => {
-        const isExplicitLogout = localStorage.getItem('KoshWise_logged_in') === 'false';
+        const isExplicitLogout = localStorage.getItem('IncEx_logged_in') === 'false';
         if (firebaseUser && !isExplicitLogout) {
           const user = {
             uid: firebaseUser.uid,
             name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || "User",
-            email: firebaseUser.email || `${firebaseUser.phoneNumber}@KoshWise.app`,
+            email: firebaseUser.email || `${firebaseUser.phoneNumber}@IncEx.app`,
             phone: firebaseUser.phoneNumber || "+91 98765 43210",
             avatar: firebaseUser.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
             authProvider: "Firebase Cloud Auth"
@@ -866,7 +866,7 @@ class AuthManager {
     const isNew = (email === 'new.user@gmail.com');
     const user = {
       name: name || "User",
-      email: email || "user@KoshWise.app",
+      email: email || "user@IncEx.app",
       phone: "+91 98765 43210",
       avatar: avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
       authProvider: "Google Gmail"
@@ -934,7 +934,7 @@ class AuthManager {
 
     const user = {
       name: "Alex Morgan",
-      email: `${this.userPhone.replace(/[^0-9]/g, '')}@KoshWise.app`,
+      email: `${this.userPhone.replace(/[^0-9]/g, '')}@IncEx.app`,
       phone: this.userPhone,
       avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=256&q=80",
       authProvider: "Phone OTP"
@@ -947,8 +947,8 @@ class AuthManager {
 
 class FinPulseApp {
   constructor() {
-    this.user = this.loadLocalStorage('KoshWise_last_user', null);
-    this.isLoggedIn = localStorage.getItem('KoshWise_logged_in') === 'true' && this.user !== null;
+    this.user = this.loadLocalStorage('IncEx_last_user', null);
+    this.isLoggedIn = localStorage.getItem('IncEx_logged_in') === 'true' && this.user !== null;
 
     this.currentTab = 'home';
     this.txFilter = 'all';
@@ -970,7 +970,7 @@ class FinPulseApp {
 
   getUserStorageKey(key) {
     const uid = (this.user && (this.user.uid || this.user.email)) ? (this.user.uid || this.user.email).replace(/[^a-zA-Z0-9]/g, '_') : 'guest';
-    return `KoshWise_${key}_${uid}`;
+    return `IncEx_${key}_${uid}`;
   }
 
   loadLocalStorage(key, fallback) {
@@ -1014,12 +1014,12 @@ class FinPulseApp {
 
   saveState() {
     if (!this.user) return;
-    localStorage.setItem('KoshWise_last_user', JSON.stringify(this.user));
+    localStorage.setItem('IncEx_last_user', JSON.stringify(this.user));
     localStorage.setItem(this.getUserStorageKey('transactions'), JSON.stringify(this.transactions));
     localStorage.setItem(this.getUserStorageKey('category_budgets'), JSON.stringify(this.categoryBudgets));
     localStorage.setItem(this.getUserStorageKey('custom_categories'), JSON.stringify(this.customCategories || []));
-    localStorage.setItem(this.getUserStorageKey('split_groups'), JSON.stringify(this.splitGroups || INITIAL_GROUPS));
-    localStorage.setItem('KoshWise_logged_in', this.isLoggedIn ? 'true' : 'false');
+    localStorage.setItem(this.getUserStorageKey('split_groups'), JSON.stringify(this.splitGroups || []));
+    localStorage.setItem('IncEx_logged_in', this.isLoggedIn ? 'true' : 'false');
   }
 
   deleteTransaction(id) {
@@ -1235,8 +1235,8 @@ class FinPulseApp {
 
     this.isLoggedIn = false;
     this.user = null;
-    localStorage.setItem('KoshWise_logged_in', 'false');
-    localStorage.removeItem('KoshWise_last_user');
+    localStorage.setItem('IncEx_logged_in', 'false');
+    localStorage.removeItem('IncEx_last_user');
 
     document.querySelectorAll('.modal-backdrop').forEach(modal => {
       modal.classList.add('hidden');
@@ -1766,7 +1766,7 @@ class FinPulseApp {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `KoshWise_Report_${new Date().toISOString().split('T')[0]}.html`;
+      a.download = `IncEx_Report_${new Date().toISOString().split('T')[0]}.html`;
       a.click();
       URL.revokeObjectURL(url);
       this.showToast("PDF Statement File generated.");
