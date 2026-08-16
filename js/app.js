@@ -489,6 +489,20 @@ class AIFinancialAdvisor {
     }
   }
 
+  promptGeminiKey() {
+    const current = localStorage.getItem('IncEx_gemini_key') || '';
+    const key = prompt("Enter your free Google Gemini API Key (from https://aistudio.google.com/app/apikey):\nLeave blank to clear.", current);
+    if (key !== null) {
+      if (key.trim()) {
+        localStorage.setItem('IncEx_gemini_key', key.trim());
+        alert("Google Gemini API Key saved! IncEx AI will now call Google Gemini 1.5 Flash live!");
+      } else {
+        localStorage.removeItem('IncEx_gemini_key');
+        alert("Gemini API key cleared. AI Advisor will use local intelligent engine.");
+      }
+    }
+  }
+
   async handleUserQuery(query) {
     this.addUserMessage(query);
     this.showTyping(true);
@@ -497,62 +511,49 @@ class AIFinancialAdvisor {
     const curr = (this.app.user && this.app.user.currency) ? this.app.user.currency : '₹';
     const metrics = this.app.getMetrics ? this.app.getMetrics() : { netBalance: 0, totalIncome: 0, totalExpense: 0, totalInvestment: 0 };
 
-    const systemPrompt = `You are IncEx AI, an intelligent real AI financial advisor chatbot. User: ${userName}. Balance ${curr}${metrics.netBalance}, Income ${curr}${metrics.totalIncome}, Expenses ${curr}${metrics.totalExpense}, Investments ${curr}${metrics.totalInvestment}. Answer ANY query clearly with markdown bolding, bullet points, and emojis.`;
+    const geminiKey = localStorage.getItem('IncEx_gemini_key');
 
-    // 1. Fast Primary Real AI Chatbot Endpoint (Live Mistral / Llama AI)
-    try {
-      const fullPrompt = `${systemPrompt}\n\nUser Question: ${query}`;
-      const encoded = encodeURIComponent(fullPrompt);
-      const seed = Date.now();
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
+    // 1. Direct Live Google Gemini 1.5 Flash API Call (If User entered free key)
+    if (geminiKey) {
+      try {
+        const systemPrompt = `You are IncEx AI, an intelligent real AI financial advisor chatbot. User Name: ${userName}. User Financial Overview: Balance ${curr}${metrics.netBalance}, Monthly Income ${curr}${metrics.totalIncome}, Monthly Expenses ${curr}${metrics.totalExpense}, Logged Investments ${curr}${metrics.totalInvestment}. Answer ANY query (personal finance, SIPs, stocks, budgeting, coding, math, general advice) clearly with bold markdown, bullet points, and emojis.`;
 
-      const response = await fetch(`https://text.pollinations.ai/${encoded}?seed=${seed}`, {
-        signal: controller.signal
-      });
-      clearTimeout(timeoutId);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 12000);
 
-      if (response.ok) {
-        const text = await response.text();
-        if (text && text.trim() && !text.includes('Payment Required') && text.length > 10) {
-          this.showTyping(false);
-          const formattedHTML = this.formatMarkdownToHTML(text);
-          this.streamAIMessage(formattedHTML);
-          return;
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
+          body: JSON.stringify({
+            contents: [{
+              parts: [{ text: `${systemPrompt}\n\nUser Question: ${query}` }]
+            }]
+          })
+        });
+        clearTimeout(timeoutId);
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.candidates && data.candidates[0] && data.candidates[0].content) {
+            const text = data.candidates[0].content.parts[0].text;
+            this.showTyping(false);
+            const formattedHTML = this.formatMarkdownToHTML(text);
+            this.streamAIMessage(formattedHTML);
+            return;
+          }
         }
+      } catch (err) {
+        console.log("Gemini API notice:", err.message);
       }
-    } catch (err) {
-      console.log("Primary Real AI API notice:", err.message);
     }
 
-    // 2. Secondary Direct Free AI Endpoint
-    try {
-      const encoded2 = encodeURIComponent(query);
-      const controller2 = new AbortController();
-      const timeoutId2 = setTimeout(() => controller2.abort(), 8000);
-
-      const res2 = await fetch(`https://text.pollinations.ai/${encoded2}`, {
-        signal: controller2.signal
-      });
-      clearTimeout(timeoutId2);
-
-      if (res2.ok) {
-        const text2 = await res2.text();
-        if (text2 && text2.trim() && !text2.includes('Payment Required') && text2.length > 5) {
-          this.showTyping(false);
-          const formattedHTML = this.formatMarkdownToHTML(text2);
-          this.streamAIMessage(formattedHTML);
-          return;
-        }
-      }
-    } catch (err2) {
-      console.log("Secondary Real AI API notice:", err2.message);
-    }
-
-    // 3. Fallback to Local Intelligence Engine
-    this.showTyping(false);
-    const fallbackResponse = this.generateLocalEngineResponse(query, userName, curr, metrics);
-    this.streamAIMessage(fallbackResponse);
+    // 2. High-performance Instant AI Solver Engine
+    setTimeout(() => {
+      this.showTyping(false);
+      const fallbackResponse = this.generateLocalEngineResponse(query, userName, curr, metrics);
+      this.streamAIMessage(fallbackResponse);
+    }, 400);
   }
 
   formatMarkdownToHTML(text) {
