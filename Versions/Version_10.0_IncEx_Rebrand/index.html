@@ -13,7 +13,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <link rel="stylesheet" href="css/styles.css?v=3.4">
+  <link rel="stylesheet" href="css/styles.css?v=10.1">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -786,11 +786,12 @@
 
       </div>
     </nav>
-  </div>
 
-  <button id="floating-plus-btn" style="bottom: 7rem !important; right: 2.5rem !important;" class="fab-button fixed z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full text-white flex items-center justify-center hidden shadow-xl" title="Add Income, Expense or Investment">
-    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-  </button>
+    <!-- Floating Action Plus Button (Visible strictly on Home & Hub) -->
+    <button id="floating-plus-btn" class="fab-button fixed z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full text-white flex items-center justify-center hidden shadow-xl" title="Add Income, Expense or Investment">
+      <svg class="w-8 h-8 pointer-events-none" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+    </button>
+  </div>
 
   <div id="add-tx-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl space-y-4 relative">
@@ -1194,7 +1195,7 @@
   </div>
 
   <script src="js/firebase-config.js?v=real_keys_4.0"></script>
-  <script src="js/app.js?v=real_keys_4.0"></script>
+  <script src="js/app.js?v=10.1"></script>
 
 </body>
 </html>

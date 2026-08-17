@@ -2,6 +2,20 @@
 
 ---
 
+## 📌 Version 10.1 (FAB Login Leak Fix, Home/Hub Only Scoping & Enhanced Pulse Animation)
+**Folder**: `Versions/Version_10.0_IncEx_Rebrand/`
+**APK Download**: `IncEx_v10.0.apk` (Local Folder & APK subfolder)
+
+### ✨ Enhancements & Bug Fixes:
+1. **Resolved Startup Floating Button Leak**: Moved the FAB inside `#main-app-screen` and resolved class conflicts to guarantee zero visibility on the initial auth/login page.
+2. **Scaped FAB to Home & Hub Only**: Strict tab filtering ensures the FAB is visible exclusively when active on the **Home** and **Hub** views, remaining cleanly hidden across Split Bill, AI Advisor, Profile, and Pin Lock screens.
+3. **Restored & Supercharged Micro-Animations**:
+   - Added fluid `@keyframes fabPulseFloat` breathing animation.
+   - Smooth 90° SVG rotation on button hover.
+   - Tactile active press response and rigid `.hidden` CSS priority.
+
+---
+
 ## 📌 Version 10.0 (Official App Rebrand to IncEx, Live Production Slate & 3-in-1 Hub)
 **Folder**: `Versions/Version_10.0_IncEx_Rebrand/`
 **APK Download**: `IncEx_v10.0.apk` (Root, Desktop, Downloads, & Local Folder)

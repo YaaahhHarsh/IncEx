@@ -1,4 +1,4 @@
-const CACHE_NAME = 'incex-v10.0';
+const CACHE_NAME = 'incex-v10.1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

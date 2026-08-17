@@ -1322,7 +1322,7 @@ class FinPulseApp {
 
     const fabBtn = document.getElementById('floating-plus-btn');
     if (fabBtn) {
-      if (['home', 'hub', 'transactions', 'budget', 'reports', 'ai'].includes(tabName)) {
+      if (['home', 'hub'].includes(tabName)) {
         fabBtn.classList.remove('hidden');
       } else {
         fabBtn.classList.add('hidden');
