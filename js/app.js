@@ -1396,6 +1396,105 @@ class FinPulseApp {
     this.showToast(`Auto-filled ₹${p.amount} (${p.merchant}) into transaction form!`);
   }
 
+  checkSMSPermissionOnLaunch() {
+    const perm = localStorage.getItem('IncEx_sms_permission');
+    if (perm === null) {
+      setTimeout(() => {
+        this.openModal('sms-permission-modal');
+      }, 1500);
+    } else if (perm === 'granted') {
+      this.initAutomaticSMSListener();
+    }
+  }
+
+  grantSMSPermission() {
+    localStorage.setItem('IncEx_sms_permission', 'granted');
+    this.closeModal('sms-permission-modal');
+    this.showToast("🛡️ Automatic Bank SMS Detection Enabled!");
+    this.initAutomaticSMSListener();
+  }
+
+  denySMSPermission() {
+    localStorage.setItem('IncEx_sms_permission', 'denied');
+    this.closeModal('sms-permission-modal');
+    this.showToast("Manual logging mode active.");
+  }
+
+  initAutomaticSMSListener() {
+    window.onAndroidSMSReceived = (smsBody) => {
+      this.handleAutoDetectedSMS(smsBody);
+    };
+
+    if ('OTPCredential' in window && navigator.credentials) {
+      const ac = new AbortController();
+      navigator.credentials.get({
+        otp: { transport: ["sms"] },
+        signal: ac.signal
+      }).then(otp => {
+        if (otp && otp.code) {
+          this.handleAutoDetectedSMS(otp.code);
+        }
+      }).catch(err => console.log("WebOTP notice:", err));
+    }
+  }
+
+  handleAutoDetectedSMS(smsText) {
+    const parsed = this.parseBankSMS(smsText);
+    if (!parsed || parsed.amount <= 0) return;
+
+    this.pendingLiveSMS = parsed;
+    const curr = this.user ? this.user.currency : '₹';
+
+    document.getElementById('live-sms-amount').textContent = `${curr}${parsed.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+    document.getElementById('live-sms-merchant').textContent = parsed.merchant;
+    document.getElementById('live-sms-source').textContent = parsed.bankName;
+
+    const catObj = (CATEGORIES[parsed.type.toUpperCase()] || []).find(c => c.id === parsed.categoryId);
+    document.getElementById('live-sms-category').textContent = catObj ? `${catObj.icon} ${catObj.name}` : parsed.categoryId;
+
+    const banner = document.getElementById('sms-live-detected-banner');
+    if (banner) {
+      banner.classList.remove('-translate-y-32', 'opacity-0', 'pointer-events-none');
+      banner.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    }
+  }
+
+  dismissLiveSMSBanner() {
+    const banner = document.getElementById('sms-live-detected-banner');
+    if (banner) {
+      banner.classList.add('-translate-y-32', 'opacity-0', 'pointer-events-none');
+      banner.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    }
+    this.pendingLiveSMS = null;
+  }
+
+  confirmLiveSMSAutoLog() {
+    if (!this.pendingLiveSMS) return;
+    const p = this.pendingLiveSMS;
+    this.dismissLiveSMSBanner();
+
+    const newTx = {
+      id: 'tx_' + Date.now(),
+      amount: p.amount,
+      type: p.type,
+      category: p.categoryId,
+      note: `${p.merchant} (${p.bankName})`,
+      date: new Date().toISOString().split('T')[0],
+      paymentMethod: 'UPI / Online'
+    };
+
+    this.transactions.unshift(newTx);
+    this.saveState();
+    this.renderCurrentTab();
+    this.showToast(`⚡ Auto-logged ${p.merchant} (₹${p.amount})!`);
+  }
+
+  testSimulateAutoSMS(sampleText) {
+    const defaultSample = sampleText || "Debited by Rs. 450.00 for Zomato on 24-Aug. Avl Bal Rs. 24,000";
+    this.handleAutoDetectedSMS(defaultSample);
+    this.showToast("Simulating incoming Bank Payment SMS...");
+  }
+
   setCurrency(code) {
     this.user.currencyCode = code;
     this.user.currency = CURRENCY_MAP[code] || '₹';
@@ -1508,6 +1607,7 @@ class FinPulseApp {
 
     this.updateUserProfileHeader();
     this.switchTab('home');
+    this.checkSMSPermissionOnLaunch();
   }
 
   updateUserProfileHeader() {
