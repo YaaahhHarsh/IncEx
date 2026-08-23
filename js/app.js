@@ -1258,6 +1258,144 @@ class FinPulseApp {
     this.openModal('firebase-config-modal');
   }
 
+  openSMSAutoFillModal() {
+    document.getElementById('sms-paste-input').value = '';
+    document.getElementById('sms-parsed-preview').classList.add('hidden');
+    document.getElementById('sms-confirm-btn').classList.add('hidden');
+    this.openModal('sms-autofill-modal');
+
+    if (navigator.clipboard && navigator.clipboard.readText) {
+      navigator.clipboard.readText().then(text => {
+        if (text && (text.includes('debited') || text.includes('credited') || text.includes('Rs') || text.includes('INR') || text.includes('₹') || text.includes('paid') || text.includes('sent'))) {
+          document.getElementById('sms-paste-input').value = text;
+          this.parsePastedSMS();
+        }
+      }).catch(() => {});
+    }
+  }
+
+  async pasteFromClipboardSMS() {
+    try {
+      if (navigator.clipboard && navigator.clipboard.readText) {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          document.getElementById('sms-paste-input').value = text;
+          this.parsePastedSMS();
+        } else {
+          this.showToast("Clipboard is empty.");
+        }
+      }
+    } catch (e) {
+      this.showToast("Please paste SMS text into the input field.");
+    }
+  }
+
+  parseBankSMS(text) {
+    if (!text || !text.trim()) return null;
+    const t = text.toLowerCase();
+
+    let amount = 0;
+    let type = 'expense';
+    let merchant = 'Bank Transaction';
+    let categoryId = 'FOOD';
+    let bankName = 'UPI / Bank';
+
+    const amtMatch = text.match(/(?:rs\.?|inr|₹|\$)\s*([\d,]+(?:\.\d{1,2})?)/i) || 
+                     text.match(/(?:debited|credited|spent|paid|received|deposited)\s+(?:by\s+)?(?:rs\.?|inr|₹|\$)?\s*([\d,]+(?:\.\d{1,2})?)/i) ||
+                     text.match(/([\d,]+(?:\.\d{1,2})?)\s*(?:debited|credited|paid|spent)/i);
+    if (amtMatch) {
+      amount = parseFloat(amtMatch[1].replace(/,/g, ''));
+    }
+
+    if (t.includes('credited') || t.includes('received') || t.includes('deposited') || t.includes('salary') || t.includes('refund')) {
+      type = 'income';
+    } else if (t.includes('invested') || t.includes('sip') || t.includes('mutual fund') || t.includes('zerodha') || t.includes('groww')) {
+      type = 'investment';
+    } else {
+      type = 'expense';
+    }
+
+    if (t.includes('hdfc')) bankName = 'HDFC Bank';
+    else if (t.includes('sbi') || t.includes('state bank')) bankName = 'SBI Bank';
+    else if (t.includes('icici')) bankName = 'ICICI Bank';
+    else if (t.includes('axis')) bankName = 'Axis Bank';
+    else if (t.includes('kotak')) bankName = 'Kotak Bank';
+    else if (t.includes('paytm')) bankName = 'Paytm UPI';
+    else if (t.includes('phonepe')) bankName = 'PhonePe UPI';
+    else if (t.includes('gpay') || t.includes('google pay')) bankName = 'Google Pay';
+
+    const mMatch = text.match(/(?:for|at|to|via|vpa|info)\s+([A-Za-z0-9\s._-]+?)(?:\s+on|\s+at|\s+ref|\s+avl|\s+bal|\.|$)/i);
+    if (mMatch && mMatch[1] && mMatch[1].trim().length > 1) {
+      merchant = mMatch[1].trim();
+    }
+
+    const mLower = merchant.toLowerCase();
+    if (mLower.includes('zomato') || mLower.includes('swiggy') || mLower.includes('dominos') || mLower.includes('mcdonald') || mLower.includes('food') || mLower.includes('dine') || mLower.includes('restaurant')) {
+      categoryId = 'FOOD';
+    } else if (mLower.includes('uber') || mLower.includes('ola') || mLower.includes('rapido') || mLower.includes('fuel') || mLower.includes('petrol') || mLower.includes('shell') || mLower.includes('hpcl') || mLower.includes('bpcl')) {
+      categoryId = 'TRANSPORT';
+    } else if (mLower.includes('amazon') || mLower.includes('flipkart') || mLower.includes('myntra') || mLower.includes('zara') || mLower.includes('shop')) {
+      categoryId = 'SHOPPING';
+    } else if (mLower.includes('netflix') || mLower.includes('spotify') || mLower.includes('cinema') || mLower.includes('movie')) {
+      categoryId = 'ENTERTAINMENT';
+    } else if (mLower.includes('airtel') || mLower.includes('jio') || mLower.includes('wifi') || mLower.includes('bill') || mLower.includes('electricity')) {
+      categoryId = 'BILLS';
+    } else if (t.includes('salary')) {
+      categoryId = 'SALARY';
+    }
+
+    return { amount, type, merchant, categoryId, bankName };
+  }
+
+  parsePastedSMS() {
+    const input = document.getElementById('sms-paste-input').value;
+    const parsed = this.parseBankSMS(input);
+
+    if (!parsed || parsed.amount <= 0) {
+      this.showToast("Could not detect amount. Please check the SMS text.");
+      return;
+    }
+
+    this.pendingParsedSMS = parsed;
+
+    const curr = this.user ? this.user.currency : '₹';
+    document.getElementById('sms-amount-preview').textContent = `${curr}${parsed.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+    document.getElementById('sms-merchant-preview').textContent = parsed.merchant;
+    document.getElementById('sms-bank-preview').textContent = parsed.bankName;
+
+    const typeBadge = document.getElementById('sms-type-badge');
+    typeBadge.textContent = parsed.type.toUpperCase();
+    if (parsed.type === 'income') {
+      typeBadge.className = 'px-2 py-0.5 rounded-full text-[10px] uppercase font-extrabold bg-[#4FAF91]/20 text-[#4FAF91]';
+    } else if (parsed.type === 'investment') {
+      typeBadge.className = 'px-2 py-0.5 rounded-full text-[10px] uppercase font-extrabold bg-[#7C86D4]/20 text-[#7C86D4]';
+    } else {
+      typeBadge.className = 'px-2 py-0.5 rounded-full text-[10px] uppercase font-extrabold bg-[#B85C6B]/20 text-[#B85C6B]';
+    }
+
+    const catObj = (CATEGORIES[parsed.type.toUpperCase()] || []).find(c => c.id === parsed.categoryId);
+    document.getElementById('sms-category-preview').textContent = catObj ? `${catObj.icon} ${catObj.name}` : parsed.categoryId;
+
+    document.getElementById('sms-parsed-preview').classList.remove('hidden');
+    document.getElementById('sms-confirm-btn').classList.remove('hidden');
+  }
+
+  confirmSMSAutoFill() {
+    if (!this.pendingParsedSMS) return;
+    const p = this.pendingParsedSMS;
+
+    this.closeModal('sms-autofill-modal');
+    this.openAddTxModal(p.type);
+
+    document.getElementById('tx-amount-input').value = p.amount;
+    document.getElementById('tx-note-input').value = `${p.merchant} (${p.bankName})`;
+
+    const catSelect = document.getElementById('tx-category-select');
+    if (catSelect) catSelect.value = p.categoryId;
+
+    this.showToast(`Auto-filled ₹${p.amount} (${p.merchant}) into transaction form!`);
+  }
+
   setCurrency(code) {
     this.user.currencyCode = code;
     this.user.currency = CURRENCY_MAP[code] || '₹';
