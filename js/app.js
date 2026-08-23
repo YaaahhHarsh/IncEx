@@ -2292,6 +2292,8 @@ class FinPulseApp {
     if (modal) {
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+      modal.style.setProperty('display', 'flex', 'important');
+      modal.style.setProperty('z-index', '99999', 'important');
     }
   }
 
@@ -2300,6 +2302,7 @@ class FinPulseApp {
     if (modal) {
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      modal.style.setProperty('display', 'none', 'important');
     }
   }
 

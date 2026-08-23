@@ -13,7 +13,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <link rel="stylesheet" href="css/styles.css?v=20.0">
+  <link rel="stylesheet" href="css/styles.css?v=21.0">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -329,6 +329,27 @@
           <button onclick="window.app.openAddTxModal('expense')" class="w-full sm:w-auto px-5 py-3 bg-[#4B5599] hover:bg-[#626DB5] text-[#E1E3ED] font-bold text-xs sm:text-sm rounded-xl transition-all shadow flex items-center justify-center gap-2">
             <span>➕</span> Log Transaction
           </button>
+        </div>
+
+        <!-- Automatic Bank SMS Detector Feature Card -->
+        <div class="bg-[#151827] p-4 sm:p-5 rounded-2xl border border-[#7C86D4]/40 shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-[#4B5599]/20 text-[#7C86D4] flex items-center justify-center text-xl shrink-0 border border-[#7C86D4]/30">
+              📱
+            </div>
+            <div>
+              <h4 class="font-extrabold text-xs sm:text-sm text-[#E1E3ED]">Automatic Bank Payment SMS Detector</h4>
+              <p class="text-[11px] text-[#777C91]">Zero-click automatic detection for HDFC, SBI, ICICI, PhonePe, Paytm, GPay</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
+            <button onclick="window.app.openSMSPermissionModal()" class="flex-1 sm:flex-none px-3.5 py-2 bg-[#4B5599] hover:bg-[#626DB5] text-[#E1E3ED] font-extrabold text-xs rounded-xl shadow transition-all flex items-center justify-center gap-1">
+              <span>🛡️</span> Enable Permission
+            </button>
+            <button onclick="window.app.openSMSAutoFillModal()" class="flex-1 sm:flex-none px-3.5 py-2 bg-[#252A3D] hover:bg-[#343B54] text-[#E1E3ED] font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1">
+              <span>⚡</span> Paste SMS
+            </button>
+          </div>
         </div>
 
         <!-- Income, Expense, Investment Summary Cards -->
@@ -1322,8 +1343,8 @@
     <span id="toast-message" class="text-xs sm:text-sm font-semibold">Notification message</span>
   </div>
 
-  <script src="js/firebase-config.js?v=20.0"></script>
-  <script src="js/app.js?v=20.0"></script>
+  <script src="js/firebase-config.js?v=21.0"></script>
+  <script src="js/app.js?v=21.0"></script>
 
 </body>
 </html>
