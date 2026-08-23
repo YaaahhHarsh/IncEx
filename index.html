@@ -13,7 +13,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <link rel="stylesheet" href="css/styles.css?v=21.0">
+  <link rel="stylesheet" href="css/styles.css?v=22.0">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -343,8 +343,11 @@
             </div>
           </div>
           <div class="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
-            <button onclick="window.app.openSMSPermissionModal()" class="flex-1 sm:flex-none px-3.5 py-2 bg-[#4B5599] hover:bg-[#626DB5] text-[#E1E3ED] font-extrabold text-xs rounded-xl shadow transition-all flex items-center justify-center gap-1">
+            <button onclick="window.app.grantSMSPermission()" class="flex-1 sm:flex-none px-3.5 py-2 bg-[#4B5599] hover:bg-[#626DB5] text-[#E1E3ED] font-extrabold text-xs rounded-xl shadow transition-all flex items-center justify-center gap-1">
               <span>🛡️</span> Enable Permission
+            </button>
+            <button onclick="window.app.testSimulateAutoSMS()" class="flex-1 sm:flex-none px-3.5 py-2 bg-[#4FAF91]/20 hover:bg-[#4FAF91]/30 text-[#4FAF91] border border-[#4FAF91]/40 font-extrabold text-xs rounded-xl transition-all flex items-center justify-center gap-1">
+              <span>🧪</span> Test Live SMS
             </button>
             <button onclick="window.app.openSMSAutoFillModal()" class="flex-1 sm:flex-none px-3.5 py-2 bg-[#252A3D] hover:bg-[#343B54] text-[#E1E3ED] font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1">
               <span>⚡</span> Paste SMS
@@ -1343,8 +1346,8 @@
     <span id="toast-message" class="text-xs sm:text-sm font-semibold">Notification message</span>
   </div>
 
-  <script src="js/firebase-config.js?v=21.0"></script>
-  <script src="js/app.js?v=21.0"></script>
+  <script src="js/firebase-config.js?v=22.0"></script>
+  <script src="js/app.js?v=22.0"></script>
 
 </body>
 </html>

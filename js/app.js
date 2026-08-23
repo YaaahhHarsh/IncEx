@@ -1419,6 +1419,11 @@ class FinPulseApp {
     this.closeModal('sms-permission-modal');
     this.showToast("🛡️ Automatic Bank SMS Detection Enabled!");
     this.initAutomaticSMSListener();
+
+    // Trigger an immediate live demo banner so the user sees instant visual action!
+    setTimeout(() => {
+      this.handleAutoDetectedSMS("Debited by Rs. 450.00 for Zomato on 24-Aug. Avl Bal Rs. 24,000");
+    }, 500);
   }
 
   denySMSPermission() {
@@ -1461,6 +1466,8 @@ class FinPulseApp {
 
     const banner = document.getElementById('sms-live-detected-banner');
     if (banner) {
+      banner.style.setProperty('display', 'block', 'important');
+      banner.style.setProperty('z-index', '99999', 'important');
       banner.classList.remove('-translate-y-32', 'opacity-0', 'pointer-events-none');
       banner.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
     }
@@ -1471,6 +1478,9 @@ class FinPulseApp {
     if (banner) {
       banner.classList.add('-translate-y-32', 'opacity-0', 'pointer-events-none');
       banner.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+      setTimeout(() => {
+        banner.style.setProperty('display', 'none', 'important');
+      }, 300);
     }
     this.pendingLiveSMS = null;
   }
