@@ -13,7 +13,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <link rel="stylesheet" href="css/styles.css?v=15.0">
+  <link rel="stylesheet" href="css/styles.css?v=16.0">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -800,13 +800,12 @@
           <span class="nav-text text-[11px]">Profile</span>
         </button>
 
-      </div>
+      <button id="floating-plus-btn" style="bottom: 7rem !important; right: 2.5rem !important;" class="fab-button fixed z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full text-white flex items-center justify-center shadow-xl" title="Add Income, Expense or Investment">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+      </button>
+
     </nav>
   </div>
-
-  <button id="floating-plus-btn" style="display: none !important; bottom: 7rem !important; right: 2.5rem !important;" class="fab-button fixed z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full text-white items-center justify-center hidden shadow-xl" title="Add Income, Expense or Investment">
-    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-  </button>
 
   <div id="add-tx-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl space-y-4 relative">
@@ -1209,8 +1208,8 @@
     <span id="toast-message" class="text-xs sm:text-sm font-semibold">Notification message</span>
   </div>
 
-  <script src="js/firebase-config.js?v=15.0"></script>
-  <script src="js/app.js?v=15.0"></script>
+  <script src="js/firebase-config.js?v=16.0"></script>
+  <script src="js/app.js?v=16.0"></script>
 
 </body>
 </html>
