@@ -205,11 +205,23 @@ input:focus, select:focus, textarea:focus {
   right: 1.5rem !important;
   z-index: 50 !important;
   border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid var(--border-card) !important;
+}
+
+/* Ensure hidden class ALWAYS hides the FAB button when logged out or on hidden tabs */
+.fab-button.hidden, #floating-plus-btn.hidden {
+  display: none !important;
+}
+
+/* Strictly hide FAB when Auth/Login screen is visible */
+#auth-screen:not(.hidden) ~ #floating-plus-btn,
+#auth-screen:not(.hidden) #floating-plus-btn,
+body:has(#auth-screen:not(.hidden)) #floating-plus-btn {
+  display: none !important;
 }
 
 @media (min-width: 768px) {

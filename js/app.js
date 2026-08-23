@@ -1342,7 +1342,10 @@ class FinPulseApp {
 
     if (authScreen) authScreen.classList.remove('hidden');
     if (mainScreen) mainScreen.classList.add('hidden');
-    if (plusBtn) plusBtn.classList.add('hidden');
+    if (plusBtn) {
+      plusBtn.classList.add('hidden');
+      plusBtn.style.setProperty('display', 'none', 'important');
+    }
 
     document.body.style.overflow = 'auto';
 
@@ -1355,7 +1358,11 @@ class FinPulseApp {
   showMainApp() {
     document.getElementById('auth-screen').classList.add('hidden');
     document.getElementById('main-app-screen').classList.remove('hidden');
-    document.getElementById('floating-plus-btn').classList.remove('hidden');
+    const plusBtn = document.getElementById('floating-plus-btn');
+    if (plusBtn) {
+      plusBtn.classList.remove('hidden');
+      plusBtn.style.display = 'flex';
+    }
 
     document.querySelectorAll('.header-currency-select').forEach(sel => {
       sel.value = this.user.currencyCode || 'INR';
@@ -1403,11 +1410,16 @@ class FinPulseApp {
     if (targetPage) targetPage.classList.remove('hidden');
 
     const fabBtn = document.getElementById('floating-plus-btn');
+    const authScreen = document.getElementById('auth-screen');
+    const isAuthVisible = authScreen && !authScreen.classList.contains('hidden');
+
     if (fabBtn) {
-      if (['home', 'hub', 'transactions', 'budget', 'reports', 'ai'].includes(tabName)) {
+      if (!isAuthVisible && ['home', 'hub', 'transactions', 'budget', 'reports', 'ai'].includes(tabName)) {
         fabBtn.classList.remove('hidden');
+        fabBtn.style.display = 'flex';
       } else {
         fabBtn.classList.add('hidden');
+        fabBtn.style.setProperty('display', 'none', 'important');
       }
     }
 

@@ -1,11 +1,11 @@
-const CACHE_NAME = 'incex-v14.0';
+const CACHE_NAME = 'incex-v15.0';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './css/styles.css?v=14.0',
-  './js/app.js?v=14.0',
-  './js/charts.js?v=14.0',
-  './js/firebase-config.js?v=14.0',
+  './css/styles.css?v=15.0',
+  './js/app.js?v=15.0',
+  './js/charts.js?v=15.0',
+  './js/firebase-config.js?v=15.0',
   './assets/logo.png',
   './manifest.json'
 ];
