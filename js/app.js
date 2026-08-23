@@ -1397,10 +1397,17 @@ class FinPulseApp {
   }
 
   checkSMSPermissionOnLaunch() {
+    if (!this.isLoggedIn || !this.user) return;
+    const authScreen = document.getElementById('auth-screen');
+    if (authScreen && !authScreen.classList.contains('hidden')) return;
+
     const perm = localStorage.getItem('IncEx_sms_permission');
     if (perm === null) {
       setTimeout(() => {
-        this.openModal('sms-permission-modal');
+        const curAuth = document.getElementById('auth-screen');
+        if (this.isLoggedIn && curAuth && curAuth.classList.contains('hidden')) {
+          this.openModal('sms-permission-modal');
+        }
       }, 1500);
     } else if (perm === 'granted') {
       this.initAutomaticSMSListener();
@@ -1590,6 +1597,12 @@ class FinPulseApp {
       modal.classList.add('hidden');
       modal.classList.remove('flex');
     });
+
+    const liveBanner = document.getElementById('sms-live-detected-banner');
+    if (liveBanner) {
+      liveBanner.classList.add('-translate-y-32', 'opacity-0', 'pointer-events-none');
+      liveBanner.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    }
   }
 
   showMainApp() {
