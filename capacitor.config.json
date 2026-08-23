@@ -1,8 +1,7 @@
 {
   "appId": "com.yaaahhharsh.incex",
   "appName": "IncEx",
-  "webDir": ".",
-  "bundledWebRuntime": false,
+  "webDir": "www",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 2000,

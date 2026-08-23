@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">IncEx</string>
+    <string name="title_activity_main">IncEx</string>
+    <string name="package_name">com.yaaahhharsh.incex</string>
+    <string name="custom_url_scheme">com.yaaahhharsh.incex</string>
+</resources>

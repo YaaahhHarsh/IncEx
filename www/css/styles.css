@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg-main: #0B0D17;
+  --bg-card: #151827;
+  --border-card: #252A3D;
+  --btn-primary: #4B5599;
+  --btn-hover: #626DB5;
+  --accent: #7C86D4;
+  --text-main: #E1E3ED;
+  --text-muted: #777C91;
+  --income-color: #4FAF91;
+  --expense-color: #B85C6B;
+}
+
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* Enforce Midnight Indigo Theme System */
+.bg-gradient-to-br,
+#auth-screen,
+.bg-slate-50,
+.bg-slate-100 {
+  background-color: var(--bg-main) !important;
+}
+
+/* Card Containers & Modals */
+.bg-white,
+.bg-white\/95,
+.bg-white\/90,
+.bg-white\/80,
+.glass-card,
+.modal-backdrop > div {
+  background-color: var(--bg-card) !important;
+  color: var(--text-main) !important;
+  border-color: var(--border-card) !important;
+  border-radius: 18px !important;
+}
+
+/* Primary Action Buttons */
+.bg-emerald-600,
+.bg-emerald-700,
+.bg-gradient-to-r,
+button.bg-emerald-600,
+button.bg-emerald-700 {
+  background-color: var(--btn-primary) !important;
+  color: var(--text-main) !important;
+  border-color: var(--btn-primary) !important;
+}
+
+.bg-emerald-600:hover,
+.bg-emerald-700:hover,
+button.bg-emerald-600:hover,
+button.bg-emerald-700:hover {
+  background-color: var(--btn-hover) !important;
+  border-color: var(--btn-hover) !important;
+}
+
+.bg-emerald-600:active,
+.bg-emerald-700:active,
+button:active {
+  background-color: var(--btn-hover) !important;
+}
+
+/* Secondary / Muted Buttons & Chips */
+.bg-emerald-50,
+.bg-emerald-100,
+.bg-emerald-50\/50,
+.bg-emerald-100\/70,
+.bg-slate-200\/60 {
+  background-color: #1C2033 !important;
+  color: var(--accent) !important;
+  border-color: var(--border-card) !important;
+}
+
+.bg-emerald-50:hover,
+.bg-emerald-100:hover {
+  background-color: #252B45 !important;
+  color: #FFFFFF !important;
+}
+
+/* Financial Income & Expense Color Classes */
+.text-income,
+.text-emerald-600,
+.text-emerald-700,
+.text-emerald-500 {
+  color: var(--income-color) !important;
+}
+
+.text-expense,
+.text-red-500,
+.text-red-600 {
+  color: var(--expense-color) !important;
+}
+
+.text-accent,
+.text-indigo-400 {
+  color: var(--accent) !important;
+}
+
+/* Text Hierarchy Colors */
+.text-slate-900,
+.text-slate-800,
+.text-slate-700 {
+  color: var(--text-main) !important;
+}
+
+.text-slate-500,
+.text-slate-400 {
+  color: var(--text-muted) !important;
+}
+
+/* Borders */
+.border-slate-100,
+.border-slate-200,
+.border-slate-300,
+.border-emerald-100,
+.border-emerald-200,
+.border-emerald-300 {
+  border-color: var(--border-card) !important;
+}
+
+/* Navigation Bars & Header */
+#bottom-nav-bar,
+header {
+  background-color: rgba(21, 24, 39, 0.96) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: var(--border-card) !important;
+}
+
+/* Desktop Nav Links */
+.desktop-nav-link {
+  color: var(--text-muted) !important;
+  background-color: transparent !important;
+}
+
+.desktop-nav-link:hover {
+  color: var(--accent) !important;
+}
+
+.desktop-nav-link.active,
+.desktop-nav-link.bg-white {
+  background-color: var(--btn-primary) !important;
+  color: var(--text-main) !important;
+  border-radius: 12px !important;
+}
+
+/* Mobile Navigation active state */
+.nav-item.active,
+.nav-item.text-emerald-600 {
+  color: var(--accent) !important;
+}
+
+.nav-item.active .nav-text {
+  color: var(--text-main) !important;
+  font-weight: 700 !important;
+}
+
+/* Form Controls & Inputs */
+input, select, textarea {
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+  border-color: var(--border-card) !important;
+  border-radius: 12px !important;
+}
+
+input::placeholder, select::placeholder, textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 2px rgba(124, 134, 212, 0.2) !important;
+}
+
+/* Floating Add Button (Directive 6: Size 48-52px, #4B5599, Hover #626DB5) */
+.fab-button {
+  position: fixed !important;
+  width: 50px !important;
+  height: 50px !important;
+  background-color: var(--btn-primary) !important;
+  color: var(--text-main) !important;
+  box-shadow: 0 8px 20px rgba(75, 85, 153, 0.4) !important;
+  bottom: calc(5.5rem + env(safe-area-inset-bottom)) !important;
+  right: 1.5rem !important;
+  z-index: 50 !important;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border-card) !important;
+}
+
+/* Ensure hidden class ALWAYS hides the FAB button */
+.fab-button.hidden, #floating-plus-btn.hidden {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .fab-button {
+    bottom: 6.5rem !important;
+    right: 2.5rem !important;
+    width: 52px !important;
+    height: 52px !important;
+  }
+}
+
+.fab-button:hover {
+  background-color: var(--btn-hover) !important;
+  transform: scale(1.06) rotate(90deg);
+  box-shadow: 0 10px 25px rgba(98, 109, 181, 0.5) !important;
+}
+
+.fab-button:active {
+  background-color: var(--btn-hover) !important;
+  transform: scale(0.95);
+}
+
+/* Modal Backdrops */
+.modal-backdrop {
+  background: rgba(11, 13, 23, 0.85) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* AI Chat Bubbles */
+.ai-bubble-user {
+  background: var(--btn-primary) !important;
+  color: var(--text-main) !important;
+  border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
+  box-shadow: 0 4px 12px rgba(75, 85, 153, 0.25);
+}
+
+.ai-bubble-bot {
+  background: var(--bg-card) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-card) !important;
+  border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-card);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--btn-primary);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
