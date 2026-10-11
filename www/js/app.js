@@ -812,6 +812,10 @@ class AuthManager {
           };
           this.onAuthSuccess(user, this.isRegisterMode);
         } else if (window.app) {
+          // If user is already authenticated via local session (Email / Phone / mock Google), do not flash/kick out
+          if (window.app.user && (window.app.user.authProvider === 'Email Auth' || window.app.user.authProvider === 'Phone OTP' || window.app.user.authProvider === 'Google Gmail')) {
+            return;
+          }
           window.app.showAuthScreen();
         }
       });
@@ -1594,8 +1598,14 @@ class FinPulseApp {
     const mainScreen = document.getElementById('main-app-screen');
     const plusBtn = document.getElementById('floating-plus-btn');
 
-    if (authScreen) authScreen.classList.remove('hidden');
-    if (mainScreen) mainScreen.classList.add('hidden');
+    if (authScreen) {
+      authScreen.classList.remove('hidden');
+      authScreen.style.setProperty('display', 'flex', 'important');
+    }
+    if (mainScreen) {
+      mainScreen.classList.add('hidden');
+      mainScreen.style.setProperty('display', 'none', 'important');
+    }
     if (plusBtn) {
       plusBtn.classList.add('hidden');
       plusBtn.style.setProperty('display', 'none', 'important');
@@ -1616,8 +1626,16 @@ class FinPulseApp {
   }
 
   showMainApp() {
-    document.getElementById('auth-screen').classList.add('hidden');
-    document.getElementById('main-app-screen').classList.remove('hidden');
+    const authScreen = document.getElementById('auth-screen');
+    const mainScreen = document.getElementById('main-app-screen');
+    if (authScreen) {
+      authScreen.classList.add('hidden');
+      authScreen.style.setProperty('display', 'none', 'important');
+    }
+    if (mainScreen) {
+      mainScreen.classList.remove('hidden');
+      mainScreen.style.setProperty('display', 'block', 'important');
+    }
     const plusBtn = document.getElementById('floating-plus-btn');
     if (plusBtn) {
       plusBtn.classList.remove('hidden');
@@ -1625,7 +1643,7 @@ class FinPulseApp {
     }
 
     document.querySelectorAll('.header-currency-select').forEach(sel => {
-      sel.value = this.user.currencyCode || 'INR';
+      sel.value = this.user ? (this.user.currencyCode || 'INR') : 'INR';
     });
 
     this.updateUserProfileHeader();

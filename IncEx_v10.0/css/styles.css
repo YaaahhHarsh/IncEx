@@ -24,6 +24,19 @@ html {
   color: var(--text-main) !important;
 }
 
+/* Critical Anti-FOUC (Flash of Unauthenticated Content) Rules */
+.hidden, [hidden] {
+  display: none !important;
+}
+
+#main-app-screen.hidden {
+  display: none !important;
+}
+
+#auth-screen.hidden {
+  display: none !important;
+}
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: var(--bg-main) !important;

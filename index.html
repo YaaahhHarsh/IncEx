@@ -11,9 +11,18 @@
   <link rel="icon" type="image/png" href="assets/logo.png">
   <link rel="manifest" href="manifest.json">
 
+  <!-- Critical Anti-FOUC (Flash of Unauthenticated Content) Styles: Executes synchronously before any scripts -->
+  <style>
+    .hidden, [hidden] { display: none !important; }
+    #main-app-screen { display: none !important; }
+    #main-app-screen.hidden { display: none !important; }
+    #auth-screen { display: flex; }
+    #auth-screen.hidden { display: none !important; }
+  </style>
+
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <link rel="stylesheet" href="css/styles.css?v=22.0">
+  <link rel="stylesheet" href="css/styles.css?v=23.0">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -202,7 +211,7 @@
     </div>
   </div>
 
-  <div id="main-app-screen" class="hidden">
+  <div id="main-app-screen" class="hidden" style="display: none !important;">
     <div id="sms-permission-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">
       <div class="bg-[#151827] rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-[#252A3D] text-[#E1E3ED] relative text-center">
         <div class="w-16 h-16 rounded-2xl bg-[#4B5599]/20 text-[#7C86D4] flex items-center justify-center mx-auto border border-[#7C86D4]/30 text-3xl">
@@ -1346,8 +1355,8 @@
     <span id="toast-message" class="text-xs sm:text-sm font-semibold">Notification message</span>
   </div>
 
-  <script src="js/firebase-config.js?v=22.0"></script>
-  <script src="js/app.js?v=22.0"></script>
+  <script src="js/firebase-config.js?v=23.0"></script>
+  <script src="js/app.js?v=23.0"></script>
 
 </body>
 </html>
